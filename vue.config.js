@@ -31,7 +31,17 @@ module.exports = {
       port: 8087,
       https: false,
       hotOnly: false, // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-      proxy: null // string | Object
+      proxy: {//配置跨域
+        '/api': {
+            target: 'http://localhost:8519/',//这里后台的地址模拟的;应该填写你们真实的后台接口
+            ws: true,
+            changOrigin: true,//允许跨域
+            pathRewrite: {
+                '^/api': ''//请求的时候使用这个api就可以
+            }
+        }
+        
+    } // string | Object
       // before: app => {}
     }, // 第三方插件配置
   
@@ -39,25 +49,25 @@ module.exports = {
       // ...
     },
 
-    pages: {
-      index: {
-        // 页面的入口文件
-        entry: 'src/pages/index/main.js',
-        // 页面的模板文件
-        template: 'public/index.html',
-        // build 生成的文件名称  例： dist/index.html
-        filename: 'index.html'
-      },
-      page1: {
-        // 页面的入口文件
-        entry: 'src/pages/page1/main.js',
-        // 页面的模板文件
-        template: 'public/page1.html',
-        // build 生成的文件名称  例： dist/index.html
-        filename: 'page1.html'
-      }
-      // template 默认会去找 public/subpage.html 页面，如果找不到会使用 public/index.html 文件
-      // 输出文件会默认的推断为 subpage.html
-    //   subpage: 'src/subpage/main.js'
-    }
+    // pages: {
+    //   index: {
+    //     // 页面的入口文件
+    //     entry: 'src/pages/index/main.js',
+    //     // 页面的模板文件
+    //     template: 'public/index.html',
+    //     // build 生成的文件名称  例： dist/index.html
+    //     filename: 'index.html'
+    //   },
+    //   page1: {
+    //     // 页面的入口文件
+    //     entry: 'src/pages/page1/main.js',
+    //     // 页面的模板文件
+    //     template: 'public/page1.html',
+    //     // build 生成的文件名称  例： dist/index.html
+    //     filename: 'page1.html'
+    //   }
+    //   // template 默认会去找 public/subpage.html 页面，如果找不到会使用 public/index.html 文件
+    //   // 输出文件会默认的推断为 subpage.html
+    // //   subpage: 'src/subpage/main.js'
+    // }
   }

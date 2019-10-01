@@ -2,126 +2,222 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 03:31:50
+ * @Last Modified time: 2019-10-01 15:29:40
  */
 
 
 <template>
   <div class="registered-model">
     注册
-    <div class="input-group">
-      <el-row :gutter="20" type="flex" justify="center">
-        <el-col :span="2">
-          <i class="el-icon-user icon"></i>
-        </el-col>
-        <el-col :span="22">
-          <el-input placeholder="账号" v-model="username" clearable></el-input>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="2">
-          <i class="el-icon-lock icon"></i>
-        </el-col>
-        <el-col :span="22">
-          <el-input placeholder="密码" type="password" v-model="password" clearable></el-input>
-        </el-col>
-      </el-row>
-    </div>
+    <div class="form-group">
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item class="form-item-label" prop="username">
+          <el-row :gutter="3">
+            <el-col :span="3">
+              <i class="el-icon-user icon"></i>
+              </el-col>
+              <el-col :span="18">
+                <el-input placeholder="请输入用户名" class="form-item-input" v-model="ruleForm.username"></el-input>
+              </el-col>
+          </el-row>
+        </el-form-item>
 
-    <div class="remember-me">
-      <el-row type="flex">
-        <el-col :span="4" class="remember-me-select">
-          <el-checkbox v-model="rememberMe">记住我</el-checkbox>
-        </el-col>
 
-        <el-col :span="8" class="remember-link">
-          <el-link type="primary" @click="forgetPassword">忘记密码</el-link>
-        </el-col>
-        <el-col :span="8">
-          <el-link type="primary" @click="registered">立即注册</el-link>
-        </el-col>
-      </el-row>
-    </div>
+        <el-form-item class="form-item-label" prop="nickname">
+          <el-row :gutter="3">
+            <el-col :span="3">
+              <i class="el-icon-user icon"></i>
+              </el-col>
+              <el-col :span="18">
+                <el-input placeholder="请输入昵称" class="form-item-input" v-model="ruleForm.nickname"></el-input>
+              </el-col>
+          </el-row>
+        </el-form-item>
 
-    <div class="button-group">
-      <el-row type="flex">
-        <el-col :span="8">
-          <el-button class="login-button" type="primary" @click="login">登录</el-button>
-        </el-col>
-      </el-row>
+
+        <el-form-item class="form-item-label" prop="pass">
+          <el-row :gutter="3">
+            <el-col :span="3">
+              <i class="el-icon-lock icon"></i>
+            </el-col>
+
+            <el-col :span="18">
+              <el-input placeholder="请输入密码" class="form-item-input" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item class="form-item-label" prop="checkPass">
+          <el-row :gutter="3">
+            <el-col :span="3">
+              <i class="el-icon-lock icon"></i>
+            </el-col>
+
+            <el-col :span="18">
+              <el-input placeholder="请再次输入密码" class="form-item-input" type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+            </el-col>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 
 <script>
-import loginService from "@/service/loginService";
+import registeredService from "@/service/registeredService";
 import routerApi from "@/service/api/routerApi";
+import util from "@/service/util";
 
 export default {
-  name: "login-model",
   data() {
+    var checkUsername = (rule, value, callback) => {
+      if (value == "") {
+        return callback(new Error("账号不能为空"));
+      }
+      else if(value.length >= 20){
+        return callback(new Error("账号长度不能超过20"));
+      }
+      else{
+        let res = registeredService.checkUserName(value);
+
+        res.then(response =>{
+          if(response.flag){
+            return callback();
+          }
+          else{
+            return callback(new Error(response.message));
+          }
+        })
+      }
+    };
+
+   var checkNickname = (rule, value, callback) => {
+      if (value == "") {
+        return callback(new Error("昵称不能为空"));
+      }
+      else{
+        return callback();
+      }
+    };
+
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
     return {
-      username: "",
-      password: "",
-      rememberMe: false
+      ruleForm: {
+        pass: "",
+        checkPass: "",
+        username: "",
+        nickname:""
+      },
+      rules: {
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        username: [{ validator: checkUsername, trigger: "blur" }],
+        nickname: [{ validator: checkNickname, trigger: "blur" }]
+      }
     };
   },
   methods: {
-    login() {
-      let res = loginService.login(this.username, this.password);
+    login(){
+      this.$emit('changeView',"login");
+    },
+    submitForm(formName) {
+      let that = this;
 
-      res.then(response => {
-        console.log(response);
-        if (response.flag) {
-          this.$router.push(routerApi.home);
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          let res = registeredService.registeredUser(this.ruleForm);
+
+          res.then(response =>{
+            if(response.flag){
+              this.$message({
+                showClose: true,
+                message: '恭喜你，注册成功!',
+                type: 'success'
+              });
+
+            util.sleep(500).then(() => {
+              that.login();
+              that.resetForm('ruleForm')
+            });
+              
+            }
+            else{
+              this.$message({
+                showClose: true,
+                message: '注册失败!',
+                type: 'error'
+              });
+            }
+
+          })
+
         } else {
-          this.$message({
-            message: "用户或者密码错误！",
-            type: "error"
-          });
+          // console.log("error submit!!");
+          return false;
         }
       });
     },
-    forgetPassword(){
-      this.$emit('changeView',"forgetPassword");
-    },
-    registered(){
-      this.$emit('changeView',"registered");
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
-
   }
 };
 </script>
 
 
 <style>
-.input-group {
-  margin-top: 20%;
+
+.form-group {
+  margin-top: 15%;
 }
 
-.el-row {
-  margin-bottom: 15%;
+.form-group form{
+  width:350px;
+  
 }
 
-.icon {
-  font-size: 20px;
-  margin-top: 10px;
-}
-.remember-me {
-  margin-left: 2px;
+.form-item-label label{
+  width: 70px !important; 
+  text-align: left;
 }
 
-.remember-me-select {
-  margin-top: 1px;
+.el-form-item__content{
+  margin-left: 0px !important;
+  height: 60px;
 }
 
-.remember-link {
-  margin-left: 60px;
-  padding-bottom: 20px;
-}
-
-.login-button {
-  width: 250px;
-  margin-left: 30%;
+.el-form-item__error{
+  padding-top: 0px;
+  top :90%;
 }
 </style>

@@ -1,3 +1,11 @@
+/*
+ * @Author: Harry 
+ * @Date: 2019-10-01 02:52:25 
+ * @Last Modified by:   Harry-mac 
+ * @Last Modified time: 2019-10-01 02:52:25 
+ */
+
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'

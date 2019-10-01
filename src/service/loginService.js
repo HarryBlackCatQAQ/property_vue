@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:17 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 02:52:49
+ * @Last Modified time: 2019-10-01 15:27:18
  */
 
 import _this from '@/main'
@@ -19,7 +19,7 @@ export default {
 
         await that.$post(api.login.url, {
             username: username,
-            password: password
+            password: util.SHA1(password)
         })
         .then(response =>{
             res = response;

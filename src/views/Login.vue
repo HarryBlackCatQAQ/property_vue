@@ -2,69 +2,32 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 03:45:30
+ * @Last Modified time: 2019-10-01 15:31:46
  */
 
 <template>
   <div class="login-view">
     Login页面
     <el-button @click="changeView('login')">Click Me</el-button>
+
+    <!-- 登录卡片-->
     <el-card class="login-card" type="flex">
+
+      <!-- 登录组件-->
       <transition name="el-zoom-in-center">
         <login-model v-show="loginModel_show" v-on:changeView="changeView" />
       </transition>
-
+      
+      <!-- 忘记密码组件-->
       <transition name="el-zoom-in-center">
         <forgetPassword-model v-show="forgetPasswordModel_show" v-on:changeView="changeView" />
       </transition>
-
+      
+      <!-- 注册组件-->
       <transition name="el-zoom-in-center">
         <registered-model v-show="registeredModel_show" v-on:changeView="changeView" />
       </transition>
-
-      <!-- <div class="login-model">
-        <div class="input-group">
-          <el-row :gutter="20" type="flex" justify="center">
-            <el-col :span="2">
-              <i class="el-icon-user icon"></i>
-            </el-col>
-            <el-col :span="22">
-              <el-input placeholder="账号" v-model="username" clearable></el-input>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20">
-            <el-col :span="2">
-              <i class="el-icon-lock icon"></i>
-            </el-col>
-            <el-col :span="22">
-              <el-input placeholder="密码" type="password" v-model="password" clearable></el-input>
-            </el-col>
-          </el-row>
-        </div>
-
-        <div class="remember-me">
-          <el-row type="flex">
-            <el-col :span="4" class="remember-me-select">
-              <el-checkbox v-model="rememberMe">记住我</el-checkbox>
-            </el-col>
-
-            <el-col :span="8" class="remember-link">
-              <el-link type="primary">忘记密码</el-link>
-            </el-col>
-            <el-col :span="8">
-              <el-link type="primary">立即注册</el-link>
-            </el-col>
-          </el-row>
-        </div>
-
-        <div class="button-group">
-          <el-row type="flex">
-            <el-col :span="8">
-              <el-button class="login-button" type="primary" @click="login">登录</el-button>
-            </el-col>
-          </el-row>
-        </div>
-      </div>-->
+      
     </el-card>
   </div>
 </template>
@@ -106,7 +69,7 @@ export default {
         util.sleep(this.changTime).then(() => {
           this.forgetPasswordModel_show = true;
         });
-      } else {
+      } else if (val == "login"){
         this.forgetPasswordModel_show = false;
         this.registeredModel_show = false;
 

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 02:40:36
+ * @Last Modified time: 2019-10-01 14:52:01
  */
 import axios from 'axios';
 
@@ -20,12 +20,15 @@ axios.interceptors.request.use(
       'Content-Type':'application/json;charset=utf-8'
     }
     
+
     //从localStorageHelper中获取token，但是现在已经给客户端token了所以现在这个没有用了
-     if(localStorage.getItem("token")){
+     if(localStorage.getItem("token") && checkUrl(config.url)){
        if(config.url != "/send" && config.url != "/close"){
         config.headers.Authorization = localStorage.getItem("token");
        }
     }
+
+
   
 
     return config;
@@ -35,6 +38,14 @@ axios.interceptors.request.use(
   }
 );
 
+function checkUrl(url){
+  let f1 = url.indexOf("registered") !== -1 ? true:false
+  // console.log(f1)
+  let f2 = url.indexOf("login") !== -1 ? true:false
+  // console.log(f2)
+
+  return !(f1 || f2);
+}
 
 //http response 拦截器
 axios.interceptors.response.use(

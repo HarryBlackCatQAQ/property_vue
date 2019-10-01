@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 03:30:18
+ * @Last Modified time: 2019-10-01 18:51:30
  */
 
 
@@ -73,7 +73,11 @@ export default {
       res.then(response => {
         console.log(response);
         if (response.flag) {
-          this.$router.push(routerApi.home);
+          this.$router.push(routerApi.getHome());
+          this.$message({
+            message: "登录成功！",
+            type: "success"
+          });
         } else {
           this.$message({
             message: "用户或者密码错误！",

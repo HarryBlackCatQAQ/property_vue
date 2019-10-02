@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:26:22 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 18:12:50
+ * @Last Modified time: 2019-10-02 14:45:29
  */
 
 <template>
@@ -18,8 +18,8 @@
             active-text-color="#ffd04b"
             type="flex"
             >
-      <el-menu-item @click="changeMenu" class="item-left" index="1">
-          <i v-if="this.$store.getters.getIsAsideMenuOpen" class="el-icon-s-unfold"></i>
+      <el-menu-item @click="changeMenu" class="item-left" index="0">
+          <i v-if="this.$store.getters['home/getIsAsideMenuOpen']" class="el-icon-s-unfold"></i>
           <i v-else  class="el-icon-s-fold"></i>
       </el-menu-item>
 
@@ -45,9 +45,9 @@ export default {
   },
   methods: {
     changeMenu(){
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
-        this.$store.commit('changeIsAsideMenuOpen');
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
+        // console.log(this.$store.getters['home/getIsAsideMenuOpen'])
+        this.$store.commit('home/changeIsAsideMenuOpen');
+        // console.log(this.$store.getters['home/getIsAsideMenuOpen'])
     }
   }
 };

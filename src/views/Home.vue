@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 18:24:16
+ * @Last Modified time: 2019-10-02 14:45:43
  */
 
 <template>
@@ -48,11 +48,12 @@ export default {
   methods:{
     handleOpen() {
         // console.log(this.$store.getters.getIsAsideMenuOpen)
-        this.$store.commit('changeIsAsideMenuOpen');
+        this.$store.home.commit('home/changeIsAsideMenuOpen');
         // console.log(this.$store.getters.getIsAsideMenuOpen)
       }
   },
   mounted() {
+    // console.log(this.$store)
     const that = this;
     window.onresize = () => {
       return (() => {

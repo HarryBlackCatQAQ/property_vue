@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-09-18 03:39:07 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 16:40:40
+ * @Last Modified time: 2019-10-01 22:09:14
  */
 import sha1 from "sha1";
 
@@ -17,7 +17,7 @@ export default {
 
     /**
      *  sleep睡眠工具 time 1000为1秒
-     * @param {*} time 
+     * @param {number} time 
      */
     sleep(time) {
         return new Promise(resolve => setTimeout(resolve, time));

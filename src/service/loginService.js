@@ -13,8 +13,6 @@ var that = _this._this;
 
 export default {
     async login(username,password,rememberMe){
-
-        // password = util.SHA1(password);
         let res;
 
         await that.$post(api.login.url, {

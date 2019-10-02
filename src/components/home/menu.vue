@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 18:56:35
+ * @Last Modified time: 2019-10-02 14:45:18
  */
 
 <template>
@@ -16,7 +16,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
           :style="{'height': (this.len) + 'px'}"
-          :collapse="this.$store.getters.getIsAsideMenuOpen"
+          :collapse="this.$store.getters['home/getIsAsideMenuOpen']"
         >
            <!-- <el-submenu index="1">
             <template slot="title">
@@ -90,7 +90,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 250px;
     min-height: 400px;

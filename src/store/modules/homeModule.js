@@ -1,17 +1,13 @@
 /*
  * @Author: Harry 
- * @Date: 2019-10-01 18:21:22 
+ * @Date: 2019-10-02 14:47:29 
  * @Last Modified by:   Harry-mac 
- * @Last Modified time: 2019-10-01 18:21:22 
+ * @Last Modified time: 2019-10-02 14:47:29 
  */
 
 
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default {
+  namespaced:true,
   state: {
       isAsideMenuOpen:false
   },
@@ -28,4 +24,4 @@ export default new Vuex.Store({
   actions: {
 
   }
-})
+}

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 15:09:29
+ * @Last Modified time: 2019-10-04 01:27:49
  */
 
 
@@ -16,5 +16,8 @@ export default {
     },
     registeredUser:{
         url: '/registered/registeredUser'
+    },
+    logout:{
+        url:'/logout'
     }
 };

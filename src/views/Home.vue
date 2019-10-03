@@ -2,18 +2,17 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-02 14:45:43
+ * @Last Modified time: 2019-10-04 02:35:19
  */
 
 <template>
-  <div class="home-view">
-    主页
+  <div class="home-view" :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
     <el-container>
       <el-header>
         <headNav/>
       </el-header>
 
-      <el-container  :style="{'height': (this.clen) + 'px'}">
+      <el-container  :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
         <!-- <el-aside :style="{'height': (this.clen) + 'px'}"> -->
           <asideMenu/>
         <!-- </el-aside> -->
@@ -40,33 +39,18 @@ export default {
   },
   data(){
     return{
-      clen:util.getWinHeight(),
-      screenHeight:util.getWinHeight(),
-      isCollapse:false
     }
   },
   methods:{
-    handleOpen() {
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
-        this.$store.home.commit('home/changeIsAsideMenuOpen');
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
-      }
+    
   },
   mounted() {
-    // console.log(this.$store)
     const that = this;
     window.onresize = () => {
       return (() => {
-        this.screenHeight = util.getWinHeight();
-        // console.log(this.screenHeight)
+        this.$store.commit('home/setScreenHeight');
       })();
     };
-  },
-  watch: {
-    screenHeight(val) {
-      // console.log(val);
-      this.clen = val;
-    }
   }
 };
 </script>
@@ -91,6 +75,7 @@ export default {
 }
 
 .el-main {
+  /* #e9eef3 */
   background-color: #e9eef3;
   color: #333;
   text-align: center;

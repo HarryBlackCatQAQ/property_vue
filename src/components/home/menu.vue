@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-02 14:45:18
+ * @Last Modified time: 2019-10-03 22:18:22
  */
 
 <template>
@@ -15,7 +15,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
-          :style="{'height': (this.len) + 'px'}"
+          :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}"
           :collapse="this.$store.getters['home/getIsAsideMenuOpen']"
         >
            <!-- <el-submenu index="1">
@@ -58,8 +58,7 @@ export default {
   name: "aside-menu",
   data() {
     return {
-      len: window.innerHeight,
-      screenHeight: window.innerHeight
+      
     };
   },
   methods: {
@@ -71,29 +70,15 @@ export default {
               this.$router.push(routerApi.getPage2CompleteUrl());
           }
       }
-  },
-  created() {
-    const that = this;
-    window.onresize = () => {
-      return (() => {
-        this.screenHeight = util.getWinHeight();
-      })();
-    };
-  },
-  watch: {
-    screenHeight(val) {
-    //   console.log(val);
-      this.len = val;
-    }
   }
 };
 </script>
 
 
-<style>
+<style scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 250px;
     min-height: 400px;
-  }
+}
 
 </style>

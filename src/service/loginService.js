@@ -20,7 +20,6 @@ export default {
             password: util.SHA1(password)
         })
         .then(response =>{
-            
             if(response.flag){
                 let user = response.data;
                 localStorage.setItem("user",JSON.stringify(user))

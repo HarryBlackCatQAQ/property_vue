@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 00:36:27 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 02:15:38
+ * @Last Modified time: 2019-10-04 14:35:46
  */
 
 
@@ -38,7 +38,7 @@ export default {
             if(!state.role){
                 state.user = JSON.parse(localStorage.getItem("user"))
                 if(state.user)
-                state.role = getRealRole(state.user.role);
+                state.role = getRealRole(state.user.authorities);
             }
             return state.role;
         },
@@ -46,7 +46,7 @@ export default {
             if(!state.rolename){
                 state.user = JSON.parse(localStorage.getItem("user"))
                 if(state.user)
-                state.rolename = getRoleName(state.user.role);
+                    state.rolename = getRoleName(getRealRole(state.user.authorities));
             }
             return state.rolename;
         },

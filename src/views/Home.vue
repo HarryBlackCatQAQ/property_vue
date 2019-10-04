@@ -2,53 +2,59 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 02:35:19
+ * @Last Modified time: 2019-10-04 14:11:21
  */
 
 <template>
   <div class="home-view" :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
     <el-container>
       <el-header>
-        <headNav/>
+        <headNav />
       </el-header>
 
-      <el-container  :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
+      <el-container :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
         <!-- <el-aside :style="{'height': (this.clen) + 'px'}"> -->
-          <asideMenu/>
+        <asideMenu />
         <!-- </el-aside> -->
 
         <el-main>
-          <router-view></router-view>
+          <vTags />
+          <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
+            <transition name="move" mode="out-in">
+              <keep-alive :include="this.$store.getters['home/getTagsList']">
+                <router-view></router-view>
+              </keep-alive>
+            </transition>
+          </div>
         </el-main>
       </el-container>
-      
     </el-container>
   </div>
 </template>
 
 <script>
-import asideMenu from '@/components/home/menu'
-import headNav from '@/components/home/head'
+import asideMenu from "@/components/home/menu";
+import headNav from "@/components/home/head";
+import vTags from "@/components/home/tags";
 import util from "@/service/util";
 
 export default {
   name: "home",
   components: {
     asideMenu,
-    headNav
+    headNav,
+    vTags
   },
-  data(){
+  data() {
     return{
+      
     }
-  },
-  methods:{
-    
   },
   mounted() {
     const that = this;
     window.onresize = () => {
       return (() => {
-        this.$store.commit('home/setScreenHeight');
+        this.$store.commit("home/setScreenHeight");
       })();
     };
   }
@@ -80,6 +86,7 @@ export default {
   color: #333;
   text-align: center;
   line-height: 160px;
+  padding: 0
 }
 
 body > .el-container {
@@ -93,5 +100,14 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+
+.el-tabs__new-tab {
+  display: none;
+}
+
+.tag-view {
+  background-color: white;
+  line-height: 20px;
 }
 </style>

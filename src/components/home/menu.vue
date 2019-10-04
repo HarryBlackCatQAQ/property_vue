@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-03 22:18:22
+ * @Last Modified time: 2019-10-04 15:14:49
  */
 
 <template>
@@ -10,7 +10,7 @@
     <el-row class="tac" type="flex">
       <el-col class="tac2" :span="24">
         <el-menu
-          default-active="1"
+          default-active="0"
           class="el-menu-vertical-demo"
           background-color="#545c64"
           text-color="#fff"
@@ -18,31 +18,14 @@
           :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}"
           :collapse="this.$store.getters['home/getIsAsideMenuOpen']"
         >
-           <!-- <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </template>
-             <el-menu-item-group>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu> 
-          </el-submenu>  -->
 
 
-          <el-menu-item index="1" @click="menuClick(1)" >
-            <i class="el-icon-document"></i>
-            <span slot="title">page1</span>
+         <template v-for="(item,index) in this.list" >
+           <el-menu-item :index="index.toString()" :key="index" @click="menuClick(item.url)" >
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.name}}</span>
           </el-menu-item>
-          <el-menu-item index="2" @click="menuClick(2)">
-            <i class="el-icon-document"></i>
-            <span slot="title">page2</span>
-          </el-menu-item>
+         </template>
 
         </el-menu>
       </el-col>
@@ -53,23 +36,22 @@
 <script>
 import util from "@/service/util";
 import routerApi from "@/service/api/routerApi";
+import menuList from '@/service/home/menuList'
 
 export default {
   name: "aside-menu",
   data() {
     return {
-      
+      list:[]
     };
   },
   methods: {
-      menuClick(idx){
-          if(idx == 1){
-              this.$router.push(routerApi.getPage1CompleteUrl());
-          }
-          else if(idx == 2){
-              this.$router.push(routerApi.getPage2CompleteUrl());
-          }
+      menuClick(url){
+          this.$router.push(url);
       }
+  },
+  created(){
+    this.list = menuList.getList();
   }
 };
 </script>

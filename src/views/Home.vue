@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 14:11:21
+ * @Last Modified time: 2019-10-04 15:50:06
  */
 
 <template>
@@ -19,7 +19,8 @@
 
         <el-main>
           <vTags />
-          <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
+          <!-- 高度减30是因为vTags高度为30px-->
+          <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight'] - 30) + 'px'}">
             <transition name="move" mode="out-in">
               <keep-alive :include="this.$store.getters['home/getTagsList']">
                 <router-view></router-view>

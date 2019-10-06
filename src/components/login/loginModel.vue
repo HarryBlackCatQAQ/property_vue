@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 18:51:30
+ * @Last Modified time: 2019-10-04 12:08:17
  */
 
 
@@ -68,10 +68,18 @@ export default {
   },
   methods: {
     login() {
+      if(this.username == "" || this.password == ""){
+          this.$message({
+            message: "请填写账号和密码!",
+            type: "error"
+          });
+          return;
+      }
+
       let res = loginService.login(this.username, this.password);
 
       res.then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.flag) {
           this.$router.push(routerApi.getHome());
           this.$message({

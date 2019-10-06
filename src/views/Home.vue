@@ -2,70 +2,62 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 18:24:16
+ * @Last Modified time: 2019-10-04 15:50:06
  */
 
 <template>
-  <div class="home-view">
-    主页
+  <div class="home-view" :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
     <el-container>
       <el-header>
-        <headNav/>
+        <headNav />
       </el-header>
 
-      <el-container  :style="{'height': (this.clen) + 'px'}">
+      <el-container :style="{'height': (this.$store.getters['home/getScreenHeight']) + 'px'}">
         <!-- <el-aside :style="{'height': (this.clen) + 'px'}"> -->
-          <asideMenu/>
+        <asideMenu />
         <!-- </el-aside> -->
 
         <el-main>
-          <router-view></router-view>
+          <vTags />
+          <!-- 高度减30是因为vTags高度为30px-->
+          <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight'] - 30) + 'px'}">
+            <transition name="move" mode="out-in">
+              <keep-alive :include="this.$store.getters['home/getTagsList']">
+                <router-view></router-view>
+              </keep-alive>
+            </transition>
+          </div>
         </el-main>
       </el-container>
-      
     </el-container>
   </div>
 </template>
 
 <script>
-import asideMenu from '@/components/home/menu'
-import headNav from '@/components/home/head'
+import asideMenu from "@/components/home/menu";
+import headNav from "@/components/home/head";
+import vTags from "@/components/home/tags";
 import util from "@/service/util";
 
 export default {
   name: "home",
   components: {
     asideMenu,
-    headNav
+    headNav,
+    vTags
   },
-  data(){
+  data() {
     return{
-      clen:util.getWinHeight(),
-      screenHeight:util.getWinHeight(),
-      isCollapse:false
+      
     }
-  },
-  methods:{
-    handleOpen() {
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
-        this.$store.commit('changeIsAsideMenuOpen');
-        // console.log(this.$store.getters.getIsAsideMenuOpen)
-      }
   },
   mounted() {
     const that = this;
     window.onresize = () => {
       return (() => {
-        this.screenHeight = util.getWinHeight();
-        // console.log(this.screenHeight)
+        this.$store.commit("home/setScreenHeight");
       })();
     };
-  },
-  watch: {
-    screenHeight(val) {
-      // console.log(val);
-      this.clen = val;
-    }
   }
 };
 </script>
@@ -90,10 +82,12 @@ export default {
 }
 
 .el-main {
+  /* #e9eef3 */
   background-color: #e9eef3;
   color: #333;
   text-align: center;
   line-height: 160px;
+  padding: 0
 }
 
 body > .el-container {
@@ -107,5 +101,14 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+
+.el-tabs__new-tab {
+  display: none;
+}
+
+.tag-view {
+  background-color: white;
+  line-height: 20px;
 }
 </style>

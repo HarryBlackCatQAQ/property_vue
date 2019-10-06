@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 16:48:55
+ * @Last Modified time: 2019-10-04 03:16:51
  */
 
 
@@ -106,6 +106,9 @@ export default {
    var checkNickname = (rule, value, callback) => {
       if (value == "") {
         return callback(new Error("昵称不能为空"));
+      }
+      else if(value.length >= 15){
+        return callback(new Error("昵称长度不能超过15"));
       }
       else{
         return callback();

@@ -1,15 +1,16 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:25 
- * @Last Modified by:   Hovees-hwx
- * @Last Modified time: 2019-10-02 21:05:25
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-02 23:48:27
  */
 
 
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from '@/store/store'
+
 import {post,fetch,patch,put} from '@/service/http'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

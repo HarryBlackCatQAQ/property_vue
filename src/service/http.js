@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 14:52:01
+ * @Last Modified time: 2019-10-04 15:42:53
  */
 import axios from 'axios';
 
@@ -21,7 +21,7 @@ axios.interceptors.request.use(
     }
     
 
-    //从localStorageHelper中获取token，但是现在已经给客户端token了所以现在这个没有用了
+    //从localStorageHelper中获取token
      if(localStorage.getItem("token") && checkUrl(config.url)){
        if(config.url != "/send" && config.url != "/close"){
         config.headers.Authorization = localStorage.getItem("token");

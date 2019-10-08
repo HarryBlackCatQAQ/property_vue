@@ -25,6 +25,9 @@ function get(){
     let list = []
 
     list = list.concat(getPublic());
+    if (roleName === '物业管理员') {
+        list = list.concat(getPropertyAdministrator())
+    }
     return list;
 }
 
@@ -73,7 +76,11 @@ function getOwner(){
  * 获取物业管理员模块
  */
 function getPropertyAdministrator(){
-
+    return [
+        model(routerApi.getPropertyName(),
+            routerApi.getPropertyCompleteUrl(),
+            'el-icon-s-home'),
+    ]
 }
 
 /**

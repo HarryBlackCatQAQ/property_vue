@@ -19,5 +19,10 @@ export default {
     },
     logout:{
         url:'/logout'
+    },
+    property: {
+        url: {
+            findAll: '/property/findAll'
+        }
     }
 };

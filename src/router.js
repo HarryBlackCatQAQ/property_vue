@@ -51,6 +51,12 @@ const router = new Router({
           name:"page2",
           meta: { title: routerApi.getPage2Name() },
           component: () => import("./views/home/page2.vue"),
+        },
+        {
+          path: routerApi.getProperty(),
+          name: 'property',
+          meta: { title: routerApi.getPropertyName() },
+          component: () => import('./views/home/property.vue'),
         }
       ]
     }

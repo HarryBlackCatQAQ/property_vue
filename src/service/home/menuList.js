@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:58:27
+ * @Last Modified time: 2019-10-11 00:12:34
  */
 
 import _this from '@/main'
@@ -93,6 +93,10 @@ function getPropertyAdministrator(){
     return[
         model(routerApi.roleManagement.getRoleManagementName(),
         routerApi.roleManagement.getRoleManagement(),
-        "el-icon-user")
+        "el-icon-user"),
+
+        model(routerApi.logManagement.getLogManagementName(),
+        routerApi.logManagement.getLogManagement(),
+        "el-icon-s-order")
     ]
  }

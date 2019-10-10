@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:57:38
+ * @Last Modified time: 2019-10-11 00:11:01
  */
 
 var api = {
@@ -38,6 +38,10 @@ var api = {
           name: '楼盘子页面'
         }
     },
+    logManagement:{
+        url:"/logManagement",
+        name:"日志管理"
+    }
 }
 
 export default {
@@ -110,5 +114,13 @@ export default {
           return url.concat(api.home.url,'/',api.property.url,'/',api.property.test.url)
         }
       }
+    },
+    logManagement:{
+        getLogManagement(){
+            return api.logManagement.url;
+        },
+        getLogManagementName(){
+            return api.logManagement.name;
+        }
     }
 }

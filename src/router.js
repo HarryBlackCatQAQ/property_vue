@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:56:22
+ * @Last Modified time: 2019-10-11 00:16:49
  */
 
 
@@ -89,6 +89,20 @@ const router = new Router({
               name: 'property/test',
               meta: { title: routerApi.property.test.getTestName() },
               component: () => import('./views/property/test')
+            }
+          ]
+        },
+        {
+          path: routerApi.logManagement.getLogManagement(),
+          // name:routerApi.roleManagement.getRoleManagementName(),
+          meta: { title: routerApi.logManagement.getLogManagementName() },
+          component: () => import("./views/log/logManagementIndex.vue"),
+          children:[
+            {
+              path:"/",
+              name:routerApi.logManagement.getLogManagement(),
+              meta: { title: routerApi.logManagement.getLogManagementName() },
+              component: () => import("./views/log/logManagement.vue")
             }
           ]
         }

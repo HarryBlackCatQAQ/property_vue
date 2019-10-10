@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-09 19:33:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 20:18:37
+ * @Last Modified time: 2019-10-11 00:56:18
  */
 
 
@@ -10,13 +10,7 @@
   <div class="roleManagement">
     <div class="table">
 
-      <div class="crumbs">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>
-            <i class="el-icon-tickets"></i> 日志列表
-          </el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+      <modelLabel icon="el-icon-s-custom" title="用户管理"/>
 
       <div class="container">
 
@@ -79,12 +73,14 @@ import roleManagementService from "@/service/roleManagement/roleManagementServic
 import userEditDialog from "@/components/role/userEditDialog";
 import userAddDialog from "@/components/role/userAddDialog";
 import { mapState } from "vuex";
+import modelLabel from "@/components/public/modelLabel"
 
 export default {
   name: "roleManagement",
   components: {
     userEditDialog,
-    userAddDialog
+    userAddDialog,
+    modelLabel
   },
   data() {
     return {

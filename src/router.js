@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-09 19:46:16
+ * @Last Modified time: 2019-10-10 17:56:22
  */
 
 
@@ -71,6 +71,24 @@ const router = new Router({
               name:routerApi.roleManagement.getRoleManagementName(),
               meta: { title: routerApi.roleManagement.getRoleManagementName() },
               component: () => import("./views/role/roleManagement.vue")
+            }
+          ]
+        },
+        {
+          path: routerApi.property.getPropertyUrl(),
+          component: () => import('./views/property/propertyView'),
+          children: [
+            {
+              path: '/',
+              name: 'property',
+              meta: { title: routerApi.property.getPropertyName() },
+              component: () => import('./views/property/propertyIndex'),
+            },
+            {
+              path: routerApi.property.test.getTestUrl(),
+              name: 'property/test',
+              meta: { title: routerApi.property.test.getTestName() },
+              component: () => import('./views/property/test')
             }
           ]
         }

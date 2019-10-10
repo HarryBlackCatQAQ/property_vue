@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-09 19:33:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 16:43:32
+ * @Last Modified time: 2019-10-10 20:18:37
  */
 
 
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     search() {
-      console.log(this.content_type)
+      // console.log(this.content_type)
 
       this.initPage();
       if(this.content_type == 0 || this.content_type == "全部"){

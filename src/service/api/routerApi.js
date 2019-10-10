@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-09 19:38:23
+ * @Last Modified time: 2019-10-10 17:57:38
  */
 
 var api = {
@@ -29,7 +29,15 @@ var api = {
     roleManagement:{
         url:"/roleManagement",
         name:"角色管理"
-    }
+    },
+    property: {
+        url: 'property',
+        name: '楼盘管理',
+        test: {
+          url: 'test',
+          name: '楼盘子页面'
+        }
+    },
 }
 
 export default {
@@ -79,5 +87,28 @@ export default {
         getRoleManagement(){
             return api.roleManagement.url;
         }
+    },
+    property: {
+      url: '',
+      getPropertyUrl() {
+        return api.property.url
+      },
+      getPropertyName() {
+        return api.property.name
+      },
+      getPropertyCompleteUrl() {
+        return api.home.url + '/' + api.property.url
+      },
+      test: {
+        getTestUrl() {
+          return api.property.test.url
+        },
+        getTestName() {
+          return api.property.test.name
+        },
+        getTestCompleteUrl() {
+          return url.concat(api.home.url,'/',api.property.url,'/',api.property.test.url)
+        }
+      }
     }
 }

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-09 19:42:43
+ * @Last Modified time: 2019-10-10 17:58:27
  */
 
 import _this from '@/main'
@@ -27,6 +27,9 @@ function get(){
     list = list.concat(getPublic());
     if(roleName == "系统管理员"){
         list = list.concat(getSystemAdministrator())
+    }
+    else if (roleName === '物业管理员') {
+        list = list.concat(getPropertyAdministrator())
     }
     return list;
 }
@@ -76,7 +79,11 @@ function getOwner(){
  * 获取物业管理员模块
  */
 function getPropertyAdministrator(){
-
+    return [
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyCompleteUrl(),
+            'el-icon-s-home'),
+    ]
 }
 
 /**

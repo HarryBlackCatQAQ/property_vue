@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 15:23:40
+ * @Last Modified time: 2019-10-10 20:17:24
  */
 import axios from 'axios';
 import routerApi from "@/service/api/routerApi";
@@ -22,7 +22,6 @@ axios.interceptors.request.use(
     config.headers = {
       'Content-Type':'application/json;charset=utf-8'
     }
-    
 
     //从localStorageHelper中获取token
      if(localStorage.getItem("token") && checkUrl(config.url)){
@@ -31,8 +30,6 @@ axios.interceptors.request.use(
        }
     }
 
-
-  
 
     return config;
   },

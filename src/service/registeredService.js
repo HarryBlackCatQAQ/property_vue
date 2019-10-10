@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 14:38:34 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 15:15:10
+ * @Last Modified time: 2019-10-10 17:16:30
  */
 
 import _this from '@/main'
@@ -26,14 +26,24 @@ export default {
         return res;
     },
 
-    async registeredUser(user){
+    async registeredUser(user,rrole){
 
+        let role = 0;
+        let pass;
+        if(rrole != undefined){
+            role = parseInt(rrole);
+            pass = user.password;
+        }
+        else{
+            pass = user.pass;
+        }
+        
         let res;
         await that.$post(api.registeredUser.url,{
             username:user.username,
             nickname:user.nickname,
-            password:util.SHA1(user.pass),
-            role:0
+            password:util.SHA1(pass),
+            role:role
         })
         .then(response => {
             res = response;

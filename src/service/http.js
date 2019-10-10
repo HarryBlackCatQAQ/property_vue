@@ -2,9 +2,12 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 15:42:53
+ * @Last Modified time: 2019-10-10 15:23:40
  */
 import axios from 'axios';
+import routerApi from "@/service/api/routerApi";
+import router from "@/router"
+import store from "@/store/store"
 
 // axios.defaults.timeout = 5000;
 axios.defaults.baseURL = 'http://127.0.0.1:8519'
@@ -56,7 +59,14 @@ axios.interceptors.response.use(
         querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
       })
     }
-    
+
+    // console.log(response)
+
+    if(response.data.code == "40006"){
+      store.commit('login/changeIsTokenErrorToLogin');
+      router.push(routerApi.getLogin());
+    }
+
     if(response.headers.hasOwnProperty("token")){
       let obj = JSON.parse(response.request.response)
       obj.token = response.headers.token

@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
- * @Last Modified by:   Harry-mac 
- * @Last Modified time: 2019-10-04 15:39:57 
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-09 19:42:43
  */
 
 import _this from '@/main'
@@ -25,6 +25,9 @@ function get(){
     let list = []
 
     list = list.concat(getPublic());
+    if(roleName == "系统管理员"){
+        list = list.concat(getSystemAdministrator())
+    }
     return list;
 }
 
@@ -80,5 +83,9 @@ function getPropertyAdministrator(){
  * 获取系统管理员模块
  */
  function getSystemAdministrator(){
-
+    return[
+        model(routerApi.roleManagement.getRoleManagementName(),
+        routerApi.roleManagement.getRoleManagement(),
+        "el-icon-user")
+    ]
  }

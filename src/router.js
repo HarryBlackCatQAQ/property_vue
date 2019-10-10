@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 14:52:23
+ * @Last Modified time: 2019-10-09 19:46:16
  */
 
 
@@ -48,14 +48,39 @@ const router = new Router({
         },
         {
           path: routerApi.getPage2(),
-          name:"page2",
+          // name:"page2",
           meta: { title: routerApi.getPage2Name() },
           component: () => import("./views/home/page2.vue"),
+          children: [
+            {
+              path: '/',
+              name:"page2-1",
+              meta: { title: routerApi.getPage2_1Name() },
+              component: () => import("./views/home/page2-1.vue"),
+            }
+          ]
+        },
+        {
+          path: routerApi.roleManagement.getRoleManagement(),
+          // name:routerApi.roleManagement.getRoleManagementName(),
+          meta: { title: routerApi.roleManagement.getRoleManagementName() },
+          component: () => import("./views/role/roleManagementIndex.vue"),
+          children:[
+            {
+              path:"/",
+              name:routerApi.roleManagement.getRoleManagementName(),
+              meta: { title: routerApi.roleManagement.getRoleManagementName() },
+              component: () => import("./views/role/roleManagement.vue")
+            }
+          ]
         }
       ]
     }
   ]
 })
+
+
+// console.log(routerApi.getPage2_1())
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-02 23:25:50
+ * @Last Modified time: 2019-10-10 15:23:26
  */
 
 <template>
@@ -60,7 +60,7 @@ export default {
   computed: mapState({
     isLoginModelShow: state => state.login.isLoginModelShow,
     isForgetPasswordModelShow: state => state.login.isForgetPasswordModelShow,
-    isRegisteredModelShow: state => state.login.isRegisteredModelShow
+    isRegisteredModelShow: state => state.login.isRegisteredModelShow,
   }),
   created() {
     let _this = this

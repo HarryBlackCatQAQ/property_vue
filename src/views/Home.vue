@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 15:50:06
+ * @Last Modified time: 2019-10-09 20:18:08
  */
 
 <template>
@@ -19,7 +19,6 @@
 
         <el-main>
           <vTags />
-          <!-- 高度减30是因为vTags高度为30px-->
           <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight'] - 30) + 'px'}">
             <transition name="move" mode="out-in">
               <keep-alive :include="this.$store.getters['home/getTagsList']">
@@ -110,5 +109,9 @@ body > .el-container {
 .tag-view {
   background-color: white;
   line-height: 20px;
+}
+
+.content{
+  padding:40px;
 }
 </style>

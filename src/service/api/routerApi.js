@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-08 15:00:10
+ * @Last Modified time: 2019-10-10 13:58:51
  */
 
 var api = {
@@ -24,7 +24,11 @@ var api = {
     },
     property: {
         url: 'property',
-        name: '楼盘管理'
+        name: '楼盘管理',
+        test: {
+          url: 'test',
+          name: '楼盘子页面'
+        }
     },
 }
 
@@ -59,13 +63,27 @@ export default {
     getPage2CompleteUrl(){
         return api.home.url + "/" + api.page2.url;
     },
-    getProperty() {
+    property: {
+      url: '',
+      getPropertyUrl() {
         return api.property.url
-    },
-    getPropertyName() {
+      },
+      getPropertyName() {
         return api.property.name
-    },
-    getPropertyCompleteUrl() {
+      },
+      getPropertyCompleteUrl() {
         return api.home.url + '/' + api.property.url
-    },
+      },
+      test: {
+        getTestUrl() {
+          return api.property.test.url
+        },
+        getTestName() {
+          return api.property.test.name
+        },
+        getTestCompleteUrl() {
+          return url.concat(api.home.url,'/',api.property.url,'/',api.property.test.url)
+        }
+      }
+    }
 }

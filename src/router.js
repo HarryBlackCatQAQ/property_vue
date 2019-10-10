@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 14:52:23
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-10 09:49:17
  */
 
 
@@ -53,10 +53,22 @@ const router = new Router({
           component: () => import("./views/home/page2.vue"),
         },
         {
-          path: routerApi.getProperty(),
-          name: 'property',
-          meta: { title: routerApi.getPropertyName() },
-          component: () => import('./views/home/property.vue'),
+          path: routerApi.property.getPropertyUrl(),
+          component: () => import('./views/property/propertyView'),
+          children: [
+            {
+              path: '/',
+              name: 'property',
+              meta: { title: routerApi.property.getPropertyName() },
+              component: () => import('./views/property/propertyIndex'),
+            },
+            {
+              path: routerApi.property.test.getTestUrl(),
+              name: 'property/test',
+              meta: { title: routerApi.property.test.getTestName() },
+              component: () => import('./views/property/test')
+            }
+          ]
         }
       ]
     }

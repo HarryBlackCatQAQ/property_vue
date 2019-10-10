@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
- * @Last Modified by:   Hovees-hwx
- * @Last Modified time: 2019-10-08 16:10:53
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-10 16:57:44
  */
 
 const state = {
@@ -10,9 +10,16 @@ const state = {
   rowCount: 0,
   pageNum: 1,
   pageSize: 10,
+  loading: false,
+  addPropertyDialog: false,
+  deletePropertyDialog: false,
+  editPropertyDialog: false,
   searchForm: {
-    propertyName: ''
-  }
+    name: '',
+    location: '',
+    uid: '',
+  },
+  recordProperty: ''
 }
 
 const mutations = {
@@ -30,6 +37,21 @@ const mutations = {
   ['SET_PAGE_SIZE'](state, payload) {
     state.pageSize = payload
   },
+  ['LOADING'](state, payload) {
+    state.loading = payload
+  },
+  ['ADD_PROPERTY_DIALOG'](state, payload) {
+    state.addPropertyDialog = payload
+  },
+  ['DELETE_PROPERTY_DIALOG'](state, payload) {
+    state.deletePropertyDialog = payload
+  },
+  ['EDIT_PROPERTY_DIALOG'](state, payload) {
+    state.editPropertyDialog = payload
+  },
+  ['RECORD_PROPERTY'](state, payload) {
+    state.recordProperty = payload
+  }
 }
 
 const actions = {

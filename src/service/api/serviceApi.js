@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 01:27:49
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-10 15:59:03
  */
 
 
@@ -22,7 +22,11 @@ export default {
     },
     property: {
         url: {
-            findAll: '/property/findAll'
+            insert: '/property/insert',
+            delete: '/property/delete',
+            update: '/property/update',
+            findAll: '/property/findAll',
+            checkPropertyName: '/property/checkPropertyName'
         }
     }
 };

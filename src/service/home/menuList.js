@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
- * @Last Modified by:   Harry-mac 
- * @Last Modified time: 2019-10-04 15:39:57 
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-10 09:50:19
  */
 
 import _this from '@/main'
@@ -77,8 +77,8 @@ function getOwner(){
  */
 function getPropertyAdministrator(){
     return [
-        model(routerApi.getPropertyName(),
-            routerApi.getPropertyCompleteUrl(),
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyCompleteUrl(),
             'el-icon-s-home'),
     ]
 }

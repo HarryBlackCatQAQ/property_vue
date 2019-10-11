@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 13:58:51
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-11 00:11:01
  */
 
 var api = {
@@ -22,6 +22,14 @@ var api = {
         url:"page2",
         name:"页面二"
     },
+    page2_1:{
+        url:"page2-1",
+        name:"页面2-1"
+    },
+    roleManagement:{
+        url:"/roleManagement",
+        name:"角色管理"
+    },
     property: {
         url: 'property',
         name: '楼盘管理',
@@ -30,6 +38,10 @@ var api = {
           name: '楼盘子页面'
         }
     },
+    logManagement:{
+        url:"/logManagement",
+        name:"日志管理"
+    }
 }
 
 export default {
@@ -63,6 +75,23 @@ export default {
     getPage2CompleteUrl(){
         return api.home.url + "/" + api.page2.url;
     },
+    getPage2_1(){
+        return api.page2_1.url;
+    },
+    getPage2_1Name(){
+        return api.page2_1.name;
+    },
+    getPage2_1CompleteUrl(){
+        return api.home.url + "/" + api.page2.url + "/" + api.page2_1.url;
+    },
+    roleManagement:{
+        getRoleManagementName(){
+            return api.roleManagement.name;
+        },
+        getRoleManagement(){
+            return api.roleManagement.url;
+        }
+    },
     property: {
       url: '',
       getPropertyUrl() {
@@ -85,5 +114,13 @@ export default {
           return url.concat(api.home.url,'/',api.property.url,'/',api.property.test.url)
         }
       }
+    },
+    logManagement:{
+        getLogManagement(){
+            return api.logManagement.url;
+        },
+        getLogManagementName(){
+            return api.logManagement.name;
+        }
     }
 }

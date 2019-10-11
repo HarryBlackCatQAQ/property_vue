@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:30 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 01:26:26
+ * @Last Modified time: 2019-10-10 15:23:54
  */
 
 
@@ -22,7 +22,7 @@ import { error } from 'util';
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
 
-
+import { mapState } from 'vuex'
 
 export default {
   name: "index",
@@ -161,6 +161,17 @@ export default {
   },
   created() {
     console.log(util.SHA1("helloworld"));
+  },
+  computed: mapState({
+    isTokenErrorToLogin:state => state.login.isTokenErrorToLogin
+  }),
+  watch:{
+    isTokenErrorToLogin: function(){
+      this.$message({
+          message: "账号过期请重新登录",
+          type: "error"
+        });
+    }
   }
 };
 </script>

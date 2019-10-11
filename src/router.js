@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 09:49:17
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-11 00:16:49
  */
 
 
@@ -48,9 +48,31 @@ const router = new Router({
         },
         {
           path: routerApi.getPage2(),
-          name:"page2",
+          // name:"page2",
           meta: { title: routerApi.getPage2Name() },
           component: () => import("./views/home/page2.vue"),
+          children: [
+            {
+              path: '/',
+              name:"page2-1",
+              meta: { title: routerApi.getPage2_1Name() },
+              component: () => import("./views/home/page2-1.vue"),
+            }
+          ]
+        },
+        {
+          path: routerApi.roleManagement.getRoleManagement(),
+          // name:routerApi.roleManagement.getRoleManagementName(),
+          meta: { title: routerApi.roleManagement.getRoleManagementName() },
+          component: () => import("./views/role/roleManagementIndex.vue"),
+          children:[
+            {
+              path:"/",
+              name:routerApi.roleManagement.getRoleManagementName(),
+              meta: { title: routerApi.roleManagement.getRoleManagementName() },
+              component: () => import("./views/role/roleManagement.vue")
+            }
+          ]
         },
         {
           path: routerApi.property.getPropertyUrl(),
@@ -69,11 +91,28 @@ const router = new Router({
               component: () => import('./views/property/test')
             }
           ]
+        },
+        {
+          path: routerApi.logManagement.getLogManagement(),
+          // name:routerApi.roleManagement.getRoleManagementName(),
+          meta: { title: routerApi.logManagement.getLogManagementName() },
+          component: () => import("./views/log/logManagementIndex.vue"),
+          children:[
+            {
+              path:"/",
+              name:routerApi.logManagement.getLogManagement(),
+              meta: { title: routerApi.logManagement.getLogManagementName() },
+              component: () => import("./views/log/logManagement.vue")
+            }
+          ]
         }
       ]
     }
   ]
 })
+
+
+// console.log(routerApi.getPage2_1())
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {

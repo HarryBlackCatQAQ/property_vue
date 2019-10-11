@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:12:34
+ * @Last Modified time: 2019-10-11 12:47:39
  */
 
 import _this from '@/main'
@@ -39,11 +39,35 @@ function get(){
  * @param {string} name 
  * @param {string} url 
  * @param {string} icon 
+ * @param {boolean} isSub 
+ * @param {arrays} sub 
  */
-function model(name,url,icon){
+function model(name,url,icon,isSub,sub){
+    let isSub_tp = false;
+    let sub_tp = []
+    if(isSub != undefined){
+        isSub_tp = isSub;
+        sub_tp = sub;
+    }
+
     return {
         name:name,
         icon:icon,
+        url:url,
+        isSub:isSub_tp,
+        sub:sub_tp
+    }
+}
+
+/**
+ * subs model
+ * @param {string} name 
+ * @param {string} url 
+ * @param {string} icon 
+ */
+function subs(name,url){
+    return {
+        name:name,
         url:url
     }
 }
@@ -97,6 +121,18 @@ function getPropertyAdministrator(){
 
         model(routerApi.logManagement.getLogManagementName(),
         routerApi.logManagement.getLogManagement(),
-        "el-icon-s-order")
+        "el-icon-s-order"),
+
+        model("子目录",
+        "",
+        "el-icon-s-order",
+        true,
+        [
+            subs(routerApi.getPage1Name(),
+            routerApi.getPage1CompleteUrl()),
+            
+            subs(routerApi.getPage2Name(),
+            routerApi.getPage2CompleteUrl()),
+        ])
     ]
  }

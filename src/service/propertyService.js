@@ -15,6 +15,11 @@ export default {
     let res
     let pageNum = that.$store.state.property.pageNum
     let pageSize = that.$store.state.property.pageSize
+    let rowCount = that.$store.state.property.rowCount
+    if ((pageNum - 1) * pageSize >= rowCount) {
+      that.$store.commit('property/SET_PAGE_NUM', pageNum - 1)
+      pageNum = that.$store.state.property.pageNum
+    }
     await that.$get(api.property.url.findAll, {
       pageNum: pageNum,
       pageSize: pageSize

@@ -41,7 +41,8 @@ export default {
   computed: mapState({
     show: state => state.property.deletePropertyDialog,
     loading: state => state.property.loading,
-    recordProperty: state => state.property.recordProperty
+    recordProperty: state => state.property.recordProperty,
+    rowCount: state => state.property.rowCount
   }),
   methods: {
     clickClose() {
@@ -56,7 +57,7 @@ export default {
         } else {
           this.$message.error(response.message)
         }
-        this.$store.commit('property/SET_PAGE_NUM', 1)
+        this.$store.commit('property/SET_ROW_COUNT', this.rowCount - 1)
         propertyService.getProperty()
         this.$store.commit('property/DELETE_PROPERTY_DIALOG', false)
       })

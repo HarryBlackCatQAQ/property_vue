@@ -37,6 +37,9 @@ const mutations = {
   ['SET_PAGE_SIZE'](state, payload) {
     state.pageSize = payload
   },
+  ['SET_ROW_COUNT'](state, payload) {
+    state.rowCount = payload
+  },
   ['LOADING'](state, payload) {
     state.loading = payload
   },

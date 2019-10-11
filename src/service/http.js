@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 20:17:24
+ * @Last Modified time: 2019-10-11 14:19:31
  */
 import axios from 'axios';
 import routerApi from "@/service/api/routerApi";
@@ -219,3 +219,39 @@ export function put(url,data = {}){
          })
   })
 }
+
+/**
+ * 封装delete 请求 url形式
+ * @param {*} url 
+ * @param {*} params 
+ */
+export function del(url,params={}){
+  return new Promise((resolve,reject) => {
+    axios.delete(url,{
+      params:params
+    })
+    .then(response => {
+      resolve(response.data);
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+}
+
+/**
+ * 封装delete 请求 json形式(body)
+ * @param {*} url 
+ * @param {*} data 
+ */
+export function delBody(url,data = {}){
+  data = {data}
+   return new Promise((resolve,reject) => {
+     axios.delete(url,data)
+          .then(response => {
+            resolve(response.data);
+          },err => {
+            reject(err)
+          })
+   })
+ }

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 01:38:45
+ * @Last Modified time: 2019-10-11 14:18:00
  */
 
 <template>
@@ -35,9 +35,8 @@
 <script>
 import modelLabel from "@/components/public/modelLabel";
 
-
-import SockJS from "sockjs-client"
-import Stomp from "stompjs"
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 export default {
   name: "logManagement",
@@ -47,59 +46,67 @@ export default {
   data() {
     return {
       isSocketOpen: false,
-      res:""
+      res: ""
     };
   },
-  methods:{
-    openSocket2(){
-      
-      var socket = new SockJS('http://127.0.0.1:8519/endpointHarry'); //连接SockJS的endpoint名称为"endpointHarry"
-        this.stompClient = Stomp.over(socket);//使用STMOP子协议的WebSocket客户端
-        
-        let a = this.stompClient
-        let that = this;
-        this.stompClient.connect({},function(frame){//连接WebSocket服务端     
-            console.log('Connected:' + frame);
-            //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息
-            a.subscribe('/topic/getResponse',function(response){
-              // console.log(response.body)
-              // console.log(that)
-              // console.log(r);
-              that.res += response.body;
-      
-                // showResponse(response.body);
-            });
+  methods: {
+    openSocket2() {
+      var socket = new SockJS("http://127.0.0.1:8519/endpointHarry"); //连接SockJS的endpoint名称为"endpointHarry"
+      this.stompClient = Stomp.over(socket); //使用STMOP子协议的WebSocket客户端
+
+      let a = this.stompClient;
+      let that = this;
+      this.stompClient.connect({}, function(frame) {
+        //连接WebSocket服务端
+        console.log("Connected:" + frame);
+        //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息
+        a.subscribe("/topic/getResponse", function(response) {
+          // console.log(response.body)
+          // console.log(that)
+          // console.log(r);
+          that.res += response.body;
+
+          // showResponse(response.body);
         });
+      });
 
+      this.$get("/send").then(response => {
+        console.log(response);
+      });
 
-      this.$get("/send")
-      .then(response => {
-        console.log(response)
-      })
+      this.$message({
+        message: "日志推送开启!",
+        type: "success"
+      });
     },
-    closeSocket2(){
+    closeSocket2(isDestroyed) {
       this.stompClient.disconnect();
 
-      this.$get("/close")
-      .then(response =>{
-        console.log(response)
-      })
+      this.$get("/close").then(response => {
+        console.log(response);
+      });
+
+      if (isDestroyed != true) {
+        this.$message({
+          message: "日志推送关闭!",
+          type: "success"
+        });
+      }
     }
   },
   watch: {
     isSocketOpen: function() {
-      if(this.isSocketOpen){
-          this.openSocket2();
-      }
-      else{
-          this.closeSocket2();
+      if (this.isSocketOpen) {
+        this.openSocket2();
+      } else {
+        this.closeSocket2();
       }
     }
   },
-  destroyed(){
-      if(this.isSocketOpen){
-          this.closeSocket2();
-      }
+  destroyed() {
+    if (this.isSocketOpen) {
+      this.closeSocket2(true);
+    }
   }
 };
 </script>

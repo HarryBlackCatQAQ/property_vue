@@ -55,7 +55,7 @@ export default {
   },
   async delete(recordProperty) {
     let res
-    await that.$post(api.property.url.delete, recordProperty)
+    await that.$delBody(api.property.url.delete, recordProperty)
     .then(response => {
       res = response
     })

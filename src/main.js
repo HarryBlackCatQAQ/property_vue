@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:25 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 13:43:48
+ * @Last Modified time: 2019-10-11 14:17:47
  */
 
 
@@ -11,7 +11,7 @@ import App from './App.vue'
 import router from './router'
 import store from '@/store/store'
 
-import {post,fetch,patch,put,del} from '@/service/http'
+import {post,fetch,patch,put,del,delBody} from '@/service/http'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -24,6 +24,7 @@ Vue.prototype.$get=fetch;
 Vue.prototype.$patch=patch;
 Vue.prototype.$put=put;
 Vue.prototype.$del=del;
+Vue.prototype.$delBody=delBody;
 Vue.prototype.$ui = ElementUI;
 
 var _this = new Vue({

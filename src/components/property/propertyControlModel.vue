@@ -2,11 +2,12 @@
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 15:46:36
+ * @Last Modified time: 2019-10-11 10:16:31
  */
 
 <template>
   <div class="property-control-model">
+    <el-button @click="jump">跳转</el-button>
     <el-button @click="clickAdd">添加楼盘</el-button>
     <el-table :data="properties" border>
       <el-table-column prop="id" label="id" min-width="3%" align="center"/>
@@ -20,6 +21,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="this.rowCount"
+        :page-size="this.pageSize"
+        :current-page="this.pageNum"
+        @size-change="pageSizeChange"
+        @current-change="pageChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -34,10 +46,19 @@
     computed: mapState({
       properties: state => state.property.properties,
       rowCount: state => state.property.rowCount,
+      pageNum: state => state.property.pageNum,
+      pageSize: state => state.property.pageSize
     }),
     methods: {
+      jump() {
+        this.$router.push('property/test')
+      },
       getProperty() {
-        let res = propertyService.getProperty()
+        propertyService.getProperty()
+        .catch(error => {
+          console.log(error)
+          this.$message.error('获取数据失败')
+        })
       },
       pageChange(pageNum) {
         this.$store.commit('property/SET_PAGE_NUM', pageNum)

@@ -39,24 +39,23 @@ export default {
   },
   async insert(addPropertyModel) {
     let res
-    await that.$post(api.property.url.insert, {
-      name: addPropertyModel.name,
-      location: addPropertyModel.location,
-      uid: addPropertyModel.uid
-    })
+    await that.$post(api.property.url.insert, addPropertyModel)
     .then(response => {
       res = response
     })
     return res
   },
-  async update(recodeProperty) {
+  async update(recordProperty) {
     let res
-    await that.$patch(api.property.url.update, {
-      id: recodeProperty.id,
-      name: recodeProperty.name,
-      location: recodeProperty.location,
-      uid: recodeProperty.uid,
+    await that.$patch(api.property.url.update, recordProperty)
+    .then(response => {
+      res = response
     })
+    return res
+  },
+  async delete(recordProperty) {
+    let res
+    await that.$post(api.property.url.delete, recordProperty)
     .then(response => {
       res = response
     })

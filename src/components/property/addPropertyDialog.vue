@@ -99,8 +99,8 @@
           if (valid) {
             this.addPropertyModel.name = this.addPropertyModel.name.trim()
             this.$store.commit('property/LOADING', true)
-            let res = propertyService.insert(this.addPropertyModel)
-            res.then(response => {
+            propertyService.insert(this.addPropertyModel)
+            .then(response => {
               this.$store.commit('property/LOADING', false)
               if (response.flag) {
                 this.$message.success(response.message)
@@ -109,6 +109,11 @@
               }
               propertyService.getProperty()
               this.$store.commit('property/ADD_PROPERTY_DIALOG', false)
+            })
+            .catch(error => {
+              console.log(error)
+              this.$store.commit('property/LOADING', false)
+              this.$message.error('插入失败')
             })
           }
         })

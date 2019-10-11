@@ -2,13 +2,11 @@
  * @Author: Hovees 
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 14:53:04
+ * @Last Modified time: 2019-10-11 10:16:02
  */
 
 <template>
   <div class="property-index">
-
-    <el-button @click="jump">跳转</el-button>
 
     <!-- 楼盘数据控制模块 -->
     <property-control-model/>
@@ -39,9 +37,7 @@
       editPropertyDialog,
     },
     methods: {
-      jump() {
-        this.$router.push('property/test')
-      }
+      
     }
   }
 </script>

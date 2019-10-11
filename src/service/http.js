@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 20:17:24
+ * @Last Modified time: 2019-10-11 13:58:58
  */
 import axios from 'axios';
 import routerApi from "@/service/api/routerApi";
@@ -217,5 +217,19 @@ export function put(url,data = {}){
          },err => {
            reject(err)
          })
+  })
+}
+
+export function del(url,params={}){
+  return new Promise((resolve,reject) => {
+    axios.delete(url,{
+      params:params
+    })
+    .then(response => {
+      resolve(response.data);
+    })
+    .catch(err => {
+      reject(err)
+    })
   })
 }

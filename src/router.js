@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:16:49
+ * @Last Modified time: 2019-10-13 16:01:00
  */
 
 
@@ -101,8 +101,21 @@ const router = new Router({
             {
               path:"/",
               name:routerApi.logManagement.getLogManagement(),
-              meta: { title: routerApi.logManagement.getLogManagementName() },
+              meta: { title: routerApi.logManagement.getLogWebsocketName() },
               component: () => import("./views/log/logManagement.vue")
+            }
+          ]
+        },
+        {
+          path:routerApi.complaintAndSuggestion.getComplaintAndSuggestion(),
+          meta:{title:routerApi.complaintAndSuggestion.getComplaintAndSuggestionName()},
+          component: () => import("./views/complaintAndSuggestion/complaintAndSuggestionIndex.vue"),
+          children:[
+            {
+              path:routerApi.complaintAndSuggestion.getCreateSheet(),
+              name:routerApi.complaintAndSuggestion.getCreateSheet(),
+              meta: { title: routerApi.complaintAndSuggestion.getCreateSheetName() },
+              component: () => import("./views/complaintAndSuggestion/creatSheet.vue")
             }
           ]
         }

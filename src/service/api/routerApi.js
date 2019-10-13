@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:11:01
+ * @Last Modified time: 2019-10-13 15:57:05
  */
 
 var api = {
@@ -40,7 +40,19 @@ var api = {
     },
     logManagement:{
         url:"/logManagement",
-        name:"日志管理"
+        name:"日志管理",
+        logWebsocket:{
+            url:"/logManagement",
+            name:"后台日志推送"
+        }
+    },
+    complaintAndSuggestion:{
+        url:"/complaintAndSuggestion",
+        name:"投诉和建议",
+        createSheet:{
+            url:"/complaintAndSuggestion/createSheet",
+            name:"投诉和建议单申请"
+        }
     }
 }
 
@@ -121,6 +133,26 @@ export default {
         },
         getLogManagementName(){
             return api.logManagement.name;
+        },
+        getLogWebsocket(){
+            return api.logManagement.logWebsocket.url;
+        },
+        getLogWebsocketName(){
+            return api.logManagement.logWebsocket.name;
+        }
+    },
+    complaintAndSuggestion:{
+        getComplaintAndSuggestion(){
+            return api.complaintAndSuggestion.url;
+        },
+        getComplaintAndSuggestionName(){
+            return api.complaintAndSuggestion.name;
+        },
+        getCreateSheet(){
+            return api.complaintAndSuggestion.createSheet.url;
+        },
+        getCreateSheetName(){
+            return api.complaintAndSuggestion.createSheet.name;
         }
     }
 }

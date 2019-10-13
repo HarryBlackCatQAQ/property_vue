@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 12:47:39
+ * @Last Modified time: 2019-10-13 16:16:17
  */
 
 import _this from '@/main'
@@ -87,7 +87,16 @@ function getPublic(){
 
         model(routerApi.getPage2Name(),
         routerApi.getPage2CompleteUrl(),
-        'el-icon-document')
+        'el-icon-document'),
+
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
     ]
 }
 
@@ -120,8 +129,13 @@ function getPropertyAdministrator(){
         "el-icon-user"),
 
         model(routerApi.logManagement.getLogManagementName(),
-        routerApi.logManagement.getLogManagement(),
-        "el-icon-s-order"),
+        "",
+        "el-icon-s-order",
+        true,
+        [
+            subs(routerApi.logManagement.getLogWebsocketName(),
+            routerApi.logManagement.getLogWebsocket())
+        ]),
 
         model("子目录",
         "",

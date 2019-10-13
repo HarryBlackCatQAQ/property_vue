@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 14:18:00
+ * @Last Modified time: 2019-10-13 14:49:20
  */
 
 <template>
@@ -27,13 +27,17 @@
     <el-container class="log-container">
       <el-main class="log-win">
         <div>{{res}}</div>
+      
+        <div v-for="(item,index) in this.res2" :key="index"><span class="log-time">{{item.time}}</span> <span>{{item.thread}}</span> <span :style="{'color':item.infoTypeColor}">{{item.infoType}}</span>  <span class="log-class">{{item.logClass}}</span>{{item.mess}}</div>
       </el-main>
     </el-container>
+
   </div>
 </template>
 
 <script>
 import modelLabel from "@/components/public/modelLabel";
+import logService from "@/service/logManagement/logService";
 
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -46,7 +50,14 @@ export default {
   data() {
     return {
       isSocketOpen: false,
-      res: ""
+      res: "",
+      list:[
+          "1",
+          "2",
+          "3"
+      ],
+      res2:[]
+      
     };
   },
   methods: {
@@ -61,11 +72,11 @@ export default {
         console.log("Connected:" + frame);
         //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息
         a.subscribe("/topic/getResponse", function(response) {
-          // console.log(response.body)
-          // console.log(that)
-          // console.log(r);
-          that.res += response.body;
+        //   that.res += response.body;
 
+        let info = logService.dealLogInfo(response.body)
+        that.res2 = that.res2.concat(info)
+        
           // showResponse(response.body);
         });
       });
@@ -143,5 +154,13 @@ export default {
   border-radius: 5px;
   font-size: 13px;
   white-space: pre-wrap;
+}
+
+.log-class{
+    color: #00CCFF;
+}
+
+.log-time{
+    color:#F7F709;
 }
 </style>

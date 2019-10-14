@@ -2,26 +2,31 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 16:16:17
+ * @Last Modified time: 2019-10-15 01:46:49
  */
 
-import _this from '@/main'
 import routerApi from '@/service/api/routerApi'
 
-var that = _this._this;
 
 export default {
-    getList(){
+    getList(that){
         // console.log("@@@")
-        return get();
-    }    
+        return get(that);
+    },    
 }
 
 /**
  * 判断用户权限
  */
-function get(){
-    let roleName = that.$store.getters['user/getRolename']
+function get(that){
+    let roleName;
+    if(typeof(that) == "string"){
+        roleName = that;
+    }
+    else{
+        roleName = that.$store.getters['user/getRolename']
+    }
+    
     let list = []
 
     list = list.concat(getPublic());

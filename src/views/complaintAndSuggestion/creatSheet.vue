@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-14 18:36:08
+ * @Last Modified time: 2019-10-15 00:29:16
  */
 
 <template>
@@ -18,19 +18,19 @@
           </el-form-item>
 
           <el-form-item label="类型:">
-            <el-select v-model="form._type" placeholder="请选择活动区域">
+            <el-select v-model="form._type" placeholder="请选择类型">
               <el-option label="投诉" value="投诉"></el-option>
               <el-option label="建议" value="建议"></el-option>
             </el-select>
           </el-form-item>
 
           <el-form-item label="具体内容:">
-            <el-input :rows="10" type="textarea" v-model="form.mes"></el-input>
+            <el-input class="sheet-textarea" :rows="10" type="textarea" v-model="form.mes"></el-input>
           </el-form-item>
 
           <el-upload
             class="upload-demo"
-            action="http://localhost:8519/api/fileUpload/uploadComplaintAndSuggestionImage"
+            action="/api/fileUpload/uploadComplaintAndSuggestionImage"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
             :file-list="fileList"
@@ -194,5 +194,9 @@ export default {
 
 .el-upload-list{
     margin-top: 30px !important;
+}
+
+.sheet-textarea{
+    text-align-last: auto; 
 }
 </style>

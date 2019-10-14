@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 16:12:36
+ * @Last Modified time: 2019-10-15 01:40:41
  */
 
 <template>
@@ -73,7 +73,7 @@ export default {
     }
   },
   created() {
-    this.list = menuList.getList();
+    this.list = menuList.getList(this);
   }
 };
 </script>

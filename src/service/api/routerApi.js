@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 15:57:05
+ * @Last Modified time: 2019-10-15 02:10:19
  */
 
 var api = {
@@ -53,6 +53,10 @@ var api = {
             url:"/complaintAndSuggestion/createSheet",
             name:"投诉和建议单申请"
         }
+    },
+    page403:{
+        url:"/page403",
+        name:"403页面"
     }
 }
 
@@ -154,5 +158,8 @@ export default {
         getCreateSheetName(){
             return api.complaintAndSuggestion.createSheet.name;
         }
+    },
+    getPage403(){
+        return api.page403.url;
     }
 }

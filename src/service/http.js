@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 14:19:31
+ * @Last Modified time: 2019-10-14 01:40:17
  */
 import axios from 'axios';
 import routerApi from "@/service/api/routerApi";
@@ -17,10 +17,14 @@ axios.interceptors.request.use(
 
   config => {
     // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
+    
+    // console.log(config)
 
-    config.data = JSON.stringify(config.data);
-    config.headers = {
-      'Content-Type':'application/json;charset=utf-8'
+    if(checkContent_Type(config.headers['Content-Type'])){
+      config.data = JSON.stringify(config.data);
+      config.headers = {
+        'Content-Type':'application/json;charset=utf-8'
+      }
     }
 
     //从localStorageHelper中获取token
@@ -37,6 +41,14 @@ axios.interceptors.request.use(
     return Promise.reject(err);
   }
 );
+
+function checkContent_Type(config){
+  if(config == "multipart/form-data"){
+    return false;
+  }
+
+  return true;
+}
 
 function checkUrl(url){
   let f1 = url.indexOf("registered") !== -1 ? true:false
@@ -173,9 +185,9 @@ function a(url,params,resolve,reject){
  * @returns {Promise}
  */
 
- export function post(url,data = {}){
+ export function post(url,data = {},config){
    return new Promise((resolve,reject) => {
-     axios.post(url,data)
+     axios.post(url,data,config)
           .then(response => {
             resolve(response.data);
           },err => {

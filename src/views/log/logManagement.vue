@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 14:49:20
+ * @Last Modified time: 2019-10-13 18:45:13
  */
 
 <template>
@@ -145,7 +145,8 @@ export default {
 }
 
 .log-win {
-  height: 500px;
+  /* height: 500px; */
+  max-height: 1000px;
   background-color: black;
   color: white;
   border: 1px solid #ddd;

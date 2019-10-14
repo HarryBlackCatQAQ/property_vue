@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 18:34:01
+ * @Last Modified time: 2019-10-14 18:36:08
  */
 
 <template>
@@ -11,7 +11,7 @@
       <modelLabel icon="el-icon-edit-outline" title="投诉检验单申请" />
     </div>
     <div class="creatSheet-container">
-      <div class="container">
+      <div v-loading="sheetLoading" class="container">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="主题:">
             <el-input v-model="form.title"></el-input>
@@ -28,10 +28,31 @@
             <el-input :rows="10" type="textarea" v-model="form.mes"></el-input>
           </el-form-item>
 
+          <el-upload
+            class="upload-demo"
+            action="http://localhost:8519/api/fileUpload/uploadComplaintAndSuggestionImage"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :file-list="fileList"
+            list-type="picture"
+            drag
+            name="files"
+            ref="upload"
+            :auto-upload="false"
+            :multiple="true"
+            :http-request="uploadFile"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
 
-          <el-form-item>
+          <el-form-item class="form-bottom">
             <div class="btn-group">
-              <el-button type="primary" @click="onSubmit">提 交</el-button>
+              <el-button type="primary" @click="subPicForm">提 交</el-button>
               <el-button class="btn-group-right">取 消</el-button>
             </div>
           </el-form-item>
@@ -43,7 +64,9 @@
 
 <script>
 import modelLabel from "@/components/public/modelLabel";
-import service from "@/service/complaintAndSuggestion/complaintAndSuggestionService";
+import service from "@/service/complaintAndSuggestion/creatSheetService";
+import axios from "axios";
+import util from "@/service/util"
 
 export default {
   name: "creatSheet",
@@ -56,17 +79,55 @@ export default {
         title: "",
         _type: "",
         mes: ""
-      }
+      },
+      fileList: [],
+      formDate: "",
+      sheetLoading:false
     };
   },
   methods: {
-    onSubmit() {
+    uploadFile(file) {
+        // console.log(file);
+        this.fileList.push(file)
+      this.formDate.append("files", file.file);
+    },
+    subPicForm() {
       if (this.judge()) {
         return;
       }
+    //   this.$refs.upload.submit();
+    //   service.create(this.form.title,this.form._type,this.form.mes);
+    //   console.log("submit!");
+      let that = this;
+      that.sheetLoading = true;
+    //   let res = service.uploadImage(this);
+        let res = service.create(this.form.title,this.form._type,this.form.mes);
 
-      service.create();
-      console.log("submit!");
+      res.then(response => {
+        //   console.log(response)
+        //   console.log(this.fileList)
+          let res2 = service.uploadImage(this,response.data.sheetId);
+          
+        res2.then(response2 => {
+            // console.log(response2)
+            that.sheetLoading = false;
+            that.initParm();
+            util.message(that,"提交成功!","success");
+            
+         })
+      })
+    },
+    initParm(){
+        this.form.title = "";
+        this.form._type = "";
+        this.form.mes = "";
+        this.fileList = [];
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
     },
     judge() {
       // console.log(this.form.title)
@@ -123,4 +184,15 @@ export default {
   margin-left: 150px;
 }
 
+.form-bottom {
+  margin-top: 100px;
+}
+
+.el-upload__tip {
+  margin-top: 30px;
+}
+
+.el-upload-list{
+    margin-top: 30px !important;
+}
 </style>

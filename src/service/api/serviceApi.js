@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 17:40:14
+ * @Last Modified time: 2019-10-14 01:43:16
  */
 
 
@@ -45,7 +45,8 @@ export default {
     },
     complaintAndSuggestion:{
         url:{
-            create:'/api/ComplaintAndSuggestion/create'
+            create:'/api/ComplaintAndSuggestion/create',
+            uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage"
         }
     }
 

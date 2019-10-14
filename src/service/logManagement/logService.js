@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 14:10:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 14:51:24
+ * @Last Modified time: 2019-10-13 18:41:45
  */
 
  export default {
@@ -47,7 +47,10 @@ function module(val){
     }
 }
 
-
+/**
+ * 判断日志级别 选择颜色
+ * @param {string} val 
+ */
 function getInfoTypeColor(val){
     if(val == "INFO"){
         return "#CCFF00";

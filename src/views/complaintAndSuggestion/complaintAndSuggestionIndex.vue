@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 15:50:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-14 18:35:13
+ * @Last Modified time: 2019-10-15 12:32:18
  */
 
 
@@ -40,5 +40,9 @@ export default {
 
 .el-upload-list{
     margin-top: 30px !important;
+}
+
+.el-form-item__content{
+  margin-left: 0!important;
 }
 </style>

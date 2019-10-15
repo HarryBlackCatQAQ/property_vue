@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-13 18:45:13
+ * @Last Modified time: 2019-10-16 02:12:07
  */
 
 <template>
@@ -10,9 +10,16 @@
     <!-- logManagement -->
 
     <div class="log-header">
-      <div>
+      <div class="log-icon">
         <modelLabel icon="el-icon-s-order" title="日志管理" />
       </div>
+
+    <div class="log-slider-group">
+      <span class="demonstration">
+        <span>字体大小:</span>
+      </span>
+      <el-slider class="log-slider" :min="10" :max="30" v-model="fontSizeVal"></el-slider>
+    </div>
 
       <div class="log-switch">
         <el-switch
@@ -24,11 +31,12 @@
       </div>
     </div>
 
+    <!-- <el-slider class="log-slider" v-model="value1"></el-slider> -->
     <el-container class="log-container">
       <el-main class="log-win">
         <div>{{res}}</div>
       
-        <div v-for="(item,index) in this.res2" :key="index"><span class="log-time">{{item.time}}</span> <span>{{item.thread}}</span> <span :style="{'color':item.infoTypeColor}">{{item.infoType}}</span>  <span class="log-class">{{item.logClass}}</span>{{item.mess}}</div>
+        <div :style="{'font-size':fontSizeVal + 'px'}" v-for="(item,index) in this.res2" :key="index"><span class="log-time">{{item.time}}</span> <span>{{item.thread}}</span> <span :style="{'color':item.infoTypeColor}">{{item.infoType}}</span>  <span class="log-class">{{item.logClass}}</span>{{item.mess}}</div>
       </el-main>
     </el-container>
 
@@ -56,7 +64,8 @@ export default {
           "2",
           "3"
       ],
-      res2:[]
+      res2:[],
+      fontSizeVal:13
       
     };
   },
@@ -129,6 +138,10 @@ export default {
   line-height: 10px;
 }
 
+.log-header{
+  height: 45px;
+}
+
 .log-header div {
   display: inline-block;
 }
@@ -164,4 +177,22 @@ export default {
 .log-time{
     color:#F7F709;
 }
+
+.log-slider-group{
+  margin-left: 20%;
+  font-size: 14px;
+}
+
+.demonstration{
+  margin-bottom: 20px;
+  position:relative;
+}
+
+.log-slider{
+  width: 400px;
+  margin-left: 20px;
+  z-index: 90000;
+  position:relative;
+}
+
 </style>

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 01:46:49
+ * @Last Modified time: 2019-10-16 01:16:03
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -10,7 +10,6 @@ import routerApi from '@/service/api/routerApi'
 
 export default {
     getList(that){
-        // console.log("@@@")
         return get(that);
     },    
 }
@@ -35,6 +34,9 @@ function get(that){
     }
     else if (roleName === '物业管理员') {
         list = list.concat(getPropertyAdministrator())
+    }
+    else if(roleName === "业主"){
+        list = list.concat(getOwner())
     }
     return list;
 }
@@ -82,66 +84,22 @@ function subs(name,url){
  */
 function getPublic(){
     return [
+        //系统首页
         model(routerApi.getHomeName(),
         routerApi.getHome(),
         'el-icon-setting'),
 
+        //page1例子
         model(routerApi.getPage1Name(),
         routerApi.getPage1CompleteUrl(),
         'el-icon-document'),
 
+        //page2例子
         model(routerApi.getPage2Name(),
         routerApi.getPage2CompleteUrl(),
         'el-icon-document'),
 
-        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
-        "",
-        "el-icon-edit-outline",
-        true,
-        [
-            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
-        ]),
-    ]
-}
-
-
-/**
- * 获取业主模块
- */
-function getOwner(){
-
-}
-
-/**
- * 获取物业管理员模块
- */
-function getPropertyAdministrator(){
-    return [
-        model(routerApi.property.getPropertyName(),
-            routerApi.property.getPropertyCompleteUrl(),
-            'el-icon-s-home'),
-    ]
-}
-
-/**
- * 获取系统管理员模块
- */
- function getSystemAdministrator(){
-    return[
-        model(routerApi.roleManagement.getRoleManagementName(),
-        routerApi.roleManagement.getRoleManagement(),
-        "el-icon-user"),
-
-        model(routerApi.logManagement.getLogManagementName(),
-        "",
-        "el-icon-s-order",
-        true,
-        [
-            subs(routerApi.logManagement.getLogWebsocketName(),
-            routerApi.logManagement.getLogWebsocket())
-        ]),
-
+        //子目录例子
         model("子目录",
         "",
         "el-icon-s-order",
@@ -153,5 +111,91 @@ function getPropertyAdministrator(){
             subs(routerApi.getPage2Name(),
             routerApi.getPage2CompleteUrl()),
         ])
+    ]
+}
+
+
+/**
+ * 获取业主模块
+ */
+function getOwner(){
+    return [
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+    ]
+}
+
+/**
+ * 获取物业管理员模块
+ */
+function getPropertyAdministrator(){
+    return [
+        //楼盘
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyCompleteUrl(),
+            'el-icon-s-home'),
+        
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+    ]
+}
+
+/**
+ * 获取系统管理员模块
+ */
+ function getSystemAdministrator(){
+    return[
+        //楼盘
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyCompleteUrl(),
+            'el-icon-s-home'),
+
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+
+        //用户管理
+        model(routerApi.roleManagement.getRoleManagementName(),
+        routerApi.roleManagement.getRoleManagement(),
+        "el-icon-user"),
+
+        //日志管理
+        model(routerApi.logManagement.getLogManagementName(),
+        "",
+        "el-icon-s-order",
+        true,
+        [
+            subs(routerApi.logManagement.getLogWebsocketName(),
+            routerApi.logManagement.getLogWebsocket())
+        ]),
     ]
  }

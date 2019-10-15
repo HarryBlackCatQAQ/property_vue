@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 00:29:16
+ * @Last Modified time: 2019-10-16 00:37:13
  */
 
 <template>
@@ -41,19 +41,22 @@
             :auto-upload="false"
             :multiple="true"
             :http-request="uploadFile"
+            :before-upload="beforeUploadImage"
+            :limit="3"
+            :on-exceed="exceedLimit"
           >
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">
               将文件拖到此处，或
               <em>点击上传</em>
             </div>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            <div slot="tip" class="el-upload__tip">最多只能上传3张图片，只能上传jpg/png文件，且不超过2MB</div>
           </el-upload>
 
           <el-form-item class="form-bottom">
             <div class="btn-group">
-              <el-button type="primary" @click="subPicForm">提 交</el-button>
-              <el-button class="btn-group-right">取 消</el-button>
+              <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
+              <el-button size="large" class="btn-group-right">取 消</el-button>
             </div>
           </el-form-item>
         </el-form>
@@ -82,19 +85,51 @@ export default {
       },
       fileList: [],
       formDate: "",
-      sheetLoading:false
+      sheetLoading:false,
+      isUpload:false
     };
   },
   methods: {
+    exceedLimit(files,fileList){
+      // console.log(files)
+      // console.log(fileList)
+      this.$message.warning("最多只能上传三张图片!");
+    },
+    beforeUploadImage(file){
+      // console.log(file)
+      let isJPEG = file.type === 'image/jpeg';
+      let isJPG = file.type === 'image/jpg';
+      let isPNG = file.type === 'image/png';
+      let isLt2M = file.size / 1024 / 1024 < 2;
+
+      let flag = true;
+      console.log(flag)
+      if(!isJPEG && !isJPG && !isPNG){
+        console.log("type no");
+        flag = false;
+      }
+      else if(!isLt2M){
+        console.log("2M");
+        flag = false;
+      }
+
+      console.log(false);
+      this.isUpload = flag;
+      return flag;
+    },
     uploadFile(file) {
         // console.log(file);
         this.fileList.push(file)
-      this.formDate.append("files", file.file);
+        this.formDate.append("files", file.file);
     },
     subPicForm() {
       if (this.judge()) {
         return;
       }
+      // if(!this.isUpload){
+      //   this.$message.error("上传图片格式或者大小不对!");
+      //   return;
+      // }
     //   this.$refs.upload.submit();
     //   service.create(this.form.title,this.form._type,this.form.mes);
     //   console.log("submit!");
@@ -176,8 +211,8 @@ export default {
 
 .btn-group {
   text-align: center;
-  margin: 0 auto;
-  margin-left: 30%;
+  /* margin: 0 auto; */
+  /* margin-left: 30%; */
 }
 
 .btn-group-right {
@@ -186,6 +221,8 @@ export default {
 
 .form-bottom {
   margin-top: 100px;
+  text-align: center;
+  text-align-last:center;
 }
 
 .el-upload__tip {

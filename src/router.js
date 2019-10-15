@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 02:25:28
+ * @Last Modified time: 2019-10-15 13:05:13
  */
 
 
@@ -122,6 +122,12 @@ const router = new Router({
               name:routerApi.complaintAndSuggestion.getCreateSheet(),
               meta: { title: routerApi.complaintAndSuggestion.getCreateSheetName() },
               component: () => import("./views/complaintAndSuggestion/creatSheet.vue")
+            },
+            {
+              path:routerApi.complaintAndSuggestion.getOwnerSheet(),
+              name:routerApi.complaintAndSuggestion.getOwnerSheet(),
+              meta: { title: routerApi.complaintAndSuggestion.getOwnerSheetName() },
+              component: () => import("./views/complaintAndSuggestion/ownerSheet.vue")
             }
           ]
         }

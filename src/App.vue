@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:30 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 15:23:54
+ * @Last Modified time: 2019-10-16 01:42:44
  */
 
 
@@ -209,4 +209,5 @@ export default {
 .el-scrollbar__wrap {
   overflow-x: hidden;
 } */
+
 </style>

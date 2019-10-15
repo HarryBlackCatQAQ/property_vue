@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 02:10:19
+ * @Last Modified time: 2019-10-15 13:03:10
  */
 
 var api = {
@@ -52,6 +52,10 @@ var api = {
         createSheet:{
             url:"/complaintAndSuggestion/createSheet",
             name:"投诉和建议单申请"
+        },
+        ownerSheet:{
+            url:"/complaintAndSuggestion/ownerSheet",
+            name:"我的申请"
         }
     },
     page403:{
@@ -157,6 +161,12 @@ export default {
         },
         getCreateSheetName(){
             return api.complaintAndSuggestion.createSheet.name;
+        },
+        getOwnerSheet(){
+            return api.complaintAndSuggestion.ownerSheet.url;
+        },
+        getOwnerSheetName(){
+            return api.complaintAndSuggestion.ownerSheet.name;
         }
     },
     getPage403(){

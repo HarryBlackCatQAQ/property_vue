@@ -2,11 +2,12 @@
  * @Author: Hovees 
  * @Date: 2019-10-15 15:02:06 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-16 11:00:39
+ * @Last Modified time: 2019-10-16 16:41:45
  */
 
 <template>
   <div class="building-control-model">
+    <el-page-header @back="goBack" content="详情页面"/>
     <h2>{{this.propertyName}}</h2>
     <el-button type="text" @click="changePropertyShow = true">
       切换楼盘
@@ -114,6 +115,9 @@ export default {
     })
   },
   methods: {
+    goBack() {
+      this.$router.push('/property')
+    },
     getFirstProperty() {
       propertyService.getFirst()
       .catch(error => {

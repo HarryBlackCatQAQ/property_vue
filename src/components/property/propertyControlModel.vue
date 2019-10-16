@@ -2,7 +2,7 @@
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 16:40:14
+ * @Last Modified time: 2019-10-16 16:48:06
  */
 
 <template>
@@ -22,6 +22,7 @@
       <el-table-column prop="uid" label="楼盘编码" min-width="15%"/>
       <el-table-column label="操作" min-width="8%">
         <template slot-scope="scope">
+          <el-button size="small" icon="el-icon-view" @click="handleView(scope.row)" />
           <el-button size="small" icon="el-icon-edit" @click="handleEdit(scope.row)" />
           <el-button size="small" type="danger" icon="el-icon-delete" @click="handleDelete(scope.row)"/>
         </template>

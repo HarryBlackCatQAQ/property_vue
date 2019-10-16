@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 11:36:35
+ * @Last Modified time: 2019-10-15 13:05:13
  */
 
 
@@ -10,6 +10,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routerApi from '@/service/api/routerApi'
 import store from '@/store/store'
+import rolePermissions from "@/service/router/rolePermissions"
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ const router = new Router({
       path: routerApi.getLogin(),
       name: 'login',
       component: () => import("./views/Login.vue")
+    },
+    {
+      path: routerApi.getPage403(),
+      name: "page403",
+      component: () => import("./views/Page403.vue")
     },
     {
       path: routerApi.getHome(),
@@ -113,8 +119,27 @@ const router = new Router({
             {
               path:"/",
               name:routerApi.logManagement.getLogManagement(),
-              meta: { title: routerApi.logManagement.getLogManagementName() },
+              meta: { title: routerApi.logManagement.getLogWebsocketName() },
               component: () => import("./views/log/logManagement.vue")
+            }
+          ]
+        },
+        {
+          path:routerApi.complaintAndSuggestion.getComplaintAndSuggestion(),
+          meta:{title:routerApi.complaintAndSuggestion.getComplaintAndSuggestionName()},
+          component: () => import("./views/complaintAndSuggestion/complaintAndSuggestionIndex.vue"),
+          children:[
+            {
+              path:routerApi.complaintAndSuggestion.getCreateSheet(),
+              name:routerApi.complaintAndSuggestion.getCreateSheet(),
+              meta: { title: routerApi.complaintAndSuggestion.getCreateSheetName() },
+              component: () => import("./views/complaintAndSuggestion/creatSheet.vue")
+            },
+            {
+              path:routerApi.complaintAndSuggestion.getOwnerSheet(),
+              name:routerApi.complaintAndSuggestion.getOwnerSheet(),
+              meta: { title: routerApi.complaintAndSuggestion.getOwnerSheetName() },
+              component: () => import("./views/complaintAndSuggestion/ownerSheet.vue")
             }
           ]
         }
@@ -131,7 +156,14 @@ router.beforeEach((to, from, next) => {
   // console.log(to)
   // console.log(from)
 
-  if(!store.getters['user/getIsLogin'] && (to.path != routerApi.getLogin())){
+  // console.log(store.getters['user/getRolename'])
+  let isAllow = rolePermissions.judgeAllowUrl(store.getters['user/getRolename'],to.path);
+
+  // console.log(isAllow);
+  if(!isAllow){
+    next({path:routerApi.getPage403()})
+  }
+  else if(!store.getters['user/getIsLogin'] && (to.path != routerApi.getLogin())){
     next({path:routerApi.getLogin()})
   }
   else{

@@ -2,26 +2,30 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 12:47:39
+ * @Last Modified time: 2019-10-16 01:16:03
  */
 
-import _this from '@/main'
 import routerApi from '@/service/api/routerApi'
 
-var that = _this._this;
 
 export default {
-    getList(){
-        // console.log("@@@")
-        return get();
-    }    
+    getList(that){
+        return get(that);
+    },    
 }
 
 /**
  * 判断用户权限
  */
-function get(){
-    let roleName = that.$store.getters['user/getRolename']
+function get(that){
+    let roleName;
+    if(typeof(that) == "string"){
+        roleName = that;
+    }
+    else{
+        roleName = that.$store.getters['user/getRolename']
+    }
+    
     let list = []
 
     list = list.concat(getPublic());
@@ -30,6 +34,9 @@ function get(){
     }
     else if (roleName === '物业管理员') {
         list = list.concat(getPropertyAdministrator())
+    }
+    else if(roleName === "业主"){
+        list = list.concat(getOwner())
     }
     return list;
 }
@@ -42,7 +49,7 @@ function get(){
  * @param {boolean} isSub 
  * @param {arrays} sub 
  */
-function model(name,url,icon,isSub,sub){
+function model(name,url,icon,isShow,isSub,sub){
     let isSub_tp = false;
     let sub_tp = []
     if(isSub != undefined){
@@ -50,10 +57,14 @@ function model(name,url,icon,isSub,sub){
         sub_tp = sub;
     }
 
+    if(isShow == undefined){
+        isShow = true;
+    }
     return {
         name:name,
         icon:icon,
         url:url,
+        isShow:isShow,
         isSub:isSub_tp,
         sub:sub_tp
     }
@@ -77,55 +88,26 @@ function subs(name,url){
  */
 function getPublic(){
     return [
+        //系统首页
         model(routerApi.getHomeName(),
         routerApi.getHome(),
         'el-icon-setting'),
 
+        //page1例子
         model(routerApi.getPage1Name(),
         routerApi.getPage1CompleteUrl(),
         'el-icon-document'),
 
+        //page2例子
         model(routerApi.getPage2Name(),
         routerApi.getPage2CompleteUrl(),
-        'el-icon-document')
-    ]
-}
+        'el-icon-document'),
 
-
-/**
- * 获取业主模块
- */
-function getOwner(){
-
-}
-
-/**
- * 获取物业管理员模块
- */
-function getPropertyAdministrator(){
-    return [
-        model(routerApi.property.getPropertyName(),
-            routerApi.property.getPropertyUrl(),
-            'el-icon-s-home'),
-    ]
-}
-
-/**
- * 获取系统管理员模块
- */
- function getSystemAdministrator(){
-    return[
-        model(routerApi.roleManagement.getRoleManagementName(),
-        routerApi.roleManagement.getRoleManagement(),
-        "el-icon-user"),
-
-        model(routerApi.logManagement.getLogManagementName(),
-        routerApi.logManagement.getLogManagement(),
-        "el-icon-s-order"),
-
+        //子目录例子
         model("子目录",
         "",
         "el-icon-s-order",
+        true,
         true,
         [
             subs(routerApi.getPage1Name(),
@@ -134,5 +116,107 @@ function getPropertyAdministrator(){
             subs(routerApi.getPage2Name(),
             routerApi.getPage2CompleteUrl()),
         ])
+    ]
+}
+
+
+/**
+ * 获取业主模块
+ */
+function getOwner(){
+    return [
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+    ]
+}
+
+/**
+ * 获取物业管理员模块
+ */
+function getPropertyAdministrator(){
+    return [
+        //楼盘
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyUrl(),
+            'el-icon-s-home'),
+
+        //楼栋(不显示)
+        model(routerApi.property.building.getBuildingName(),
+            routerApi.property.building.getBuildingCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+    ]
+}
+
+/**
+ * 获取系统管理员模块
+ */
+ function getSystemAdministrator(){
+    return[
+        //楼盘
+        model(routerApi.property.getPropertyName(),
+            routerApi.property.getPropertyUrl(),
+            'el-icon-s-home'),
+
+        //楼栋(不显示)
+        model(routerApi.property.building.getBuildingName(),
+            routerApi.property.building.getBuildingCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //投诉建议申请单
+        model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
+        "",
+        "el-icon-edit-outline",
+        true,
+        true,
+        [
+            subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
+            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            
+            subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
+            routerApi.complaintAndSuggestion.getCreateSheet())
+        ]),
+
+        //用户管理
+        model(routerApi.roleManagement.getRoleManagementName(),
+        routerApi.roleManagement.getRoleManagement(),
+        "el-icon-user"),
+
+        //日志管理
+        model(routerApi.logManagement.getLogManagementName(),
+        "",
+        "el-icon-s-order",
+        true,
+        true,
+        [
+            subs(routerApi.logManagement.getLogWebsocketName(),
+            routerApi.logManagement.getLogWebsocket())
+        ]),
     ]
  }

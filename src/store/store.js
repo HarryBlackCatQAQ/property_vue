@@ -19,6 +19,7 @@ import roleManagement from './modules/roleManagementModule'
 import property from './modules/propertyModule'
 import building from './modules/buildingModule'
 import house from './modules/houseModule'
+import complaintAndSuggestion from './modules/complaintAndSuggestionModule'
 
 Vue.use(Vuex)
 
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     roleManagement,
     property,
     building,
-    house
+    house,
+    complaintAndSuggestion
   }
 })

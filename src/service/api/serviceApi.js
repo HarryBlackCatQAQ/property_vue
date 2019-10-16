@@ -52,7 +52,9 @@ export default {
     },
     complaintAndSuggestion:{
         url:{
-            create:'/api/ComplaintAndSuggestion/create'
+            create:'/api/ComplaintAndSuggestion/create',
+            uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
+            queryOwner:"/api/ComplaintAndSuggestion/query"
         }
     }
 

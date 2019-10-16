@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 12:48:00
+ * @Last Modified time: 2019-10-15 01:40:41
  */
 
 <template>
@@ -21,7 +21,7 @@
           <template v-for="(item,index) in this.list">
             <template v-if="item.isSub == true">
 
-              <el-submenu :index="item.url" :key="index">
+              <el-submenu :index="'' + index" :key="index">
                 <template slot="title">
                   <i :class="item.icon"></i>
                   <span>{{item.name}}</span>
@@ -37,7 +37,7 @@
             </template>
 
             <template v-else>
-              <el-menu-item :index="item.url" :key="index" @click="menuClick(item.url)">
+              <el-menu-item :index="item.url" :key="index" @click="menuClick(item.url)" v-if="item.isShow">
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>
@@ -73,7 +73,7 @@ export default {
     }
   },
   created() {
-    this.list = menuList.getList();
+    this.list = menuList.getList(this);
   }
 };
 </script>

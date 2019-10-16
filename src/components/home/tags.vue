@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-04 15:40:14 
- * @Last Modified by:   Harry-mac 
- * @Last Modified time: 2019-10-04 15:40:14 
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-13 16:04:36
  */
 
 <template>
@@ -159,7 +159,7 @@ export default {
 
 .tags-li-title {
   float: left;
-  max-width: 80px;
+  max-width: 150px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

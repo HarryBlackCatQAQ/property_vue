@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 14:18:00
+ * @Last Modified time: 2019-10-16 02:12:07
  */
 
 <template>
@@ -10,9 +10,16 @@
     <!-- logManagement -->
 
     <div class="log-header">
-      <div>
+      <div class="log-icon">
         <modelLabel icon="el-icon-s-order" title="日志管理" />
       </div>
+
+    <div class="log-slider-group">
+      <span class="demonstration">
+        <span>字体大小:</span>
+      </span>
+      <el-slider class="log-slider" :min="10" :max="30" v-model="fontSizeVal"></el-slider>
+    </div>
 
       <div class="log-switch">
         <el-switch
@@ -24,16 +31,21 @@
       </div>
     </div>
 
+    <!-- <el-slider class="log-slider" v-model="value1"></el-slider> -->
     <el-container class="log-container">
       <el-main class="log-win">
         <div>{{res}}</div>
+      
+        <div :style="{'font-size':fontSizeVal + 'px'}" v-for="(item,index) in this.res2" :key="index"><span class="log-time">{{item.time}}</span> <span>{{item.thread}}</span> <span :style="{'color':item.infoTypeColor}">{{item.infoType}}</span>  <span class="log-class">{{item.logClass}}</span>{{item.mess}}</div>
       </el-main>
     </el-container>
+
   </div>
 </template>
 
 <script>
 import modelLabel from "@/components/public/modelLabel";
+import logService from "@/service/logManagement/logService";
 
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -46,7 +58,15 @@ export default {
   data() {
     return {
       isSocketOpen: false,
-      res: ""
+      res: "",
+      list:[
+          "1",
+          "2",
+          "3"
+      ],
+      res2:[],
+      fontSizeVal:13
+      
     };
   },
   methods: {
@@ -61,11 +81,11 @@ export default {
         console.log("Connected:" + frame);
         //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息
         a.subscribe("/topic/getResponse", function(response) {
-          // console.log(response.body)
-          // console.log(that)
-          // console.log(r);
-          that.res += response.body;
+        //   that.res += response.body;
 
+        let info = logService.dealLogInfo(response.body)
+        that.res2 = that.res2.concat(info)
+        
           // showResponse(response.body);
         });
       });
@@ -118,6 +138,10 @@ export default {
   line-height: 10px;
 }
 
+.log-header{
+  height: 45px;
+}
+
 .log-header div {
   display: inline-block;
 }
@@ -134,7 +158,8 @@ export default {
 }
 
 .log-win {
-  height: 500px;
+  /* height: 500px; */
+  max-height: 1000px;
   background-color: black;
   color: white;
   border: 1px solid #ddd;
@@ -144,4 +169,30 @@ export default {
   font-size: 13px;
   white-space: pre-wrap;
 }
+
+.log-class{
+    color: #00CCFF;
+}
+
+.log-time{
+    color:#F7F709;
+}
+
+.log-slider-group{
+  margin-left: 20%;
+  font-size: 14px;
+}
+
+.demonstration{
+  margin-bottom: 20px;
+  position:relative;
+}
+
+.log-slider{
+  width: 400px;
+  margin-left: 20px;
+  z-index: 90000;
+  position:relative;
+}
+
 </style>

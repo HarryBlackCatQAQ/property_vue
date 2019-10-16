@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-09-18 03:39:07 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-01 22:09:14
+ * @Last Modified time: 2019-10-14 18:13:39
  */
 import sha1 from "sha1";
 
@@ -47,5 +47,15 @@ export default {
             winHeight = document.body.clientHeight;
         
         return winHeight;
+    },
+
+    /**
+     * Element message提示窗口
+     */
+    message(that,mes,_type){
+        that.$message({
+            message: mes,
+            type: _type
+        });
     }
 }

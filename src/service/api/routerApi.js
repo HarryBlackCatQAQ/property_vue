@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 14:30:52
+ * @Last Modified time: 2019-10-15 13:03:10
  */
 
 var api = {
@@ -44,7 +44,27 @@ var api = {
     },
     logManagement:{
         url:"/logManagement",
-        name:"日志管理"
+        name:"日志管理",
+        logWebsocket:{
+            url:"/logManagement",
+            name:"后台日志推送"
+        }
+    },
+    complaintAndSuggestion:{
+        url:"/complaintAndSuggestion",
+        name:"投诉和建议",
+        createSheet:{
+            url:"/complaintAndSuggestion/createSheet",
+            name:"投诉和建议单申请"
+        },
+        ownerSheet:{
+            url:"/complaintAndSuggestion/ownerSheet",
+            name:"我的申请"
+        }
+    },
+    page403:{
+        url:"/page403",
+        name:"403页面"
     }
 }
 
@@ -132,6 +152,35 @@ export default {
         },
         getLogManagementName(){
             return api.logManagement.name;
+        },
+        getLogWebsocket(){
+            return api.logManagement.logWebsocket.url;
+        },
+        getLogWebsocketName(){
+            return api.logManagement.logWebsocket.name;
         }
+    },
+    complaintAndSuggestion:{
+        getComplaintAndSuggestion(){
+            return api.complaintAndSuggestion.url;
+        },
+        getComplaintAndSuggestionName(){
+            return api.complaintAndSuggestion.name;
+        },
+        getCreateSheet(){
+            return api.complaintAndSuggestion.createSheet.url;
+        },
+        getCreateSheetName(){
+            return api.complaintAndSuggestion.createSheet.name;
+        },
+        getOwnerSheet(){
+            return api.complaintAndSuggestion.ownerSheet.url;
+        },
+        getOwnerSheetName(){
+            return api.complaintAndSuggestion.ownerSheet.name;
+        }
+    },
+    getPage403(){
+        return api.page403.url;
     }
 }

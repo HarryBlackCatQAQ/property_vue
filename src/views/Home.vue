@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 01:34:49
+ * @Last Modified time: 2019-10-16 02:09:27
  */
 
 <template>
@@ -113,5 +113,9 @@ body > .el-container {
 
 .content{
   padding:40px;
+}
+
+.el-slider__runway{
+  margin: 3px;
 }
 </style>

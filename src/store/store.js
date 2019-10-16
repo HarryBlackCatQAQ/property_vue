@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 18:21:22 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:58:53
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-15 11:50:47
  */
 
 import Vue from 'vue'
@@ -17,6 +17,8 @@ import login from './modules/loginModule'
 import user from './modules/userModule'
 import roleManagement from './modules/roleManagementModule'
 import property from './modules/propertyModule'
+import building from './modules/buildingModule'
+import house from './modules/houseModule'
 
 Vue.use(Vuex)
 
@@ -30,6 +32,8 @@ export default new Vuex.Store({
     login,
     user,
     roleManagement,
-    property
+    property,
+    building,
+    house
   }
 })

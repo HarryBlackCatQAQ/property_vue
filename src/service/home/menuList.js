@@ -105,7 +105,7 @@ function getOwner(){
 function getPropertyAdministrator(){
     return [
         model(routerApi.property.getPropertyName(),
-            routerApi.property.getPropertyCompleteUrl(),
+            routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
     ]
 }

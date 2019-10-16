@@ -2,7 +2,7 @@
  * @Author: Hovees
  * @Date: 2019-10-08 16:23:50
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 17:03:14
+ * @Last Modified time: 2019-10-16 10:43:57
  */
 
 import _this from '@/main'
@@ -11,12 +11,23 @@ import api from '@/service/api/serviceApi'
 const that = _this._this
 
 export default {
+  async getFirst() {
+    let res
+    await that.$get(api.property.url.getFirst, {})
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('property/SET_PROPERTY_NAME', res.data.name)
+        that.$store.commit('property/SET_PROPERTY_ID', res.data.id)        
+      }
+    })
+  },
   async getProperty() {
     let res
     let pageNum = that.$store.state.property.pageNum
     let pageSize = that.$store.state.property.pageSize
     let rowCount = that.$store.state.property.rowCount
-    if ((pageNum - 1) * pageSize >= rowCount) {
+    if ((pageNum - 1) * pageSize >= rowCount && rowCount !== 0) {
       that.$store.commit('property/SET_PAGE_NUM', pageNum - 1)
       pageNum = that.$store.state.property.pageNum
     }

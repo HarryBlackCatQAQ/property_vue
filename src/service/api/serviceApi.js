@@ -1,13 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
-<<<<<<< HEAD
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 15:57:39
-=======
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:57:03
->>>>>>> 330f52397c40251ca171d0bb3b687782bbb1bfcd
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-15 14:51:07
  */
 
 
@@ -45,7 +40,20 @@ export default {
             delete: '/property/delete',
             update: '/property/update',
             findAll: '/property/findAll',
+            getFirst: '/property/getFirst',
             checkPropertyName: '/property/checkPropertyName'
         }
+    },
+    building: {
+      url: {
+        findAll: '/building/findAll',
+        findAllByPropertyId: '/building/findAllByPropertyId'
+      }
+    },
+    complaintAndSuggestion:{
+        url:{
+            create:'/api/ComplaintAndSuggestion/create'
+        }
     }
+
 };

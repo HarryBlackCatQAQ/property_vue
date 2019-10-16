@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:16:49
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-15 11:36:35
  */
 
 
@@ -83,6 +83,18 @@ const router = new Router({
               name: 'property',
               meta: { title: routerApi.property.getPropertyName() },
               component: () => import('./views/property/propertyIndex'),
+            },
+            {
+              path: routerApi.property.building.getBuildingUrl(),
+              component: () => import('./views/building/buildingView'),
+              children: [
+                {
+                  path: '/',
+                  name: 'building',
+                  meta: { title: routerApi.property.building.getBuildingName() },
+                  component: () => import('./views/building/buildingIndex')
+                }
+              ]
             },
             {
               path: routerApi.property.test.getTestUrl(),

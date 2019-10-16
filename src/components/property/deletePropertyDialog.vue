@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import propertyService from '../../service/propertyService'
+import propertyService from '../../service/property/propertyService'
 import {mapState} from "vuex";
 export default {
   name: 'deletePropertyDialog',

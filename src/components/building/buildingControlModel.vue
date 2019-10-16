@@ -1,0 +1,166 @@
+/*
+ * @Author: Hovees 
+ * @Date: 2019-10-15 15:02:06 
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-16 11:00:39
+ */
+
+<template>
+  <div class="building-control-model">
+    <h2>{{this.propertyName}}</h2>
+    <el-button type="text" @click="changePropertyShow = true">
+      切换楼盘
+    </el-button>
+    <el-dialog :visible="changePropertyShow" width="400px" 
+      center @close="clickClose" title="切换楼盘">
+      <center>
+        <el-select v-model="recordPropertyId" placeholder="请选择" @change="selectChange" filterable>
+          <el-option
+            v-for="item in this.properties"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </center>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="clickClose">取 消</el-button>
+        <el-button type="primary" @click="changeProperty">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-table :data="buildings" border>
+      <el-table-column prop="id" label="id" min-width="3%" align="center"/>
+      <el-table-column prop = "name" label="楼栋名字" min-width="15%">
+        <template slot-scope="scope">
+          <el-link :underline=false @click="handleView(scope.row)">
+            {{scope.row.name}}
+          </el-link>
+        </template>
+      </el-table-column>
+      <el-table-column prop="address" label="地址" min-width="15%"/>
+      <el-table-column prop="layer" label="楼栋层数" min-width="15%"/>
+      <el-table-column prop="houseHold" label="楼栋户数" min-width="15%"/>
+      <el-table-column prop="remark" label="备注" min-width="15%"/>
+      <el-table-column label="操作" min-width="8%">
+        <template slot-scope="scope">
+          <el-button size="small" icon="el-icon-edit" @click="handleEdit(scope.row)" />
+          <el-button size="small" type="danger" icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="this.rowCount"
+        :page-size="this.pageSize"
+        :current-page="this.pageNum"
+        @size-change="pageSizeChange"
+        @current-change="pageChange"
+      ></el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+import util from "@/service/util"
+import { Loading } from 'element-ui'
+import propertyService from '../../service/property/propertyService'
+import buildingService from '../../service/building/buildingService'
+import {mapState} from "vuex"
+export default {
+  name: 'buildingControlModel',
+  computed: mapState({
+    properties: state => state.property.properties,
+    propertyId: state => state.property.propertyId,
+    propertyName: state => state.property.propertyName,
+    buildings: state => state.building.buildings,
+    rowCount: state => state.building.rowCount,
+    pageNum: state => state.building.pageNum,
+    pageSize: state => state.building.pageSize
+  }),
+  data() {
+    return {
+      changePropertyShow: false,
+      recordPropertyId: '',
+      recordPropertyName: ''
+    }
+  },
+  created: function() {
+    if (this.propertyName === '' || this.propertyName === undefined) {      
+      this.getFirstProperty()
+    }
+    util.sleep(100).then(() => {
+      if (this.properties.length === 0) {
+        propertyService.getProperty()
+        .catch(error => {
+          console.log(error)
+        })
+      }
+      this.recordPropertyId = this.propertyId
+    })
+  },
+  mounted: function() {
+    this.$store.commit('building/INIT_BUILDING')
+    let loadingInstance = Loading.service({
+      lock: true,
+      text: '拼命加载中....',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)',
+    })
+    util.sleep(500).then(() => {
+      this.getBuilding()
+      loadingInstance.close()
+    })
+  },
+  methods: {
+    getFirstProperty() {
+      propertyService.getFirst()
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    getBuilding() {
+      buildingService.getBuilding()
+      .catch(error => {
+        console.log(error)
+        this.$message.error('获取楼栋失败')
+      })
+    },
+    clickClose() {
+      this.changePropertyShow = false
+      this.recordPropertyId = this.propertyId
+      this.recordPropertyName = this.propertyName
+    },
+    changeProperty() {
+      if (this.recordPropertyId !== '') {
+        this.$store.commit('property/SET_PROPERTY_ID', this.recordPropertyId)
+        this.$store.commit('property/SET_PROPERTY_NAME', this.recordPropertyName)
+        this.getBuilding()
+      }
+      this.clickClose()
+    },
+    selectChange(id) {
+      let obj = this.properties.find(item => {
+        return item.id === id;
+      });
+      this.recordPropertyName = obj.name
+    },
+    pageChange(pageNum) {
+      this.$store.commit('building/SET_PAGE_NUM', pageNum)
+      this.getBuilding()
+    },
+    pageSizeChange(pageSize) {
+      this.$store.commit('building/SET_PAGE_SIZE', pageSize)
+      this.getBuilding()
+    },
+    handleView(building) {
+      console.log('view');
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

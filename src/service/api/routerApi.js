@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:11:01
+ * @Last Modified by: Hovees-hwx
+ * @Last Modified time: 2019-10-15 14:30:52
  */
 
 var api = {
@@ -31,8 +31,12 @@ var api = {
         name:"角色管理"
     },
     property: {
-        url: 'property',
+        url: '/property',
         name: '楼盘管理',
+        building: {
+          url: 'building',
+          name: '楼栋管理'
+        },
         test: {
           url: 'test',
           name: '楼盘子页面'
@@ -93,15 +97,22 @@ export default {
         }
     },
     property: {
-      url: '',
       getPropertyUrl() {
         return api.property.url
       },
       getPropertyName() {
         return api.property.name
       },
-      getPropertyCompleteUrl() {
-        return api.home.url + '/' + api.property.url
+      building: {
+        getBuildingUrl() {
+          return api.property.building.url
+        },
+        getBuildingName() {
+          return api.property.building.name
+        },
+        getBuildingCompleteUrl() {
+          return ''.concat(api.property.url,'/',api.property.building.url)
+        }
       },
       test: {
         getTestUrl() {
@@ -110,8 +121,8 @@ export default {
         getTestName() {
           return api.property.test.name
         },
-        getTestCompleteUrl() {
-          return url.concat(api.home.url,'/',api.property.url,'/',api.property.test.url)
+        getTestCompleteUrl() {          
+          return ''.concat(api.property.url,'/',api.property.test.url)
         }
       }
     },

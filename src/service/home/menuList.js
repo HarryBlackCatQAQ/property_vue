@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 01:16:03
+ * @Last Modified time: 2019-10-16 12:23:40
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -142,7 +142,7 @@ function getPropertyAdministrator(){
     return [
         //楼盘
         model(routerApi.property.getPropertyName(),
-            routerApi.property.getPropertyCompleteUrl(),
+            routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
         
         //投诉建议申请单
@@ -167,7 +167,7 @@ function getPropertyAdministrator(){
     return[
         //楼盘
         model(routerApi.property.getPropertyName(),
-            routerApi.property.getPropertyCompleteUrl(),
+            routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
 
         //投诉建议申请单

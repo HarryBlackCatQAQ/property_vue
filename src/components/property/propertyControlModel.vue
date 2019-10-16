@@ -2,15 +2,22 @@
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 15:46:36
+ * @Last Modified time: 2019-10-15 16:40:14
  */
 
 <template>
   <div class="property-control-model">
+    <el-button @click="jump">跳转</el-button>
     <el-button @click="clickAdd">添加楼盘</el-button>
     <el-table :data="properties" border>
       <el-table-column prop="id" label="id" min-width="3%" align="center"/>
-      <el-table-column prop="name" label="楼盘名字" min-width="15%"/>
+      <el-table-column label="楼盘名字" min-width="15%">
+        <template slot-scope="scope">
+          <el-link :underline=false @click="handleView(scope.row)">
+            {{scope.row.name}}
+          </el-link>
+        </template>
+      </el-table-column>
       <el-table-column prop="location" label="地址" min-width="15%"/>
       <el-table-column prop="uid" label="楼盘编码" min-width="15%"/>
       <el-table-column label="操作" min-width="8%">
@@ -20,12 +27,24 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="this.rowCount"
+        :page-size="this.pageSize"
+        :current-page="this.pageNum"
+        @size-change="pageSizeChange"
+        @current-change="pageChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import propertyService from '../../service/propertyService'
+  import routerApi from '@/service/api/routerApi'
+  import propertyService from '../../service/property/propertyService'
   export default {
     name: 'propertyControlModel',
     mounted: function () {
@@ -34,10 +53,19 @@
     computed: mapState({
       properties: state => state.property.properties,
       rowCount: state => state.property.rowCount,
+      pageNum: state => state.property.pageNum,
+      pageSize: state => state.property.pageSize
     }),
     methods: {
+      jump() {
+        this.$router.push(routerApi.property.test.getTestCompleteUrl())
+      },
       getProperty() {
-        let res = propertyService.getProperty()
+        propertyService.getProperty()
+        .catch(error => {
+          console.log(error)
+          this.$message.error('获取数据失败')
+        })
       },
       pageChange(pageNum) {
         this.$store.commit('property/SET_PAGE_NUM', pageNum)
@@ -57,6 +85,13 @@
       handleDelete(property) {
         this.$store.commit('property/RECORD_PROPERTY', Object.assign({}, property))
         this.$store.commit('property/DELETE_PROPERTY_DIALOG', true)
+      },
+      handleView(property) {
+        this.$store.commit('property/SET_PROPERTY_ID', property.id)
+        this.$store.commit('property/SET_PROPERTY_NAME', property.name)
+        this.$store.commit('building/SET_PAGE_NUM', 1)
+        this.$store.commit('building/SET_PAGE_SIZE', 10)
+        this.$router.push(routerApi.property.building.getBuildingCompleteUrl())
       }
     }
   }

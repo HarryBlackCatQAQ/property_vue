@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 18:21:22 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 16:53:09
+ * @Last Modified time: 2019-10-16 12:20:28
  */
 
 import Vue from 'vue'
@@ -18,6 +18,8 @@ import user from './modules/userModule'
 import roleManagement from './modules/roleManagementModule'
 import property from './modules/propertyModule'
 import complaintAndSuggestion from './modules/complaintAndSuggestionModule'
+import building from './modules/buildingModule'
+import house from './modules/houseModule'
 
 Vue.use(Vuex)
 
@@ -32,6 +34,8 @@ export default new Vuex.Store({
     user,
     roleManagement,
     property,
-    complaintAndSuggestion
+    complaintAndSuggestion,
+    building,
+    house
   }
 })

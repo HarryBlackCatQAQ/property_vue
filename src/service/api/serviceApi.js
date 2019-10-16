@@ -1,8 +1,13 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
+<<<<<<< HEAD
  * @Last Modified by: Harry-mac
  * @Last Modified time: 2019-10-15 13:24:05
+=======
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-16 12:21:11
+>>>>>>> Hovees-hwx
  */
 
 
@@ -40,6 +45,7 @@ export default {
             delete: '/property/delete',
             update: '/property/update',
             findAll: '/property/findAll',
+            getFirst: '/property/getFirst',
             checkPropertyName: '/property/checkPropertyName'
         }
     },
@@ -49,6 +55,12 @@ export default {
             uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
             queryOwner:"/api/ComplaintAndSuggestion/query"
         }
-    }
+    },
+    building: {
+        url: {
+          findAll: '/building/findAll',
+          findAllByPropertyId: '/building/findAllByPropertyId'
+        }
+    },
 
 };

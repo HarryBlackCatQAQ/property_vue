@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import propertyService from '../../service/propertyService'
+import propertyService from '../../service/property/propertyService'
 import {mapState} from "vuex";
 export default {
   name: 'editPropertyDialog',
@@ -82,8 +82,8 @@ export default {
         if (valid) {
           this.recordProperty.name = this.recordProperty.name.trim()
           this.$store.commit('property/LOADING', true)
-          let res = propertyService.update(this.recordProperty)
-          res.then(response => {
+          propertyService.update(this.recordProperty)
+          .then(response => {
             this.$store.commit('property/LOADING', false)
             if (response.flag) {
               this.$message.success(response.message)
@@ -92,6 +92,11 @@ export default {
             }
             propertyService.getProperty()
             this.$store.commit('property/EDIT_PROPERTY_DIALOG', false)
+          })
+          .catch(error => {
+            console.log(error)
+            this.$store.commit('property/LOADING', false)
+            this.$message.error('更新失败')
           })
         }
       })

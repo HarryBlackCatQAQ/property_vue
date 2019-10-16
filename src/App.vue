@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:30 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 01:42:44
+ * @Last Modified time: 2019-10-16 12:20:36
  */
 
 
@@ -177,6 +177,11 @@ export default {
 </script>
 
 <style>
+/* 修改el-loading字体大小 */
+.el-icon-loading,
+.el-loading-spinner .el-loading-text {
+  font-size: 20px !important
+}
 /* #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

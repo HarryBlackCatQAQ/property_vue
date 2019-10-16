@@ -86,6 +86,7 @@ export default {
             message: "登录成功！",
             type: "success"
           });
+          this.$store.commit('login/IS_LOGIN_MODEL_SHOW', false)
         } else {
           this.$message({
             message: "用户或者密码错误！",

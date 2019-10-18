@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 13:00:40
+ * @Last Modified time: 2019-10-18 22:22:45
  */
 
 <template>
@@ -83,5 +83,9 @@ export default {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 250px;
   min-height: 400px;
+}
+
+.tac{
+  margin-bottom: 0px;
 }
 </style>

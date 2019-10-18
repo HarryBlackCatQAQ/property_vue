@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:22:53
+ * @Last Modified time: 2019-10-18 00:31:06
  */
 
 var api = {
@@ -48,6 +48,10 @@ var api = {
         logWebsocket:{
             url:"/logManagement",
             name:"后台日志推送"
+        },
+        logFileManagement:{
+            url:"/logManagement/logFileManagement",
+            name:"日志文件管理"
         }
     },
     complaintAndSuggestion:{
@@ -158,6 +162,14 @@ export default {
         },
         getLogWebsocketName(){
             return api.logManagement.logWebsocket.name;
+        },
+        logFileManagement:{
+            getLogFileManagement(){
+                return api.logManagement.logFileManagement.url;
+            },
+            getLogFileManagementName(){
+                return api.logManagement.logFileManagement.name;
+            }
         }
     },
     complaintAndSuggestion:{

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 18:21:22 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:20:28
+ * @Last Modified time: 2019-10-18 12:58:39
  */
 
 import Vue from 'vue'
@@ -20,6 +20,7 @@ import property from './modules/propertyModule'
 import complaintAndSuggestion from './modules/complaintAndSuggestionModule'
 import building from './modules/buildingModule'
 import house from './modules/houseModule'
+import logManagement from './modules/logManagementModule'
 
 Vue.use(Vuex)
 
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     property,
     complaintAndSuggestion,
     building,
-    house
+    house,
+    logManagement
   }
 })

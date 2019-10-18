@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:20:35
+ * @Last Modified time: 2019-10-18 00:31:04
  */
 
 
@@ -121,6 +121,11 @@ const router = new Router({
               name:routerApi.logManagement.getLogManagement(),
               meta: { title: routerApi.logManagement.getLogWebsocketName() },
               component: () => import("./views/log/logManagement.vue")
+            },{
+              path:routerApi.logManagement.logFileManagement.getLogFileManagement(),
+              name:routerApi.logManagement.logFileManagement.getLogFileManagement(),
+              meta:{title:routerApi.logManagement.logFileManagement.getLogFileManagementName()},
+              component: () => import("./views/log/logFileManagement.vue")
             }
           ]
         },

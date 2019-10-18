@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-11 00:14:06 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:21:13
+ * @Last Modified time: 2019-10-18 13:45:11
  */
 
 <template>
@@ -11,7 +11,7 @@
 
     <div class="log-header">
       <div class="log-icon">
-        <modelLabel icon="el-icon-s-order" title="日志管理" />
+        <modelLabel icon="el-icon-s-order" title="后台日志推送" />
       </div>
 
     <div class="log-slider-group">

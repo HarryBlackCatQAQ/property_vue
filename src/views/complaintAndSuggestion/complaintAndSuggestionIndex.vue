@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 15:50:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 12:32:18
+ * @Last Modified time: 2019-10-16 16:26:48
  */
 
 
@@ -21,6 +21,10 @@ export default {
 
 
 <style>
+.complaintAndSuggestionIndex{
+  height: 1200px;
+}
+
 .container {
   padding: 30px;
   background: #fff;
@@ -28,6 +32,8 @@ export default {
   border-radius: 5px;
   line-height: 0px;
   margin-top: 30px;
+  max-height: 1100px;
+  /* height: 100%; */
 }
 
 .el-upload-dragger {

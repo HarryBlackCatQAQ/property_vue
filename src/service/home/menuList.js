@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:23:40
+ * @Last Modified time: 2019-10-18 00:32:59
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -49,20 +49,28 @@ function get(that){
  * @param {boolean} isSub 
  * @param {arrays} sub 
  */
-function model(name,url,icon,isSub,sub){
+function model(name,url,icon,isShow,isSub,sub){
     let isSub_tp = false;
     let sub_tp = []
+    
     if(isSub != undefined){
         isSub_tp = isSub;
         sub_tp = sub;
     }
 
+    if(isShow == undefined){
+        isShow = true;
+    }
+    
+    // console.log(name + ":" + isShow)
+
     return {
         name:name,
         icon:icon,
         url:url,
+        isShow:isShow,
         isSub:isSub_tp,
-        sub:sub_tp
+        sub:sub_tp,
     }
 }
 
@@ -72,10 +80,11 @@ function model(name,url,icon,isSub,sub){
  * @param {string} url 
  * @param {string} icon 
  */
-function subs(name,url){
+function subs(name,url,isShow){
     return {
         name:name,
-        url:url
+        url:url,
+        isShow:isShow
     }
 }
 
@@ -104,12 +113,15 @@ function getPublic(){
         "",
         "el-icon-s-order",
         true,
+        true,
         [
             subs(routerApi.getPage1Name(),
-            routerApi.getPage1CompleteUrl()),
+            routerApi.getPage1CompleteUrl(),
+            true),
             
             subs(routerApi.getPage2Name(),
-            routerApi.getPage2CompleteUrl()),
+            routerApi.getPage2CompleteUrl(),
+            true),
         ])
     ]
 }
@@ -125,12 +137,15 @@ function getOwner(){
         "",
         "el-icon-edit-outline",
         true,
+        true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
 
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
     ]
 }
@@ -144,18 +159,27 @@ function getPropertyAdministrator(){
         model(routerApi.property.getPropertyName(),
             routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
+
+        //楼栋(不显示)
+        model(routerApi.property.building.getBuildingName(),
+        routerApi.property.building.getBuildingCompleteUrl(),
+        'el-icon-s-home',
+        false),
         
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
         "",
         "el-icon-edit-outline",
         true,
+        true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
 
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
     ]
 }
@@ -169,18 +193,27 @@ function getPropertyAdministrator(){
         model(routerApi.property.getPropertyName(),
             routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
+            
+        //楼栋(不显示)
+        model(routerApi.property.building.getBuildingName(),
+        routerApi.property.building.getBuildingCompleteUrl(),
+        'el-icon-s-home',
+        false),
 
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
         "",
         "el-icon-edit-outline",
         true,
+        true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
             
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
 
         //用户管理
@@ -193,9 +226,15 @@ function getPropertyAdministrator(){
         "",
         "el-icon-s-order",
         true,
+        true,
         [
             subs(routerApi.logManagement.getLogWebsocketName(),
-            routerApi.logManagement.getLogWebsocket())
+            routerApi.logManagement.getLogWebsocket(),
+            true),
+
+            subs(routerApi.logManagement.logFileManagement.getLogFileManagementName(),
+            routerApi.logManagement.logFileManagement.getLogFileManagement(),
+            true)
         ]),
     ]
  }

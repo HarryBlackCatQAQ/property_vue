@@ -1,13 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
-<<<<<<< HEAD
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-15 13:24:05
-=======
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:21:11
->>>>>>> Hovees-hwx
+ * @Last Modified time: 2019-10-18 18:58:13
  */
 
 
@@ -62,5 +57,11 @@ export default {
           findAllByPropertyId: '/building/findAllByPropertyId'
         }
     },
+    logManagement:{
+        url:{
+            getLogFileList:"/admin/getLogFileListByFileName",
+            downloadLog:"/admin/downLoadLogFile"
+        }
+    }
 
 };

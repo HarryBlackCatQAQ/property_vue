@@ -2,7 +2,7 @@
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-16 10:19:42
+ * @Last Modified time: 2019-10-18 13:25:46
  */
 
 const state = {
@@ -30,7 +30,7 @@ const state = {
 const mutations = {
   ['GET_PROPERTY'](state, payload) {
     if (payload.content) {
-      state.properties = payload.content.map((propertyModule) => {
+      state.properties = payload.content.map((propertyModule) => {        
         return Object.assign({}, propertyModule, {id: propertyModule.id})
       })
     }
@@ -66,9 +66,9 @@ const mutations = {
   ['RECORD_PROPERTY'](state, payload) {
     state.recordProperty = payload
   },
-  ['SET_CHANGE_SELECT_PROPERTIES'](state, payload) {
-    if (payload.content) {
-      state.changeSelect.properties = payload.content.map((propertyModule) => {
+  ['SET_CHANGE_SELECT_PROPERTIES'](state, payload) {    
+    if (payload) {
+      state.changeSelect.properties = payload.map((propertyModule) => {
         return Object.assign({}, propertyModule, {id: propertyModule.id})
       })
     }

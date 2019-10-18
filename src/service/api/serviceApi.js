@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 14:51:07
+ * @Last Modified time: 2019-10-18 16:08:40
  */
 
 
@@ -40,14 +40,19 @@ export default {
             delete: '/property/delete',
             update: '/property/update',
             findAll: '/property/findAll',
+            getAllProperty: '/property/getAllProperty',
             getFirst: '/property/getFirst',
             checkPropertyName: '/property/checkPropertyName'
         }
     },
     building: {
       url: {
+        insert: '/building/insert',
+        delete: '/building/delete',
+        update: '/building/update',
         findAll: '/building/findAll',
-        findAllByPropertyId: '/building/findAllByPropertyId'
+        findAllByPropertyId: '/building/findAllByPropertyId',
+        checkPropertyBuildingName: '/building/checkPropertyBuildingName'
       }
     },
     complaintAndSuggestion:{

@@ -2,7 +2,7 @@
  * @Author: Hovees
  * @Date: 2019-10-08 16:23:50
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-16 10:43:57
+ * @Last Modified time: 2019-10-18 11:29:17
  */
 
 import _this from '@/main'
@@ -42,6 +42,16 @@ export default {
       }
     })
     return res
+  },
+  async getAllProperty() {
+    let res
+    await that.$get(api.property.url.getAllProperty, {})
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('property/SET_CHANGE_SELECT_PROPERTIES', response.data)
+      }
+    })
   },
   async checkPropertyName(propertyName) {
     let res

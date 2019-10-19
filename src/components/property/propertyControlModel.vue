@@ -2,7 +2,7 @@
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 16:40:14
+ * @Last Modified time: 2019-10-18 13:24:42
  */
 
 <template>
@@ -10,7 +10,11 @@
     <el-button @click="jump">跳转</el-button>
     <el-button @click="clickAdd">添加楼盘</el-button>
     <el-table :data="properties" border>
-      <el-table-column prop="id" label="id" min-width="3%" align="center"/>
+      <el-table-column label="序号" min-width="3%" align="center">
+        <template slot-scope="scope">
+          {{(pageNum - 1) * pageSize + scope.$index + 1}}
+        </template>
+      </el-table-column>
       <el-table-column label="楼盘名字" min-width="15%">
         <template slot-scope="scope">
           <el-link :underline=false @click="handleView(scope.row)">
@@ -22,6 +26,7 @@
       <el-table-column prop="uid" label="楼盘编码" min-width="15%"/>
       <el-table-column label="操作" min-width="8%">
         <template slot-scope="scope">
+          <el-button size="small" icon="el-icon-view" @click="handleView(scope.row)" />
           <el-button size="small" icon="el-icon-edit" @click="handleEdit(scope.row)" />
           <el-button size="small" type="danger" icon="el-icon-delete" @click="handleDelete(scope.row)"/>
         </template>

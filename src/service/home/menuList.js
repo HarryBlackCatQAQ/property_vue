@@ -200,6 +200,12 @@ function getPropertyAdministrator(){
         'el-icon-s-home',
         false),
 
+        //楼栋(不显示)
+        model(routerApi.property.building.getBuildingName(),
+            routerApi.property.building.getBuildingCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
         "",

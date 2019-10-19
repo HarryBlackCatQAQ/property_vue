@@ -40,6 +40,7 @@ export default {
             delete: '/property/delete',
             update: '/property/update',
             findAll: '/property/findAll',
+            getAllProperty: '/property/getAllProperty',
             getFirst: '/property/getFirst',
             checkPropertyName: '/property/checkPropertyName'
         }
@@ -53,10 +54,14 @@ export default {
         }
     },
     building: {
-        url: {
-          findAll: '/building/findAll',
-          findAllByPropertyId: '/building/findAllByPropertyId'
-        }
+      url: {
+        insert: '/building/insert',
+        delete: '/building/delete',
+        update: '/building/update',
+        findAll: '/building/findAll',
+        findAllByPropertyId: '/building/findAllByPropertyId',
+        checkPropertyBuildingName: '/building/checkPropertyBuildingName'
+      }
     },
     logManagement:{
         url:{

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 15:50:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 16:09:55
+ * @Last Modified time: 2019-10-19 18:32:02
  */
 
 
@@ -25,7 +25,7 @@ export default {
   height: 1200px;
 }
 
-.container {
+.ownerSheet .container {
   padding: 30px;
   background: #fff;
   border: 1px solid #ddd;
@@ -36,8 +36,31 @@ export default {
   /* height: 100%; */
 }
 
+.ownerSheet .el-table__body-wrapper{
+  max-height:100% !important;
+}
+
+.ownerSheet .el-table{
+  max-height:100% !important;
+}
+
+.creatSheet .container {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  /* line-height: 0px; */
+  margin-top: 30px;
+  /* max-height: 1100px; */
+  /* height: 100%; */
+}
+
 .el-upload-dragger {
     width: 100%;
+}
+
+.upload-form-item{
+  
 }
 
 .el-upload{

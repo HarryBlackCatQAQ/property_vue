@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 17:09:17
+ * @Last Modified time: 2019-10-19 18:09:44
  */
 
 <template>
@@ -13,21 +13,22 @@
     <div class="creatSheet-container">
       <div v-loading="sheetLoading" class="container">
         <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="主题:">
+          <el-form-item class="form-item-text" label="主题:">
             <el-input v-model="form.title"></el-input>
           </el-form-item>
 
-          <el-form-item label="类型:">
+          <el-form-item class="form-item-text" label="类型:">
             <el-select v-model="form._type" placeholder="请选择类型">
               <el-option label="投诉" value="投诉"></el-option>
               <el-option label="建议" value="建议"></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="具体内容:">
+          <el-form-item class="form-item-text form-content" label="具体内容:">
             <el-input class="sheet-textarea" :rows="10" type="textarea" v-model="form.mes"></el-input>
           </el-form-item>
 
+          <el-form-item class="upload-form-item">
           <el-upload
             class="upload-demo"
             action="/api/fileUpload/uploadComplaintAndSuggestionImage"
@@ -53,6 +54,7 @@
             </div>
             <div slot="tip" class="el-upload__tip">最多只能上传3张图片，只能上传jpg/png文件，且不超过2MB</div>
           </el-upload>
+          </el-form-item>
 
           <el-form-item class="form-bottom">
             <!-- <div class="btn-group">
@@ -223,7 +225,7 @@ export default {
   margin-top: 50px;
 }
 
-.el-form-item {
+.form-item-text {
   margin-bottom: 70px;
   text-align-last: justify;
 }
@@ -247,13 +249,14 @@ export default {
 }
 
 .form-bottom {
-  margin-top: 100px;
+  margin-top: 70px;
   text-align: center;
   text-align-last:center;
 }
 
 .el-upload__tip {
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .el-upload-list{
@@ -263,4 +266,10 @@ export default {
 .sheet-textarea{
     text-align-last: auto; 
 }
+
+.form-content{
+  /* margin-bottom: 270px; */
+  height: 280px;
+}
+
 </style>

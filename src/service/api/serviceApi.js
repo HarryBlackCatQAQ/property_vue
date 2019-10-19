@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-18 18:58:13
+ * @Last Modified time: 2019-10-19 16:47:30
  */
 
 
@@ -48,7 +48,8 @@ export default {
         url:{
             create:'/api/ComplaintAndSuggestion/create',
             uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
-            queryOwner:"/api/ComplaintAndSuggestion/query"
+            queryOwner:"/api/ComplaintAndSuggestion/query",
+            delOWner:"/api/ComplaintAndSuggestion/del"
         }
     },
     building: {

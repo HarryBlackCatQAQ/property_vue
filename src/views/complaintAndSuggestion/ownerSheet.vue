@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-15 13:01:19 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 16:24:23
+ * @Last Modified time: 2019-10-19 17:09:44
  */
 
 <template>
@@ -22,9 +22,9 @@
             v-loading="listLoading"
             @selection-change="selsChange"
             style="width: 100%;"
-            :default-sort="{prop: 'submitTime', order: 'descending'}"
+            :default-sort="{prop: 'submitTimeShow', order: 'descending'}"
           >
-            <el-table-column prop="submitTime" label="提交日期" sortable></el-table-column>
+            <el-table-column prop="submitTimeShow" label="提交日期" sortable></el-table-column>
             <el-table-column prop="title" label="主题"></el-table-column>
 
             <el-table-column
@@ -93,6 +93,7 @@ import modelLabel from "@/components/public/modelLabel";
 import ownerSheetService from "@/service/complaintAndSuggestion/ownerSheetService";
 import ownerSheetDetails from "@/components/complaintAndSuggestion/ownerSheetDetails";
 import { mapState } from "vuex";
+import { error } from 'util';
 
 export default {
   name: "ownerSheet",
@@ -106,6 +107,8 @@ export default {
       total: 0,
       pageSize: 10,
       pageNo: 1,
+      prePageNo:1,
+      prePageSize:10,
       listLoading: true,
       sels: [], //列表选中列
       content: "",
@@ -125,6 +128,32 @@ export default {
     };
   },
   methods: {
+    handleDel(index,row){
+      // console.log(index);
+      // console.log(row);
+
+      let res = ownerSheetService.del(row);
+
+      res.then(response =>{
+        if(response.flag){
+          this.$message.success("删除成功!")
+          this.getList(this.prePageNo,this.prePageSize);
+        }
+        else{
+          this.myError();
+        }
+      }).catch(error =>{
+        console.log(error);
+        this.myError();
+      })
+    },
+    myError(){
+      this.$message("系统发生了错误，不好意思！QAQ请稍后再试!");
+    },
+    setPrePage(pageNo,size){
+      this.prePageNo = pageNo;
+      this.prePageSize = size;
+    },
     handleEdit(index, row) {
       //   console.log(index);
       //   console.log(row);
@@ -148,6 +177,8 @@ export default {
       this.sels = sels;
     },
     getList(pageNo, pageSize) {
+      this.setPrePage(pageNo,pageSize);
+
       this.listLoading = true;
       let res = ownerSheetService.query(pageNo, pageSize);
 
@@ -156,6 +187,9 @@ export default {
 
         this.tableData = response.data.list;
         this.total = response.data.total;
+        this.listLoading = false;
+      }).catch(error =>{
+        this.$message.error("服务器错误！QAQ，不好意思请再次刷新尝试");
         this.listLoading = false;
       });
     },

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 15:50:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 16:26:48
+ * @Last Modified time: 2019-10-19 16:09:55
  */
 
 
@@ -32,7 +32,7 @@ export default {
   border-radius: 5px;
   line-height: 0px;
   margin-top: 30px;
-  max-height: 1100px;
+  /* max-height: 1100px; */
   /* height: 100%; */
 }
 
@@ -50,5 +50,11 @@ export default {
 
 .el-form-item__content{
   margin-left: 0!important;
+}
+
+.creatSheet li{
+  width: 30%;
+  float: left ;
+  margin-left: 10px;
 }
 </style>

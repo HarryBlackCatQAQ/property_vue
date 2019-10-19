@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-15 16:45:08 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 01:01:53
+ * @Last Modified time: 2019-10-19 16:32:09
  */
 
 <template>
@@ -18,7 +18,7 @@
           <el-timeline-item
             v-for="(item,index) in this.timelineList"
             :key="index"
-            :timestamp="item.processingTime"
+            :timestamp="item.processingTimeShow"
             placement="top"
           >
             <el-card>

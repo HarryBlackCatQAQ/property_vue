@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 00:37:13
+ * @Last Modified time: 2019-10-19 17:09:17
  */
 
 <template>
@@ -44,6 +44,7 @@
             :before-upload="beforeUploadImage"
             :limit="3"
             :on-exceed="exceedLimit"
+            :on-change="onProgress"
           >
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">
@@ -54,12 +55,18 @@
           </el-upload>
 
           <el-form-item class="form-bottom">
-            <div class="btn-group">
+            <!-- <div class="btn-group">
               <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
               <el-button size="large" class="btn-group-right">取 消</el-button>
-            </div>
+            </div> -->
           </el-form-item>
+          <div class="btn-group">
+              <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
+              <el-button size="large" class="btn-group-right" @click="reSet">重 置</el-button>
+            </div>
         </el-form>
+
+        
       </div>
     </div>
   </div>
@@ -90,6 +97,22 @@ export default {
     };
   },
   methods: {
+    reSet(){
+      this.initParm();
+    },
+    onProgress(file, fileList){
+      // console.log(event)
+      // console.log(file)
+      let flag = this.beforeUploadImage(file);
+      // console.log(flag);
+      if(flag){
+        this.fileList.push(file);
+      }
+      else{
+        fileList.pop();
+        this.$message.error("上传的图片 " + file.name + " 不符合要求！")
+      }
+    },
     exceedLimit(files,fileList){
       // console.log(files)
       // console.log(fileList)
@@ -97,13 +120,14 @@ export default {
     },
     beforeUploadImage(file){
       // console.log(file)
-      let isJPEG = file.type === 'image/jpeg';
-      let isJPG = file.type === 'image/jpg';
-      let isPNG = file.type === 'image/png';
+      // console.log(this.getFileSuffix(file.name))
+      let isJPEG = this.getFileSuffix(file.name) === 'jpeg';
+      let isJPG = this.getFileSuffix(file.name) === 'jpg';
+      let isPNG = this.getFileSuffix(file.name) === 'png';
       let isLt2M = file.size / 1024 / 1024 < 2;
 
       let flag = true;
-      console.log(flag)
+      // console.log(flag)
       if(!isJPEG && !isJPG && !isPNG){
         console.log("type no");
         flag = false;
@@ -113,30 +137,33 @@ export default {
         flag = false;
       }
 
-      console.log(false);
+      // console.log(flag);
       this.isUpload = flag;
       return flag;
     },
+    getFileSuffix(fileName){
+      let idx = fileName.indexOf(".");
+      if(idx == -1){
+        return undefined;
+      }
+
+      return fileName.substring(idx + 1);
+    },
     uploadFile(file) {
-        // console.log(file);
-        this.fileList.push(file)
+        console.log(file);
+        // this.fileList.push(file)
         this.formDate.append("files", file.file);
     },
     subPicForm() {
       if (this.judge()) {
         return;
       }
-      // if(!this.isUpload){
-      //   this.$message.error("上传图片格式或者大小不对!");
-      //   return;
-      // }
-    //   this.$refs.upload.submit();
-    //   service.create(this.form.title,this.form._type,this.form.mes);
-    //   console.log("submit!");
+      // console.log(this.fileList)
+
       let that = this;
       that.sheetLoading = true;
-    //   let res = service.uploadImage(this);
-        let res = service.create(this.form.title,this.form._type,this.form.mes);
+
+      let res = service.create(this.form.title,this.form._type,this.form.mes);
 
       res.then(response => {
         //   console.log(response)

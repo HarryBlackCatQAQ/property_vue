@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 15:50:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 18:32:02
+ * @Last Modified time: 2019-10-20 14:49:19
  */
 
 
@@ -79,5 +79,21 @@ export default {
   width: 30%;
   float: left ;
   margin-left: 10px;
+}
+
+.creatSheet .ql-image,.ql-video,.ql-link{
+  display: none !important;
+}
+
+.creatSheet .ql-container.ql-snow{
+  border-radius: 0 0 5px 5px;
+}
+
+.creatSheet .ql-toolbar{
+border-radius: 5px 5px 0 0;
+}
+
+.creatSheet .ql-picker-options{
+  line-height: 20px;
 }
 </style>

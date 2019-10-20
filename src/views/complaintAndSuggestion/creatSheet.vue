@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 18:09:44
+ * @Last Modified time: 2019-10-20 14:45:26
  */
 
 <template>
@@ -24,51 +24,59 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item class="form-item-text form-content" label="具体内容:">
-            <el-input class="sheet-textarea" :rows="10" type="textarea" v-model="form.mes"></el-input>
+          <el-form-item class="form-item-text form-content">
+            <!-- <el-input class="sheet-textarea" :rows="10" type="textarea" v-model="form.mes"></el-input> -->
+            <div class="sheet-textarea edit_container">
+              <quill-editor
+                v-model="form.mes"
+                ref="myQuillEditor"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)"
+              ></quill-editor>
+            </div>
           </el-form-item>
 
           <el-form-item class="upload-form-item">
-          <el-upload
-            class="upload-demo"
-            action="/api/fileUpload/uploadComplaintAndSuggestionImage"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-            list-type="picture"
-            drag
-            name="files"
-            ref="upload"
-            :auto-upload="false"
-            :multiple="true"
-            :http-request="uploadFile"
-            :before-upload="beforeUploadImage"
-            :limit="3"
-            :on-exceed="exceedLimit"
-            :on-change="onProgress"
-          >
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">
-              将文件拖到此处，或
-              <em>点击上传</em>
-            </div>
-            <div slot="tip" class="el-upload__tip">最多只能上传3张图片，只能上传jpg/png文件，且不超过2MB</div>
-          </el-upload>
+            <el-upload
+              class="upload-demo"
+              action="/api/fileUpload/uploadComplaintAndSuggestionImage"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :file-list="fileList"
+              list-type="picture"
+              drag
+              name="files"
+              ref="upload"
+              :auto-upload="false"
+              :multiple="true"
+              :http-request="uploadFile"
+              :before-upload="beforeUploadImage"
+              :limit="3"
+              :on-exceed="exceedLimit"
+              :on-change="onProgress"
+            >
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">
+                将文件拖到此处，或
+                <em>点击上传</em>
+              </div>
+              <div slot="tip" class="el-upload__tip">最多只能上传3张图片，只能上传jpg/png文件，且不超过2MB</div>
+            </el-upload>
           </el-form-item>
 
           <el-form-item class="form-bottom">
             <!-- <div class="btn-group">
               <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
               <el-button size="large" class="btn-group-right">取 消</el-button>
-            </div> -->
+            </div>-->
           </el-form-item>
           <div class="btn-group">
-              <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
-              <el-button size="large" class="btn-group-right" @click="reSet">重 置</el-button>
-            </div>
+            <el-button size="large" type="primary" @click="subPicForm">提 交</el-button>
+            <el-button size="large" class="btn-group-right" @click="reSet">重 置</el-button>
+          </div>
         </el-form>
-
-        
       </div>
     </div>
   </div>
@@ -78,12 +86,18 @@
 import modelLabel from "@/components/public/modelLabel";
 import service from "@/service/complaintAndSuggestion/creatSheetService";
 import axios from "axios";
-import util from "@/service/util"
+import util from "@/service/util";
+
+import { quillEditor } from "vue-quill-editor"; //调用编辑器
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 
 export default {
   name: "creatSheet",
   components: {
-    modelLabel
+    modelLabel,
+    quillEditor
   },
   data() {
     return {
@@ -94,47 +108,55 @@ export default {
       },
       fileList: [],
       formDate: "",
-      sheetLoading:false,
-      isUpload:false
+      sheetLoading: false,
+      isUpload: false,
+
+      content: `<p></p><p><br></p><ol><li><strong><em>Or drag/paste an image here.</em></strong></li><li><strong><em>rerew</em></strong></li><li><strong><em>rtrete</em></strong></li><li><strong><em>tytrytr</em></strong></li><li><strong><em>uytu</em></strong></li></ol>`,
+      editorOption: {}
     };
   },
   methods: {
-    reSet(){
+    onEditorReady(editor) {
+      // 准备编辑器
+    },
+    onEditorBlur() {}, // 失去焦点事件
+    onEditorFocus() {}, // 获得焦点事件
+    onEditorChange() {}, // 内容改变事件
+
+    reSet() {
       this.initParm();
     },
-    onProgress(file, fileList){
+    onProgress(file, fileList) {
       // console.log(event)
       // console.log(file)
       let flag = this.beforeUploadImage(file);
       // console.log(flag);
-      if(flag){
+      if (flag) {
         this.fileList.push(file);
-      }
-      else{
+      } else {
         fileList.pop();
-        this.$message.error("上传的图片 " + file.name + " 不符合要求！")
+        this.$message.error("上传的图片 " + file.name + " 不符合要求！");
       }
     },
-    exceedLimit(files,fileList){
+    exceedLimit(files, fileList) {
       // console.log(files)
       // console.log(fileList)
       this.$message.warning("最多只能上传三张图片!");
     },
-    beforeUploadImage(file){
+    beforeUploadImage(file) {
       // console.log(file)
       // console.log(this.getFileSuffix(file.name))
-      let isJPEG = this.getFileSuffix(file.name) === 'jpeg';
-      let isJPG = this.getFileSuffix(file.name) === 'jpg';
-      let isPNG = this.getFileSuffix(file.name) === 'png';
+      let isJPEG = this.getFileSuffix(file.name) === "jpeg";
+      let isJPG = this.getFileSuffix(file.name) === "jpg";
+      let isPNG = this.getFileSuffix(file.name) === "png";
       let isLt2M = file.size / 1024 / 1024 < 2;
 
       let flag = true;
       // console.log(flag)
-      if(!isJPEG && !isJPG && !isPNG){
+      if (!isJPEG && !isJPG && !isPNG) {
         console.log("type no");
         flag = false;
-      }
-      else if(!isLt2M){
+      } else if (!isLt2M) {
         console.log("2M");
         flag = false;
       }
@@ -143,18 +165,18 @@ export default {
       this.isUpload = flag;
       return flag;
     },
-    getFileSuffix(fileName){
+    getFileSuffix(fileName) {
       let idx = fileName.indexOf(".");
-      if(idx == -1){
+      if (idx == -1) {
         return undefined;
       }
 
       return fileName.substring(idx + 1);
     },
     uploadFile(file) {
-        console.log(file);
-        // this.fileList.push(file)
-        this.formDate.append("files", file.file);
+      console.log(file);
+      // this.fileList.push(file)
+      this.formDate.append("files", file.file);
     },
     subPicForm() {
       if (this.judge()) {
@@ -165,27 +187,26 @@ export default {
       let that = this;
       that.sheetLoading = true;
 
-      let res = service.create(this.form.title,this.form._type,this.form.mes);
+      let res = service.create(this.form.title, this.form._type, this.form.mes);
 
       res.then(response => {
         //   console.log(response)
         //   console.log(this.fileList)
-          let res2 = service.uploadImage(this,response.data.sheetId);
-          
+        let res2 = service.uploadImage(this, response.data.sheetId);
+
         res2.then(response2 => {
-            // console.log(response2)
-            that.sheetLoading = false;
-            that.initParm();
-            util.message(that,"提交成功!","success");
-            
-         })
-      })
+          // console.log(response2)
+          that.sheetLoading = false;
+          that.initParm();
+          util.message(that, "提交成功!", "success");
+        });
+      });
     },
-    initParm(){
-        this.form.title = "";
-        this.form._type = "";
-        this.form.mes = "";
-        this.fileList = [];
+    initParm() {
+      this.form.title = "";
+      this.form._type = "";
+      this.form.mes = "";
+      this.fileList = [];
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -208,6 +229,11 @@ export default {
         });
         return true;
       }
+    }
+  },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
     }
   }
 };
@@ -251,7 +277,7 @@ export default {
 .form-bottom {
   margin-top: 70px;
   text-align: center;
-  text-align-last:center;
+  text-align-last: center;
 }
 
 .el-upload__tip {
@@ -259,17 +285,30 @@ export default {
   margin-bottom: 30px;
 }
 
-.el-upload-list{
-    margin-top: 30px !important;
+.el-upload-list {
+  margin-top: 30px !important;
 }
 
-.sheet-textarea{
-    text-align-last: auto; 
+.sheet-textarea {
+  /* text-align-last: auto;  */
 }
 
-.form-content{
+.form-content {
   /* margin-bottom: 270px; */
   height: 280px;
+  text-align-last: initial;
 }
 
+.edit_container {
+  text-align: left;
+  line-height: 0;
+}
+
+.quill-editor {
+  height: 250px;
+}
+
+.ql-container.ql-snow{
+  border-radius: 5px;
+}
 </style>

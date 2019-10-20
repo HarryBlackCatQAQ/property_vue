@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-15 13:01:19 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 17:09:44
+ * @Last Modified time: 2019-10-20 12:47:42
  */
 
 <template>
@@ -144,7 +144,7 @@ export default {
         }
       }).catch(error =>{
         console.log(error);
-        this.myError();
+        // this.myError();
       })
     },
     myError(){
@@ -241,4 +241,5 @@ export default {
 .ownerSheet-judge{
   height: 100%;
 }
+
 </style>

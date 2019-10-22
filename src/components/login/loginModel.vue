@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-22 21:55:20
+ * @Last Modified time: 2019-10-22 22:33:57
  */
 
 
@@ -79,8 +79,8 @@ export default {
       password: "",
       rememberMe: false,
       validateCode:"",
-      url:"http://localhost:8519/code/image",
-      baseUrl:"http://localhost:8519/code/image",
+      url:" http://127.0.0.1:8519/code/image",
+      baseUrl:" http://127.0.0.1:8519/code/image",
     };
   },
   methods: {

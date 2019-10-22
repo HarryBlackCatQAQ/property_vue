@@ -2,13 +2,13 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 03:16:51
+ * @Last Modified time: 2019-10-22 21:53:36
  */
 
 
 <template>
   <div class="registered-model">
-    注册
+    注册<el-link class="isregistered" type="primary" @click="isregistered">已注册</el-link>
     <div class="form-group">
       <el-form
         :model="ruleForm"
@@ -66,9 +66,9 @@
           </el-row>
         </el-form-item>
 
-        <el-form-item>
+        <el-form-item class="registered-btn-group">
           <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button class="registered-btn-group-reset" @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -150,6 +150,9 @@ export default {
     };
   },
   methods: {
+    isregistered(){
+      this.login();
+    },
     login(){
       this.$emit('changeView',"login");
     },
@@ -222,5 +225,17 @@ export default {
 .el-form-item__error{
   padding-top: 0px;
   top :90%;
+}
+
+.registered-btn-group{
+  margin-left: 40px !important;
+}
+
+.registered-btn-group-reset{
+  margin-left: 80px !important;
+}
+
+.isregistered{
+  flex: right;
 }
 </style>

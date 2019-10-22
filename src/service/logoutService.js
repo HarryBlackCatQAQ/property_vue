@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 01:23:09 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 02:04:53
+ * @Last Modified time: 2019-10-22 21:42:20
  */
 
 import _this from '@/main'
@@ -20,6 +20,7 @@ export default {
                 // console.log(response);
                 localStorage.clear();
                 that.$store.commit('user/cleanInfo');
+                that.$store.commit('login/setIsLoginFailTimes',false);
                 // console.log(that.$store.getters['user/getUsername'])
             })
             .catch(err => {

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:17 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 03:08:33
+ * @Last Modified time: 2019-10-22 21:11:35
  */
 
 import _this from '@/main'
@@ -12,12 +12,14 @@ import util from "@/service/util";
 var that = _this._this;
 
 export default {
-    async login(username,password,rememberMe){
+    async login(username,password,rememberMe,validateCode){
         let res;
 
         await that.$post(api.login.url, {
             username: username,
-            password: util.SHA1(password)
+            password: util.SHA1(password),
+            rememberMe: rememberMe,
+            validateCode:validateCode
         })
         .then(response =>{
             if(response.flag){

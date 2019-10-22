@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 16:00:35 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-20 14:45:26
+ * @Last Modified time: 2019-10-20 17:25:17
  */
 
 <template>
@@ -111,7 +111,6 @@ export default {
       sheetLoading: false,
       isUpload: false,
 
-      content: `<p></p><p><br></p><ol><li><strong><em>Or drag/paste an image here.</em></strong></li><li><strong><em>rerew</em></strong></li><li><strong><em>rtrete</em></strong></li><li><strong><em>tytrytr</em></strong></li><li><strong><em>uytu</em></strong></li></ol>`,
       editorOption: {}
     };
   },
@@ -174,7 +173,7 @@ export default {
       return fileName.substring(idx + 1);
     },
     uploadFile(file) {
-      console.log(file);
+      // console.log(file);
       // this.fileList.push(file)
       this.formDate.append("files", file.file);
     },
@@ -209,7 +208,16 @@ export default {
       this.fileList = [];
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      // console.log(file);
+      // console.log(fileList)
+      // console.log(this.fileList)
+      for(let i = 0;i < this.fileList.length;i++){
+        if(file.name === this.fileList[i].name){
+          this.fileList.splice(i,1);
+          break;
+        }
+      }
+      // console.log(this.fileList)
     },
     handlePreview(file) {
       console.log(file);
@@ -308,7 +316,4 @@ export default {
   height: 250px;
 }
 
-.ql-container.ql-snow{
-  border-radius: 5px;
-}
 </style>

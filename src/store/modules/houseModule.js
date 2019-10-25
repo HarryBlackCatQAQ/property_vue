@@ -2,7 +2,7 @@
  * @Author: Hovees 
  * @Date: 2019-10-15 10:16:15 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 16:41:40
+ * @Last Modified time: 2019-10-25 14:28:28
  */
 
 const state = {
@@ -20,11 +20,15 @@ const state = {
 const mutations = {
   ['GET_HOUSE'](state, payload) {
     if (payload.content) {
-      state.properties = payload.content.map((houseModule) => {
+      state.houses = payload.content.map((houseModule) => {
         return Object.assign({}, houseModule, {id: houseModule.id})
       })
     }
     state.rowCount = payload.totalElements
+  },
+  ['INIT_HOUSE'](state) {
+    state.houses = []
+    state.rowCount = 0
   },
   ['SET_PAGE_NUM'](state, payload) {
     state.pageNum = payload

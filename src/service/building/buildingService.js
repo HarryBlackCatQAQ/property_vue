@@ -39,6 +39,19 @@ export default {
     })
     return res
   },
+  async getFirstByPropertyId(propertyId) {
+    let res
+    await that.$get(api.building.url.getFirstByPropertyId, {
+      propertyId: propertyId
+    })
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('building/SET_BUILDING_NAME', res.data.name)
+        that.$store.commit('building/SET_BUILDING_ID', res.data.id)
+      }
+    })
+  },
   async getBuilding() {
     let res
     let pageNum = building.state.pageNum
@@ -61,6 +74,28 @@ export default {
       }
     })
     return res
+  },
+  async getAllBuildings() {
+    let res
+    await that.$get(api.building.url.getAllBuildings, {})
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('building/ALL_BUILDINGS', res.data)
+      }
+    })
+  },
+  async getAllBuildingByPropertyId(propertyId) {
+    let res
+    await that.$get(api.building.url.getAllBuildingByPropertyId, {
+      propertyId: propertyId
+    })
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('building/SET_CHANGE_SELECT_BUILDINGS', res.data)
+      }
+    })
   },
   async checkPropertyBuildingName(buildingName) {
     let res

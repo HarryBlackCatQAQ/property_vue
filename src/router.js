@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 13:05:13
+ * @Last Modified time: 2019-10-25 10:24:53
  */
 
 
@@ -99,6 +99,18 @@ const router = new Router({
                   name: 'building',
                   meta: { title: routerApi.property.building.getBuildingName() },
                   component: () => import('./views/building/buildingIndex')
+                },
+                {
+                  path: routerApi.property.building.house.getHouseUrl(),
+                  component: () => import('./views/house/houseView'),
+                  children: [
+                    {
+                      path: '/',
+                      name: 'house',
+                      meta: { title: routerApi.property.building.house.getHouseName() },
+                      component: () => import('./views/house/houseIndex')
+                    }
+                  ]
                 }
               ]
             },

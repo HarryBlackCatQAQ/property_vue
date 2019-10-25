@@ -76,6 +76,7 @@ import util from "@/service/util"
 import { Loading } from 'element-ui'
 import propertyService from '../../service/property/propertyService'
 import buildingService from '../../service/building/buildingService'
+import routerApi from '@/service/api/routerApi'
 import {mapState} from "vuex"
 export default {
   name: 'buildingControlModel',
@@ -111,6 +112,8 @@ export default {
   },
   mounted: function() {
     this.$store.commit('building/INIT_BUILDING')
+    this.recordPropertyId = this.propertyId
+    this.recordPropertyName = this.propertyName
     let loadingInstance = Loading.service({
       lock: true,
       text: '拼命加载中....',
@@ -170,7 +173,11 @@ export default {
       this.getBuilding()
     },
     handleView(building) {
-      console.log('view');
+      this.$store.commit('building/SET_BUILDING_ID', building.id)
+      this.$store.commit('building/SET_BUILDING_NAME', building.name)
+      this.$store.commit('house/SET_PAGE_NUM', 1)
+      this.$store.commit('house/SET_PAGE_SIZE', 10)
+      this.$router.push(routerApi.property.building.house.getHouseCompleteUrl())
     },
     handleEdit(building) {
       this.$store.commit('building/RECORD_BUILDING', Object.assign({}, building))

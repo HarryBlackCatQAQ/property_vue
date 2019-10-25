@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 16:08:40
+ * @Last Modified time: 2019-10-25 10:26:15
  */
 
 
@@ -52,7 +52,19 @@ export default {
         update: '/building/update',
         findAll: '/building/findAll',
         findAllByPropertyId: '/building/findAllByPropertyId',
-        checkPropertyBuildingName: '/building/checkPropertyBuildingName'
+        getFirstByPropertyId: '/building/getFirstByPropertyId',
+        checkPropertyBuildingName: '/building/checkPropertyBuildingName',
+        getAllBuildings: '/building/getAllBuildings',
+        getAllBuildingByPropertyId: '/building/getAllBuildingByPropertyId'
+      }
+    },
+    house: {
+      url: {
+        insert: '/house/insert',
+        delete: '/house/delete',
+        update: '/house/update',
+        checkBuildingHouseNumber: '/house/checkBuildingHouseNumber',
+        findAllByBuildingId: '/house/findAllByBuildingId'
       }
     },
     complaintAndSuggestion:{

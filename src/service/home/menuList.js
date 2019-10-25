@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-18 00:32:59
+ * @Last Modified time: 2019-10-25 16:04:14
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -147,6 +147,21 @@ function getOwner(){
             routerApi.complaintAndSuggestion.getCreateSheet(),
             true)
         ]),
+
+        model(routerApi.feesManagement.getFeesManagementName(),
+        "",
+        "el-icon-wallet",
+        true,
+        true,
+        [
+            subs(routerApi.feesManagement.payFees.getPayFeesName(),
+            routerApi.feesManagement.payFees.getPayFees(),
+            true),
+
+            subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
+            routerApi.feesManagement.queryFees.getQueryFees(),
+            true)
+        ])
     ]
 }
 
@@ -236,5 +251,20 @@ function getPropertyAdministrator(){
             routerApi.logManagement.logFileManagement.getLogFileManagement(),
             true)
         ]),
+
+        model(routerApi.feesManagement.getFeesManagementName(),
+        "",
+        "el-icon-wallet",
+        true,
+        true,
+        [
+            subs(routerApi.feesManagement.payFees.getPayFeesName(),
+            routerApi.feesManagement.payFees.getPayFees(),
+            true),
+
+            subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
+            routerApi.feesManagement.queryFees.getQueryFees(),
+            true)
+        ])
     ]
  }

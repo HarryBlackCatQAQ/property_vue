@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-19 16:47:30
+ * @Last Modified time: 2019-10-25 17:58:42
  */
 
 
@@ -62,6 +62,12 @@ export default {
         url:{
             getLogFileList:"/admin/getLogFileListByFileName",
             downloadLog:"/admin/downLoadLogFile"
+        }
+    },
+    feesManagement:{
+        url:{
+            getOwnerUnPayFeesList:"/houseFeeRecord/getOwnerUnPayFeesList",
+            alipay:"/alipay/payPropertyManagementFee"
         }
     }
 

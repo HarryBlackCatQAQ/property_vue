@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-18 00:31:06
+ * @Last Modified time: 2019-10-25 13:11:11
  */
 
 var api = {
@@ -64,6 +64,18 @@ var api = {
         ownerSheet:{
             url:"/complaintAndSuggestion/ownerSheet",
             name:"我的申请"
+        }
+    },
+    feesManagement:{
+        url:"/feesManagement",
+        name:"物业费用缴纳与查询",
+        payFees:{
+            url:"/feesManagement/payFees",
+            name:"费用缴纳"
+        },
+        queryFees:{
+            url:"/feesManagement/queryFees",
+            name:"费用查询"
         }
     },
     page403:{
@@ -190,6 +202,30 @@ export default {
         },
         getOwnerSheetName(){
             return api.complaintAndSuggestion.ownerSheet.name;
+        }
+    },
+    feesManagement:{
+        getFeesManagement(){
+            return api.feesManagement.url;
+        },
+        getFeesManagementName(){
+            return api.feesManagement.name;
+        },
+        payFees:{
+            getPayFees(){
+                return api.feesManagement.payFees.url;
+            },
+            getPayFeesName(){
+                return api.feesManagement.payFees.name;
+            }
+        },
+        queryFees:{
+            getQueryFees(){
+                return api.feesManagement.queryFees.url;
+            },
+            getQueryFeesName(){
+                return api.feesManagement.queryFees.name;
+            }
         }
     },
     getPage403(){

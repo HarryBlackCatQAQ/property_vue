@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 03:12:03 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-22 22:33:57
+ * @Last Modified time: 2019-10-25 12:48:34
  */
 
 
@@ -81,6 +81,7 @@ export default {
       validateCode:"",
       url:" http://127.0.0.1:8519/code/image",
       baseUrl:" http://127.0.0.1:8519/code/image",
+
     };
   },
   methods: {
@@ -126,6 +127,7 @@ export default {
           }
           else if(response.code === 40007){
             mes = "验证码错误!";
+            this.changeValidateCode();
           }
 
 

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-18 00:31:04
+ * @Last Modified time: 2019-10-25 13:10:51
  */
 
 
@@ -145,6 +145,25 @@ const router = new Router({
               name:routerApi.complaintAndSuggestion.getOwnerSheet(),
               meta: { title: routerApi.complaintAndSuggestion.getOwnerSheetName() },
               component: () => import("./views/complaintAndSuggestion/ownerSheet.vue")
+            }
+          ]
+        },
+        {
+          path:routerApi.feesManagement.getFeesManagement(),
+          meta:{title:routerApi.feesManagement.getFeesManagementName()},
+          component: () => import("./views/feesManagement/feesManagementIndex.vue"),
+          children:[
+            {
+              path:routerApi.feesManagement.payFees.getPayFees(),
+              name:routerApi.feesManagement.payFees.getPayFees(),
+              meta: { title: routerApi.feesManagement.payFees.getPayFeesName() },
+              component: () => import("./views/feesManagement/payFees.vue")
+            },
+            {
+              path:routerApi.feesManagement.queryFees.getQueryFees(),
+              name:routerApi.feesManagement.queryFees.getQueryFees(),
+              meta: { title: routerApi.feesManagement.queryFees.getQueryFeesName() },
+              component: () => import("./views/feesManagement/queryFees.vue")
             }
           ]
         }

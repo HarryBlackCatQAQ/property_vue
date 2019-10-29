@@ -10,15 +10,20 @@
     <!-- 房屋数据控制模块 -->
     <house-control-model/>
 
+    <!-- 添加房屋模态框 -->
+    <add-house-dialog/>
+
   </div>  
 </template>
 
 <script>
   import houseControlModel from "../../components/house/houseControlModel";
+  import addHouseDialog from "../../components/house/addHouseDialog";
   export default {
     name: "houseIndex",
     components: {
-      houseControlModel
+      houseControlModel,
+      addHouseDialog
     }
   }
 </script>

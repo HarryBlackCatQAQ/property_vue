@@ -41,5 +41,15 @@ export default {
       res = response
     })
     return res
+  },
+  async insert(house) {
+    let res
+    let buildingId = building.state.buildingId
+    house.buildingId = buildingId
+    await that.$post(api.house.url.insert, house)
+    .then(response => {
+      res = response
+    })
+    return res
   }
 }

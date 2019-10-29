@@ -239,10 +239,12 @@
         console.log('进入房屋详情页面');
       },
       handleEdit(house) {
+        //TODO
         this.$store.commit('house/RECORD_HOUSE', Object.assign({}, house))
         this.$store.commit('house/EDIT_HOUSE_DIALOG', true)
       },
       handleDelete(house) {
+        //TODO
         this.$store.commit('house/RECORD_HOUSE', Object.assign({}, house))
         this.$store.commit('house/DELETE_HOUSE_DIALOG', true)
       }

@@ -6,9 +6,12 @@
  */
 
 <template>
-  <div class="property-control-model">
-    <el-button @click="jump">跳转</el-button>
-    <el-button @click="clickAdd">添加楼盘</el-button>
+  <div class="property-control-model" style="position:relative">
+    <h2>楼盘管理</h2>
+    <el-button type="text" @click="fresh">
+      刷新
+    </el-button>
+    <el-button type="primary" size="medium" @click="clickAdd" style="position:absolute;right:0">添加楼盘</el-button>
     <el-table :data="properties" border>
       <el-table-column label="序号" min-width="3%" align="center">
         <template slot-scope="scope">
@@ -50,6 +53,8 @@
   import { mapState } from 'vuex'
   import routerApi from '@/service/api/routerApi'
   import propertyService from '../../service/property/propertyService'
+  import { Loading } from 'element-ui'
+  import util from "@/service/util"
   export default {
     name: 'propertyControlModel',
     mounted: function () {
@@ -62,8 +67,17 @@
       pageSize: state => state.property.pageSize
     }),
     methods: {
-      jump() {
-        this.$router.push(routerApi.property.test.getTestCompleteUrl())
+      fresh() {
+        let loadingInstance = Loading.service({
+          lock: true,
+          text: '拼命加载中....',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+        })
+        util.sleep(500).then(() => {
+          this.getProperty()
+          loadingInstance.close()
+        })
       },
       getProperty() {
         propertyService.getProperty()

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-13 17:45:21 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-14 18:35:45
+ * @Last Modified time: 2019-10-20 14:44:27
  */
 
 
@@ -19,7 +19,7 @@ export default {
         let res;
         await that.$post(api.complaintAndSuggestion.url.create,{
             sheetType:_type,
-            message:mes,
+            message:changMes(mes),
             title:title,
             proprietorId:userId,
             userNickName:userNickName
@@ -53,4 +53,13 @@ export default {
 
         return res;
     }
+}
+
+function changMes(mes){
+    mes = changALabel(mes);
+    return mes;
+}
+
+function changALabel(mes){
+    return mes;
 }

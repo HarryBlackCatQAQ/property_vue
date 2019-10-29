@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-25 10:26:15
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-25 17:58:42
  */
 
 
@@ -45,8 +45,16 @@ export default {
             checkPropertyName: '/property/checkPropertyName'
         }
     },
+    complaintAndSuggestion:{
+        url:{
+            create:'/api/ComplaintAndSuggestion/create',
+            uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
+            queryOwner:"/api/ComplaintAndSuggestion/query",
+            delOWner:"/api/ComplaintAndSuggestion/del"
+        }
+    },
     building: {
-      url: {
+        url: {
         insert: '/building/insert',
         delete: '/building/delete',
         update: '/building/update',
@@ -65,13 +73,18 @@ export default {
         update: '/house/update',
         checkBuildingHouseNumber: '/house/checkBuildingHouseNumber',
         findAllByBuildingId: '/house/findAllByBuildingId'
-      }
+        }
     },
-    complaintAndSuggestion:{
+    logManagement:{
         url:{
-            create:'/api/ComplaintAndSuggestion/create',
-            uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
-            queryOwner:"/api/ComplaintAndSuggestion/query"
+            getLogFileList:"/admin/getLogFileListByFileName",
+            downloadLog:"/admin/downLoadLogFile"
+        }
+    },
+    feesManagement:{
+        url:{
+            getOwnerUnPayFeesList:"/houseFeeRecord/getOwnerUnPayFeesList",
+            alipay:"/alipay/payPropertyManagementFee"
         }
     }
 

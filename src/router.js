@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-25 10:24:53
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-25 13:10:51
  */
 
 
@@ -133,6 +133,11 @@ const router = new Router({
               name:routerApi.logManagement.getLogManagement(),
               meta: { title: routerApi.logManagement.getLogWebsocketName() },
               component: () => import("./views/log/logManagement.vue")
+            },{
+              path:routerApi.logManagement.logFileManagement.getLogFileManagement(),
+              name:routerApi.logManagement.logFileManagement.getLogFileManagement(),
+              meta:{title:routerApi.logManagement.logFileManagement.getLogFileManagementName()},
+              component: () => import("./views/log/logFileManagement.vue")
             }
           ]
         },
@@ -152,6 +157,25 @@ const router = new Router({
               name:routerApi.complaintAndSuggestion.getOwnerSheet(),
               meta: { title: routerApi.complaintAndSuggestion.getOwnerSheetName() },
               component: () => import("./views/complaintAndSuggestion/ownerSheet.vue")
+            }
+          ]
+        },
+        {
+          path:routerApi.feesManagement.getFeesManagement(),
+          meta:{title:routerApi.feesManagement.getFeesManagementName()},
+          component: () => import("./views/feesManagement/feesManagementIndex.vue"),
+          children:[
+            {
+              path:routerApi.feesManagement.payFees.getPayFees(),
+              name:routerApi.feesManagement.payFees.getPayFees(),
+              meta: { title: routerApi.feesManagement.payFees.getPayFeesName() },
+              component: () => import("./views/feesManagement/payFees.vue")
+            },
+            {
+              path:routerApi.feesManagement.queryFees.getQueryFees(),
+              name:routerApi.feesManagement.queryFees.getQueryFees(),
+              meta: { title: routerApi.feesManagement.queryFees.getQueryFeesName() },
+              component: () => import("./views/feesManagement/queryFees.vue")
             }
           ]
         }

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-09 19:33:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 00:56:18
+ * @Last Modified time: 2019-10-19 18:29:20
  */
 
 
@@ -264,6 +264,10 @@ export default {
 .search-select{
   margin-left: 40px;
   width: 110px;
+}
+
+.el-table{
+  max-height:100% !important;
 }
 
 </style>

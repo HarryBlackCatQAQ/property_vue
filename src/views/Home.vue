@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 02:09:27
+ * @Last Modified time: 2019-10-20 03:50:37
  */
 
 <template>
@@ -22,7 +22,9 @@
           <div class="content" :style="{'height': (this.$store.getters['home/getScreenHeight'] - 30) + 'px'}">
             <transition name="move" mode="out-in">
               <keep-alive :include="this.$store.getters['home/getTagsList']">
+              <transition name="el-fade-in-linear">
                 <router-view></router-view>
+              </transition>
               </keep-alive>
             </transition>
           </div>

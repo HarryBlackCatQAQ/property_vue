@@ -1,12 +1,13 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 16:23:50
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 11:29:17
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2019-10-16 12:21:57
  */
 
 import _this from '@/main'
 import api from '@/service/api/serviceApi'
+import propertyModule from '@/store/modules/propertyModule'
 
 const that = _this._this
 

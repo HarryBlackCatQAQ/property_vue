@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-09-18 03:39:07 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-14 18:13:39
+ * @Last Modified time: 2019-10-25 11:55:19
  */
 import sha1 from "sha1";
 
@@ -57,5 +57,13 @@ export default {
             message: mes,
             type: _type
         });
+    },
+
+    /**
+     * base64转换成图片
+     * @param {string} base64 
+     */
+    base64ToImageUrl(base64){
+        return "data:image/jpeg;base64," + base64;
     }
 }

@@ -2,14 +2,15 @@
  * @Author: Hovees
  * @Date: 2019-10-02 21:06:22
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 15:09:14
+ * @Last Modified time: 2019-10-22 16:30:50
  */
 
 const state = {
   isLoginModelShow: false,
   isForgetPasswordModelShow: false,
   isRegisteredModelShow: false,
-  isTokenErrorToLogin:false
+  isTokenErrorToLogin:false,
+  isLoginFailTimes:false
 }
 
 const mutations = {
@@ -24,12 +25,18 @@ const mutations = {
   },
   changeIsTokenErrorToLogin(state){
     state.isTokenErrorToLogin = !state.isTokenErrorToLogin;
+  },
+  setIsLoginFailTimes(state,val){
+    state.isLoginFailTimes = val;
   }
 }
 
 const getters = {
   getIsTokenErrorToLogin(state){
     return state.isTokenErrorToLogin;
+  },
+  getIsLoginFailTimes(state){
+    return state.isLoginFailTimes;
   }
 }
 

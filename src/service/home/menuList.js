@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 01:16:03
+ * @Last Modified time: 2019-10-25 16:04:14
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -52,6 +52,7 @@ function get(that){
 function model(name,url,icon,isShow,isSub,sub){
     let isSub_tp = false;
     let sub_tp = []
+    
     if(isSub != undefined){
         isSub_tp = isSub;
         sub_tp = sub;
@@ -60,13 +61,16 @@ function model(name,url,icon,isShow,isSub,sub){
     if(isShow == undefined){
         isShow = true;
     }
+    
+    // console.log(name + ":" + isShow)
+
     return {
         name:name,
         icon:icon,
         url:url,
         isShow:isShow,
         isSub:isSub_tp,
-        sub:sub_tp
+        sub:sub_tp,
     }
 }
 
@@ -76,10 +80,11 @@ function model(name,url,icon,isShow,isSub,sub){
  * @param {string} url 
  * @param {string} icon 
  */
-function subs(name,url){
+function subs(name,url,isShow){
     return {
         name:name,
-        url:url
+        url:url,
+        isShow:isShow
     }
 }
 
@@ -111,10 +116,12 @@ function getPublic(){
         true,
         [
             subs(routerApi.getPage1Name(),
-            routerApi.getPage1CompleteUrl()),
+            routerApi.getPage1CompleteUrl(),
+            true),
             
             subs(routerApi.getPage2Name(),
-            routerApi.getPage2CompleteUrl()),
+            routerApi.getPage2CompleteUrl(),
+            true),
         ])
     ]
 }
@@ -133,11 +140,28 @@ function getOwner(){
         true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
 
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
+
+        model(routerApi.feesManagement.getFeesManagementName(),
+        "",
+        "el-icon-wallet",
+        true,
+        true,
+        [
+            subs(routerApi.feesManagement.payFees.getPayFeesName(),
+            routerApi.feesManagement.payFees.getPayFees(),
+            true),
+
+            subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
+            routerApi.feesManagement.queryFees.getQueryFees(),
+            true)
+        ])
     ]
 }
 
@@ -171,10 +195,12 @@ function getPropertyAdministrator(){
         true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
 
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
     ]
 }
@@ -188,7 +214,7 @@ function getPropertyAdministrator(){
         model(routerApi.property.getPropertyName(),
             routerApi.property.getPropertyUrl(),
             'el-icon-s-home'),
-
+            
         //楼栋(不显示)
         model(routerApi.property.building.getBuildingName(),
             routerApi.property.building.getBuildingCompleteUrl(),
@@ -209,10 +235,12 @@ function getPropertyAdministrator(){
         true,
         [
             subs(routerApi.complaintAndSuggestion.getOwnerSheetName(),
-            routerApi.complaintAndSuggestion.getOwnerSheet()),
+            routerApi.complaintAndSuggestion.getOwnerSheet(),
+            true),
             
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
-            routerApi.complaintAndSuggestion.getCreateSheet())
+            routerApi.complaintAndSuggestion.getCreateSheet(),
+            true)
         ]),
 
         //用户管理
@@ -228,7 +256,27 @@ function getPropertyAdministrator(){
         true,
         [
             subs(routerApi.logManagement.getLogWebsocketName(),
-            routerApi.logManagement.getLogWebsocket())
+            routerApi.logManagement.getLogWebsocket(),
+            true),
+
+            subs(routerApi.logManagement.logFileManagement.getLogFileManagementName(),
+            routerApi.logManagement.logFileManagement.getLogFileManagement(),
+            true)
         ]),
+
+        model(routerApi.feesManagement.getFeesManagementName(),
+        "",
+        "el-icon-wallet",
+        true,
+        true,
+        [
+            subs(routerApi.feesManagement.payFees.getPayFeesName(),
+            routerApi.feesManagement.payFees.getPayFees(),
+            true),
+
+            subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
+            routerApi.feesManagement.queryFees.getQueryFees(),
+            true)
+        ])
     ]
  }

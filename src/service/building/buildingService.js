@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-15 10:50:35 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 16:09:29
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-16 16:36:30
  */
 
 import _this from '@/main'
@@ -38,6 +38,19 @@ export default {
       res = response
     })
     return res
+  },
+  async getById(id) {
+    let res
+    await that.$get(api.building.url.getById, {
+        id: id
+      })
+      .then(response => {
+        res = response
+        if (res.message === '查询成功') {
+          that.$store.commit('building/SET_BUILDING_NAME', res.data.name)
+          that.$store.commit('building/SET_BUILDING_ID', res.data.id)
+        }
+      })
   },
   async getFirstByPropertyId(propertyId) {
     let res
@@ -84,6 +97,7 @@ export default {
         that.$store.commit('building/ALL_BUILDINGS', res.data)
       }
     })
+    return res
   },
   async getAllBuildingByPropertyId(propertyId) {
     let res

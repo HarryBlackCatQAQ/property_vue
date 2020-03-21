@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 13:24:42
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-19 13:01:15
  */
 
 <template>
@@ -12,7 +12,7 @@
       刷新
     </el-button>
     <el-button type="primary" size="medium" @click="clickAdd" style="position:absolute;right:0">添加楼盘</el-button>
-    <el-table :data="properties" border>
+    <el-table :data="properties" border v-loading="tableLoading">
       <el-table-column label="序号" min-width="3%" align="center">
         <template slot-scope="scope">
           {{(pageNum - 1) * pageSize + scope.$index + 1}}
@@ -57,8 +57,17 @@
   import util from "@/service/util"
   export default {
     name: 'propertyControlModel',
+    data () {
+      return {
+        tableLoading: false  
+      }
+    },
     mounted: function () {
-      this.getProperty()
+      this.tableLoading = true
+      util.sleep(500).then(() => {
+        this.getProperty()
+        this.tableLoading = false
+      })
     },
     computed: mapState({
       properties: state => state.property.properties,
@@ -68,15 +77,10 @@
     }),
     methods: {
       fresh() {
-        let loadingInstance = Loading.service({
-          lock: true,
-          text: '拼命加载中....',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)',
-        })
+        this.tableLoading = true
         util.sleep(500).then(() => {
           this.getProperty()
-          loadingInstance.close()
+          this.tableLoading = false
         })
       },
       getProperty() {

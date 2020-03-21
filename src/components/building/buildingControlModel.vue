@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-15 15:02:06 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 16:02:43
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-21 20:05:07
  */
 
 <template>
@@ -15,8 +15,11 @@
     <el-button type="primary" style="position:absolute;right:0" size="medium" @click="clickAdd">
       添加楼栋
     </el-button>
+    <el-button type="text" @click="refresh">
+      刷新
+    </el-button>
     <el-dialog :visible="changePropertyShow" width="400px" 
-      center @close="clickClose" title="切换楼盘">
+      center @closed="clickClose" title="切换楼盘">
       <div style="text-align: center;">
         <el-select v-model="recordPropertyId" placeholder="请选择" @change="selectChange" filterable>
           <el-option
@@ -32,7 +35,7 @@
         <el-button type="primary" @click="changeProperty">确 定</el-button>
       </span>
     </el-dialog>
-    <el-table :data="buildings" border style="width: 100%" fit>
+    <el-table :data="buildings" border style="width: 100%" fit v-loading="tableLoading">
       <el-table-column label="序号" min-width="3%" align="center">
         <template slot-scope="scope">
           {{(pageNum - 1) * pageSize + scope.$index + 1}}
@@ -91,14 +94,16 @@ export default {
   }),
   data() {
     return {
+      tableLoading: false,
       changePropertyShow: false,
       recordPropertyId: '',
       recordPropertyName: ''
     }
   },
   created: function() {
+    let id = sessionStorage.getItem('propertyId')
     if (this.propertyName === '' || this.propertyName === undefined) {      
-      this.getFirstProperty()
+      this.getPropertyById(id)
     }
     util.sleep(100).then(() => {
       if (this.properties.length === 0) {
@@ -114,20 +119,21 @@ export default {
     this.$store.commit('building/INIT_BUILDING')
     this.recordPropertyId = this.propertyId
     this.recordPropertyName = this.propertyName
-    let loadingInstance = Loading.service({
-      lock: true,
-      text: '拼命加载中....',
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.7)',
-    })
+    this.tableLoading = true
     util.sleep(500).then(() => {
       this.getBuilding()
-      loadingInstance.close()
+      this.tableLoading = false
     })
   },
   methods: {
     goBack() {
       this.$router.push('/property')
+    },
+    getPropertyById(id) {
+      propertyService.getById(id)
+      .catch(error => {
+        console.log(error)
+      })
     },
     getFirstProperty() {
       propertyService.getFirst()
@@ -141,6 +147,15 @@ export default {
         console.log(error)
         this.$message.error('获取楼栋失败')
       })
+    },
+    refresh() {
+      // this.openBigLoading();
+      this.tableLoading = true
+      setTimeout(() => {
+        this.getBuilding();
+        // this.closeBigLoading();
+        this.tableLoading = false
+      }, 700);
     },
     clickAdd() {
       this.$store.commit('building/ADD_BUILDING_DIALOG', true)
@@ -186,7 +201,18 @@ export default {
     handleDelete(building) {
       this.$store.commit('building/RECORD_BUILDING', Object.assign({}, building))
       this.$store.commit('building/DELETE_BUILDING_DIALOG', true)
-    }
+    },
+    openBigLoading() {
+      this.loadingInstance = Loading.service({
+        lock: true,
+        text: "拼命加载中....",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+    },
+    closeBigLoading() {
+      this.loadingInstance.close();
+    },
   }
 }
 </script>

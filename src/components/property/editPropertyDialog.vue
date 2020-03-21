@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-10 14:47:17 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 17:00:00
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-12 15:01:44
  */
  
 <template>
@@ -84,14 +84,16 @@ export default {
           this.$store.commit('property/LOADING', true)
           propertyService.update(this.recordProperty)
           .then(response => {
-            this.$store.commit('property/LOADING', false)
-            if (response.flag) {
-              this.$message.success(response.message)
-            } else {
-              this.$message.error(response.message)
-            }
-            propertyService.getProperty()
-            this.$store.commit('property/EDIT_PROPERTY_DIALOG', false)
+            setTimeout(() => {
+              this.$store.commit('property/LOADING', false)
+              if (response.flag) {
+                this.$message.success(response.message)
+              } else {
+                this.$message.error(response.message)
+              }
+              propertyService.getProperty()
+              this.$store.commit('property/EDIT_PROPERTY_DIALOG', false)
+            }, 600);
           })
           .catch(error => {
             console.log(error)

@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-18 15:20:14 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-18 16:11:15
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-12 15:02:07
  */
 
 <template>
@@ -103,14 +103,16 @@
             this.$store.commit('building/LOADING', true)
             buildingService.update(this.recordBuilding)
             .then(response => {
-              this.$store.commit('building/LOADING', false)
-              if (response.flag) {
-                this.$message.success(response.message)
-              } else {
-                this.$message.error(response.message)
-              }
-              buildingService.getBuilding()
-              this.$store.commit('building/EDIT_BUILDING_DIALOG', false)
+              setTimeout(() => {
+                this.$store.commit('building/LOADING', false)
+                if (response.flag) {
+                  this.$message.success(response.message)
+                } else {
+                  this.$message.error(response.message)
+                }
+                buildingService.getBuilding()
+                this.$store.commit('building/EDIT_BUILDING_DIALOG', false)
+              }, 600);
             })
             .catch(error => {
               console.log(error)

@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-25 09:28:40 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-25 09:29:10
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-10 18:22:50
  */
 
 <template>
@@ -13,17 +13,22 @@
     <!-- 添加房屋模态框 -->
     <add-house-dialog/>
 
+    <!-- 修改房屋模态框 -->
+    <edit-house-dialog/>
+
   </div>  
 </template>
 
 <script>
   import houseControlModel from "../../components/house/houseControlModel";
   import addHouseDialog from "../../components/house/addHouseDialog";
+  import editHouseDialog from "../../components/house/editHouseDialog";
   export default {
     name: "houseIndex",
     components: {
       houseControlModel,
-      addHouseDialog
+      addHouseDialog,
+      editHouseDialog
     }
   }
 </script>

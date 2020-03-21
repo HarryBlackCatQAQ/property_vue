@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 16:26:22 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-04 02:32:35
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-19 16:24:36
  */
 
 <template>
@@ -27,6 +27,9 @@
             <el-dropdown class="item-right">
               <span class="el-dropdown-link user-tag">{{this.$store.getters['user/getNickname']}}</span>
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-if="this.$store.getters['user/getRolename'] === '业主'">
+                  <span @click="infomation">个人资料</span>
+                </el-dropdown-item>
                 <el-dropdown-item>
                   <span @click="logout">登出</span>
                 </el-dropdown-item>
@@ -60,6 +63,9 @@ export default {
   methods: {
     changeMenu() {
       this.$store.commit("home/changeIsAsideMenuOpen");
+    },
+    infomation() {
+      this.$router.push(routerApi.userInformation.getUrl());
     },
     logout() {
       let res = logoutService.logout();

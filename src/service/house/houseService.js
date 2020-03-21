@@ -30,6 +30,19 @@ export default {
     })
     return res
   },
+  async getById(id) {
+    let res
+    await that.$get(api.house.url.getById, {
+        id: id
+      })
+      .then(response => {
+        res = response
+        if (res.message === '查询成功') {
+          that.$store.commit('house/HOUSE_DETAIL', res.data)
+        }
+      })
+    return res
+  },
   async checkBuildingHouseNumber(number) {
     let res
     let buildingId = building.state.buildingId
@@ -50,6 +63,45 @@ export default {
     .then(response => {
       res = response
     })
+    return res
+  },
+  async update(recordHouse) {
+    let res
+    await that.$patch(api.house.url.update, recordHouse)
+      .then(response => {
+        res = response
+      })
+    return res
+  },
+  async getAllHouses() {
+    let res
+    await that.$get(api.house.url.getAllHouses)
+      .then(response => {
+        res = response
+      })
+    return res
+  },
+  async getUserAllHouses(pageNum, pageSize, userId) {
+    let res
+    await that.$get(api.house.url.getUserAllHouses, {
+        pageNum: pageNum,
+        pageSize: pageSize,
+        userId: userId
+      })
+      .then(response => {
+        res = response
+      })
+    return res
+  },
+  async updateOwner(houseId, userId) {
+    let res
+    await that.$patch(api.house.url.updateOwner, {
+        id: houseId,
+        userId: userId
+      })
+      .then(response => {
+        res = response
+      })
     return res
   }
 }

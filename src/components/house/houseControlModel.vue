@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-25 09:27:54 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-25 14:30:04
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-21 20:05:09
  */
 
 <template>
@@ -12,11 +12,14 @@
     <el-button type="text" @click="clickChange" >
       切换楼栋
     </el-button>
+    <el-button type="text" @click="refresh">
+      刷新
+    </el-button>
     <el-button type="primary" style="position:absolute;right:0" size="medium" @click="clickAdd">
       添加房屋
     </el-button>
     <el-dialog :visible="changeBuildingShow" width="400px"
-               center @close="clickClose" title="切换楼栋">
+               center @closed="clickClose" title="切换楼栋">
       <div style="text-align: center;">
         <el-form :inline="true">
           <el-form-item label="楼盘:">
@@ -46,7 +49,7 @@
         <el-button type="primary" @click="changeBuilding">确 定</el-button>
       </span>
     </el-dialog>
-    <el-table :data="houses" border style="width: 100%" fit>
+    <el-table :data="houses" border style="width: 100%" fit v-loading="tableLoading">
       <el-table-column label="序号" min-width="3%" align="center">
         <template slot-scope="scope">
           {{(pageNum - 1) * pageSize + scope.$index + 1}}
@@ -88,6 +91,7 @@
 <script>
   import util from "@/service/util"
   import { Loading } from 'element-ui'
+  import routerApi from '@/service/api/routerApi'
   import propertyService from '../../service/property/propertyService'
   import buildingService from '../../service/building/buildingService'
   import houseService from '../../service/house/houseService'
@@ -109,6 +113,7 @@
     }),
     data() {
       return {
+        tableLoading: false,
         changeBuildingShow: false,
         recordPropertyId: '',
         recordPropertyName: '',
@@ -117,8 +122,9 @@
       }
     },
     created: function() {
+      let propertyId = sessionStorage.getItem('propertyId')
       if (this.propertyName === '' || this.propertyName === undefined) {
-        this.getFirstProperty()
+        this.getPropertyById(propertyId)
       }
       util.sleep(100).then(() => {
         if (this.properties.length === 0) {
@@ -137,12 +143,7 @@
     },
     mounted: function() {
       this.$store.commit('house/INIT_HOUSE')
-      let loadingInstance = Loading.service({
-        lock: true,
-        text: '拼命加载中....',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)',
-      })
+      this.tableLoading = true
       util.sleep(500).then(() => {
         this.getHouse()
         this.recordPropertyId = this.propertyId
@@ -150,7 +151,7 @@
         this.recordBuildingId = this.buildingId
         this.recordBuildingName = this.buildingName
         this.setBuildings(this.recordPropertyId)
-        loadingInstance.close()
+        this.tableLoading = false
       })
     },
     methods: {
@@ -169,6 +170,22 @@
           console.log(error)
         })
       },
+      getPropertyById(propertyId) {
+        propertyService.getById(propertyId)
+        .then(() => {
+          let buildingId = sessionStorage.getItem('buildingId')
+          this.getBuildingById(buildingId)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      },
+      getBuildingById(buildingId) {
+        buildingService.getById(buildingId)
+        .catch(error => {
+          console.log(error)
+        })
+      },
       getFirstBuilding(propertyId) {
         buildingService.getFirstByPropertyId(propertyId)
         .catch(error => {
@@ -181,6 +198,15 @@
           console.log(error)
           this.$message.error('获取房屋信息失败')
         })
+      },
+      refresh() {
+        // this.openBigLoading();
+        this.tableLoading = true
+        setTimeout(() => {
+          this.getHouse();
+          // this.closeBigLoading();
+          this.tableLoading = false
+        }, 700);
       },
       clickAdd() {
         this.$store.commit('house/ADD_HOUSE_DIALOG', true)
@@ -235,8 +261,12 @@
         this.getHouse()
       },
       handleView(house) {
-        //TODO
-        console.log('进入房屋详情页面');
+        this.$store.commit('house/HOUSE_ID', house.id)
+        let res = houseService.getById(house.id)
+        .catch(error => {
+          console.log(error)
+        })
+        this.$router.push(routerApi.property.building.house.detail.getHouseDetailCompleteUrl())
       },
       handleEdit(house) {
         //TODO
@@ -247,7 +277,18 @@
         //TODO
         this.$store.commit('house/RECORD_HOUSE', Object.assign({}, house))
         this.$store.commit('house/DELETE_HOUSE_DIALOG', true)
-      }
+      },
+      openBigLoading() {
+        this.loadingInstance = Loading.service({
+          lock: true,
+          text: "拼命加载中....",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
+      },
+      closeBigLoading() {
+        this.loadingInstance.close();
+      },
     }
   }
 </script>

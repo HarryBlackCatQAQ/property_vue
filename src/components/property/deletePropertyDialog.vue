@@ -2,7 +2,7 @@
  * @Author: Hovees 
  * @Date: 2019-10-10 13:58:08 
  * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-10 16:20:58
+ * @Last Modified time: 2019-10-18 15:42:40
  */
  
 <template>
@@ -11,17 +11,17 @@
       center
       @close="clickClose"
       title="提示">
-      <el-form v-loading="loading">
-        <el-form-item label-width="4%">
+      <el-form v-loading="loading" label-width="20%">
+        <el-form-item label-width="5%">
           <h3>确认删除该楼盘吗？</h3>
         </el-form-item>
-        <el-form-item label="楼盘名称:" label-width="20%">
+        <el-form-item label="楼盘名称:">
           <b>{{recordProperty.name}}</b>
         </el-form-item>
-        <el-form-item label="楼盘地址:" label-width="20%">
+        <el-form-item label="楼盘地址:">
           <b>{{recordProperty.location}}</b>
         </el-form-item>
-        <el-form-item label="楼盘编码:" label-width="20%">
+        <el-form-item label="楼盘编码:">
           <b>{{recordProperty.uid}}</b>
         </el-form-item>
       </el-form>
@@ -64,7 +64,7 @@ export default {
       .catch(error => {
         console.log(error)
         this.$store.commit('property/LOADING', false)
-        this.$message.error('删除失败')
+        this.$message.error('删除失败,请先清空楼栋')
       })
     }
   }

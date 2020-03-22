@@ -17,9 +17,9 @@ import login from './modules/loginModule'
 import user from './modules/userModule'
 import roleManagement from './modules/roleManagementModule'
 import property from './modules/propertyModule'
-import complaintAndSuggestion from './modules/complaintAndSuggestionModule'
 import building from './modules/buildingModule'
 import house from './modules/houseModule'
+import complaintAndSuggestion from './modules/complaintAndSuggestionModule'
 import logManagement from './modules/logManagementModule'
 import feesManagement from './modules/feesManagementModule'
 
@@ -36,9 +36,9 @@ export default new Vuex.Store({
     user,
     roleManagement,
     property,
-    complaintAndSuggestion,
     building,
     house,
+    complaintAndSuggestion,
     logManagement,
     feesManagement
   }

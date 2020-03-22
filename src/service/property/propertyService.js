@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 16:23:50
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-16 12:21:57
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-16 16:07:42
  */
 
 import _this from '@/main'
@@ -23,6 +23,20 @@ export default {
       }
     })
   },
+  async getById(id) {
+    let res
+    await that.$get(api.property.url.getById, {
+        id: id
+      })
+      .then(response => {
+        res = response
+        if (res.message === '查询成功') {
+          that.$store.commit('property/SET_PROPERTY_NAME', res.data.name)
+          that.$store.commit('property/SET_PROPERTY_ID', res.data.id)
+          return res
+        }
+      })
+  },
   async getProperty() {
     let res
     let pageNum = that.$store.state.property.pageNum
@@ -40,6 +54,17 @@ export default {
       res = response
       if(res.message === '查询成功') {
         that.$store.commit('property/GET_PROPERTY', response.data)
+      }
+    })
+    return res
+  },
+  async getAllProperty() {
+    let res
+    await that.$get(api.property.url.getAllProperty, {})
+    .then(response => {
+      res = response
+      if(res.message === '查询成功') {
+        that.$store.commit('property/SET_CHANGE_SELECT_PROPERTIES', response.data)
       }
     })
     return res

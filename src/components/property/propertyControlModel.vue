@@ -1,16 +1,23 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 16:40:14
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-19 13:01:15
  */
 
 <template>
-  <div class="property-control-model">
-    <el-button @click="jump">跳转</el-button>
-    <el-button @click="clickAdd">添加楼盘</el-button>
-    <el-table :data="properties" border>
-      <el-table-column prop="id" label="id" min-width="3%" align="center"/>
+  <div class="property-control-model" style="position:relative">
+    <h2>楼盘管理</h2>
+    <el-button type="text" @click="fresh">
+      刷新
+    </el-button>
+    <el-button type="primary" size="medium" @click="clickAdd" style="position:absolute;right:0">添加楼盘</el-button>
+    <el-table :data="properties" border v-loading="tableLoading">
+      <el-table-column label="序号" min-width="3%" align="center">
+        <template slot-scope="scope">
+          {{(pageNum - 1) * pageSize + scope.$index + 1}}
+        </template>
+      </el-table-column>
       <el-table-column label="楼盘名字" min-width="15%">
         <template slot-scope="scope">
           <el-link :underline=false @click="handleView(scope.row)">
@@ -22,6 +29,7 @@
       <el-table-column prop="uid" label="楼盘编码" min-width="15%"/>
       <el-table-column label="操作" min-width="8%">
         <template slot-scope="scope">
+          <el-button size="small" icon="el-icon-view" @click="handleView(scope.row)" />
           <el-button size="small" icon="el-icon-edit" @click="handleEdit(scope.row)" />
           <el-button size="small" type="danger" icon="el-icon-delete" @click="handleDelete(scope.row)"/>
         </template>
@@ -45,10 +53,21 @@
   import { mapState } from 'vuex'
   import routerApi from '@/service/api/routerApi'
   import propertyService from '../../service/property/propertyService'
+  import { Loading } from 'element-ui'
+  import util from "@/service/util"
   export default {
     name: 'propertyControlModel',
+    data () {
+      return {
+        tableLoading: false  
+      }
+    },
     mounted: function () {
-      this.getProperty()
+      this.tableLoading = true
+      util.sleep(500).then(() => {
+        this.getProperty()
+        this.tableLoading = false
+      })
     },
     computed: mapState({
       properties: state => state.property.properties,
@@ -57,8 +76,12 @@
       pageSize: state => state.property.pageSize
     }),
     methods: {
-      jump() {
-        this.$router.push(routerApi.property.test.getTestCompleteUrl())
+      fresh() {
+        this.tableLoading = true
+        util.sleep(500).then(() => {
+          this.getProperty()
+          this.tableLoading = false
+        })
       },
       getProperty() {
         propertyService.getProperty()

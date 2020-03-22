@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-29 15:10:32
+ * @Last Modified time: 2020-03-22 15:35:13
  */
 
 
@@ -32,6 +32,9 @@ export default {
         },
         selectUserByType:{
             url:"/admin/selectUserByType"
+        },
+        selectUserByPhone: {
+            url: "/admin/selectUserByPhone"
         }
     },
     property: {
@@ -40,8 +43,10 @@ export default {
             delete: '/property/delete',
             update: '/property/update',
             findAll: '/property/findAll',
+            getAllProperty: '/property/getAllProperty',
             getFirst: '/property/getFirst',
-            checkPropertyName: '/property/checkPropertyName'
+            checkPropertyName: '/property/checkPropertyName',
+            getById: '/property/getById'
         }
     },
     complaintAndSuggestion:{
@@ -54,8 +59,29 @@ export default {
     },
     building: {
         url: {
-          findAll: '/building/findAll',
-          findAllByPropertyId: '/building/findAllByPropertyId'
+            insert: '/building/insert',
+            delete: '/building/delete',
+            update: '/building/update',
+            findAll: '/building/findAll',
+            findAllByPropertyId: '/building/findAllByPropertyId',
+            getFirstByPropertyId: '/building/getFirstByPropertyId',
+            checkPropertyBuildingName: '/building/checkPropertyBuildingName',
+            getAllBuildings: '/building/getAllBuildings',
+            getAllBuildingByPropertyId: '/building/getAllBuildingByPropertyId',
+            getById: '/building/getById'
+        }
+    },
+    house: {
+        url: {
+            insert: '/house/insert',
+            delete: '/house/delete',
+            update: '/house/update',
+            getById: '/house/getById',
+            checkBuildingHouseNumber: '/house/checkBuildingHouseNumber',
+            findAllByBuildingId: '/house/findAllByBuildingId',
+            getAllHouses: '/house/getAllHouses',
+            getUserAllHouses: '/house/getUserAllHouses',
+            updateOwner: '/house/updateOwner',
         }
     },
     logManagement:{
@@ -66,10 +92,36 @@ export default {
     },
     feesManagement:{
         url:{
-            getOwnerUnPayFeesList:"/houseFeeRecord/getOwnerUnPayFeesList",
-            alipay:"/alipay/payPropertyManagementFee",
-            getAllPayFeesList:"/houseFeeRecord/getAllPayFeesList",
-            getPayFeesListByPayState:"/houseFeeRecord/getPayFeesListByPayState"
+            getOwnerUnPayFeesList: "/houseFeeRecord/getOwnerUnPayFeesList",
+            alipayQRCode: "/alipay/payPropertyManagementFee/QRCode",
+            alipayPcpay: "/alipay/payPropertyManagementFee/pcPay",
+            searchOwnerTimeRangeFeesList: "/houseFeeRecord/searchOwnerTimeRangeFeesList",
+            searchUserBuildingFeesList: "/houseFeeRecord/searchUserBuildingFeesList",
+            searchBuildingFeesList: "/houseFeeRecord/searchBuildingFeesList",
+            searchUserFeesList: "/houseFeeRecord/searchUserFeesList",
+            searchHouseFeesList: "/houseFeeRecord/searchHouseFeesList",
+            checkHouseFeeClear: "/houseFeeRecord/checkHouseFeeClear",
+            findAll: "/houseFeePublishRecord/findAll",
+            publish: "/houseFeePublishRecord/publish",
+        }
+    },
+    user: {
+        url: {
+            selectUserById: "/user/getById",
+            sendEmailConfirm: "/user/sendEmailConfirm",
+            emailConfirm: "/user/emailConfirm",
+        }
+    },
+    equipmentPurchase: {
+        url: {
+            getById: "/equipmentPurchase/getById",
+            insert: "/equipmentPurchase/insert",
+            deleteById: "/equipmentPurchase/deleteById",
+            findAll: "/equipmentPurchase/findAll",
+            findAllByApplicantId: "/equipmentPurchase/findAllByApplicantId",
+            updateStatusPass: "/equipmentPurchase/updateStatusPass",
+            updateStatusNotPass: "/equipmentPurchase/updateStatusNotPass",
+            updateStatusComplete: "/equipmentPurchase/updateStatusComplete",
         }
     }
 

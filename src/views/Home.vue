@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-30 13:50:30
+ * @Last Modified time: 2020-03-22 15:37:07
  */
 
 <template>
@@ -40,6 +40,8 @@ import headNav from "@/components/home/head";
 import vTags from "@/components/home/tags";
 import util from "@/service/util";
 import messageAcceptService from "@/service/home/messageAcceptService";
+import routerApi from "@/service/api/routerApi";
+import userInformationService from "@/service/userInformation/userInformationService";
 
 export default {
   name: "home",
@@ -53,8 +55,26 @@ export default {
       
     }
   },
-  methods:{
-
+  created () {
+    let res
+    let userId = this.$store.getters['user/getId']
+    let roleName = this.$store.getters['user/getRolename']
+    if(roleName === '业主') {
+      userInformationService.selectUserById(userId)
+      .then(response => {
+        res = response
+        let emailAddress = res.data.emailAddress
+        if (emailAddress === null || emailAddress === undefined || emailAddress.length === 0) {
+          this.$alert('亲爱的业主，由于您未绑定邮箱，请先前往绑定邮箱。', '提示', {
+            confirmButtonText: '立即绑定',
+            showClose: false,
+            callback: action => {
+              this.$router.push(routerApi.userInformation.getUrl());
+            }
+          });
+        }
+      })
+    }
   },
   mounted() {
     const that = this;

@@ -1,11 +1,12 @@
 /*
  * @Author: Hovees 
  * @Date: 2019-10-15 10:16:15 
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-15 16:41:40
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-14 19:23:04
  */
 
 const state = {
+  houseId: 1,
   houses: [],
   rowCount: 0,
   pageNum: 1,
@@ -14,17 +15,28 @@ const state = {
   addHouseDialog: false,
   deleteHouseDialog: false,
   editHouseDialog: false,
-  recordHouse: ''
+  recordHouse: '',
+  houseDetail: ''
 }
 
 const mutations = {
+  ['HOUSE_ID'](state, payload) {
+    sessionStorage.setItem('houseId', payload)
+    state.houseId = payload
+  },
   ['GET_HOUSE'](state, payload) {
     if (payload.content) {
-      state.properties = payload.content.map((houseModule) => {
-        return Object.assign({}, houseModule, {id: houseModule.id})
+      state.houses = payload.content.map((houseModule) => {
+        return Object.assign({}, houseModule, {
+          id: houseModule.id
+        })
       })
     }
     state.rowCount = payload.totalElements
+  },
+  ['INIT_HOUSE'](state) {
+    state.houses = []
+    state.rowCount = 0
   },
   ['SET_PAGE_NUM'](state, payload) {
     state.pageNum = payload
@@ -46,6 +58,9 @@ const mutations = {
   },
   ['RECORD_HOUSE'](state, payload) {
     state.recordHouse = payload
+  },
+  ['HOUSE_DETAIL'](state, payload) {
+    state.houseDetail = payload
   }
 }
 

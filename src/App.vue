@@ -82,5 +82,4 @@ export default {
 .el-scrollbar__wrap {
   overflow-x: hidden;
 } */
-
 </style>

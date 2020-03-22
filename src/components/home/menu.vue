@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 16:24:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 13:08:13
+ * @Last Modified time: 2020-03-22 15:41:51
  */
 
 <template>
@@ -28,16 +28,18 @@
                 </template>
 
                 <el-menu-item-group>
-                  <el-menu-item v-for="(subItem,i) in item.sub" :key="i" :index="subItem.url" @click="menuClick(subItem.url)">
+                  <template v-for="(subItem,i) in item.sub">
+                  <el-menu-item v-if="subItem.isShow == true" :key="i" :index="subItem.url" @click="menuClick(subItem.url)">
                     {{subItem.name}}
                   </el-menu-item>
+                  </template>
                 </el-menu-item-group>
               </el-submenu>
 
             </template>
 
             <template v-else-if="item.isShow">
-              <el-menu-item :index="item.url" :key="index" @click="menuClick(item.url)">
+              <el-menu-item :index="item.url" :key="index" @click="menuClick(item.url)" v-if="item.isShow">
                 <i :class="item.icon"></i>
                 <span slot="title">{{item.name}}</span>
             </el-menu-item>

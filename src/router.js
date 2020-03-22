@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 13:10:51
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-21 16:54:25
  */
 
 
@@ -99,6 +99,28 @@ const router = new Router({
                   name: 'building',
                   meta: { title: routerApi.property.building.getBuildingName() },
                   component: () => import('./views/building/buildingIndex')
+                },
+                {
+                  path: routerApi.property.building.house.getHouseUrl(),
+                  component: () => import('./views/house/houseView'),
+                  children: [
+                    {
+                      path: '/',
+                      name: 'house',
+                      meta: { title: routerApi.property.building.house.getHouseName() },
+                      component: () => import('./views/house/houseIndex')
+                    },
+                    {
+                      path: routerApi.property.building.house.detail.getHouseDetailUrl(),
+                      component: () => import('./views/houseDetail/houseDetailView'),
+                      children: [{
+                        path: '/',
+                        name: 'houseDetail',
+                        meta: { title: routerApi.property.building.house.detail.getHouseDetailName() },
+                        component: () => import('./views/houseDetail/houseDetailIndex'),
+                      }]
+                    }
+                  ]
                 }
               ]
             },
@@ -164,8 +186,47 @@ const router = new Router({
               name:routerApi.feesManagement.queryFees.getQueryFees(),
               meta: { title: routerApi.feesManagement.queryFees.getQueryFeesName() },
               component: () => import("./views/feesManagement/queryFees.vue")
+            },
+            {
+              path: routerApi.feesManagement.feeCollection.getFeeCollectionUrl(),
+              name: routerApi.feesManagement.feeCollection.getFeeCollectionUrl(),
+              meta: { title: routerApi.feesManagement.feeCollection.getFeeCollectionName() },
+              component: () => import("./views/feesManagement/feeCollection.vue")
             }
           ]
+        }, {
+          path: routerApi.houseList.getHouseListUrl(),
+          meta: { title: routerApi.houseList.getHouseListName() },
+          component: () => import("./views/houseList/houseListView"),
+          children: [{
+            path: '/',
+            name: 'houseList',
+            meta: { title: routerApi.houseList.getHouseListName() },
+            component: () => import('./views/houseList/houseListIndex'),
+          }]
+        }, {
+          path: routerApi.userInformation.getUrl(),
+          meta: { title: routerApi.userInformation.getName() },
+          component: () => import("./views/userInformation/userInformation"),
+        }, {
+          path: routerApi.equipmentPurchase.getUrl(),
+          component: () => import("./views/equipmentPurchase/equipmentPurchaseView"),
+          children: [{
+            path: routerApi.equipmentPurchase.myApply.getUrl(),
+            name: 'myApply',
+            meta: { title: routerApi.equipmentPurchase.myApply.getName() },
+            component: () => import('./views/equipmentPurchase/equipmentPurchaseList'),
+          }, {
+            path: routerApi.equipmentPurchase.list.getUrl(),
+            name: 'equipmentPurchaseList',
+            meta: { title: routerApi.equipmentPurchase.list.getName() },
+            component: () => import('./views/equipmentPurchase/equipmentPurchaseList'),
+          }, {
+            path: routerApi.equipmentPurchase.detail.getUrl(),
+            name: 'equipmentPurchaseDetail',
+            meta: { title: routerApi.equipmentPurchase.detail.getName()},
+            component: () => import('./views/equipmentPurchase/equipmentPurchaseDetail'),
+          }]
         }
       ]
     }

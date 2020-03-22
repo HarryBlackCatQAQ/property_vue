@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 16:04:14
+ * @Last Modified time: 2020-03-22 15:41:37
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -132,6 +132,17 @@ function getPublic(){
  */
 function getOwner(){
     return [
+        //房屋列表
+        model(routerApi.houseList.getHouseListName(),
+            routerApi.houseList.getHouseListUrl(),
+            'el-icon-s-home'),
+
+        //房屋详情(不显示)
+        model(routerApi.property.building.house.detail.getHouseDetailName(),
+            routerApi.property.building.house.detail.getHouseDetailCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
         "",
@@ -148,6 +159,7 @@ function getOwner(){
             true)
         ]),
 
+        //物业费缴纳与查询
         model(routerApi.feesManagement.getFeesManagementName(),
         "",
         "el-icon-wallet",
@@ -161,7 +173,14 @@ function getOwner(){
             subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
             routerApi.feesManagement.queryFees.getQueryFees(),
             true)
-        ])
+        ]),
+
+        //个人资料(不显示)
+        model(routerApi.userInformation.getName(),
+            routerApi.userInformation.getUrl(),
+            'el-icon-setting',
+            false),
+
     ]
 }
 
@@ -177,10 +196,43 @@ function getPropertyAdministrator(){
 
         //楼栋(不显示)
         model(routerApi.property.building.getBuildingName(),
-        routerApi.property.building.getBuildingCompleteUrl(),
-        'el-icon-s-home',
-        false),
-        
+            routerApi.property.building.getBuildingCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //房屋(不显示)
+        model(routerApi.property.building.house.getHouseName(),
+            routerApi.property.building.house.getHouseCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //房屋详情(不显示)
+        model(routerApi.property.building.house.detail.getHouseDetailName(),
+            routerApi.property.building.house.detail.getHouseDetailCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //设备采购
+        model(routerApi.equipmentPurchase.getName(),
+            "",
+            "el-icon-cpu",
+            true,
+            true,
+            [
+                subs(routerApi.equipmentPurchase.myApply.getName(),
+                    routerApi.equipmentPurchase.myApply.getUrl(),
+                    true),
+                subs(routerApi.equipmentPurchase.list.getName(),
+                    routerApi.equipmentPurchase.list.getUrl(),
+                    true),
+            ]),
+
+        //设备采购详情(不显示)
+        model(routerApi.equipmentPurchase.list.getName(),
+            routerApi.equipmentPurchase.list.getUrl(),
+            'el-icon-s-home',
+            false),
+
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
         "",
@@ -196,6 +248,21 @@ function getPropertyAdministrator(){
             routerApi.complaintAndSuggestion.getCreateSheet(),
             true)
         ]),
+
+        //物业费缴纳与查询
+        model(routerApi.feesManagement.getFeesManagementName(),
+            "",
+            "el-icon-wallet",
+            true,
+            true,
+            [
+                subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
+                    routerApi.feesManagement.queryFees.getQueryFees(),
+                    true),
+                subs(routerApi.feesManagement.feeCollection.getFeeCollectionName(),
+                    routerApi.feesManagement.feeCollection.getFeeCollectionUrl(),
+                    true)
+            ])
     ]
 }
 
@@ -211,9 +278,37 @@ function getPropertyAdministrator(){
             
         //楼栋(不显示)
         model(routerApi.property.building.getBuildingName(),
-        routerApi.property.building.getBuildingCompleteUrl(),
-        'el-icon-s-home',
-        false),
+            routerApi.property.building.getBuildingCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //房屋(不显示)
+        model(routerApi.property.building.house.getHouseName(),
+            routerApi.property.building.house.getHouseCompleteUrl(),
+            'el-icon-s-home',
+            false),
+
+        //设备采购
+        model(routerApi.equipmentPurchase.getName(),
+            "",
+            "el-icon-cpu",
+            true,
+            true,
+            [
+                subs(routerApi.equipmentPurchase.myApply.getName(),
+                    routerApi.equipmentPurchase.myApply.getUrl(),
+                    true),
+                subs(routerApi.equipmentPurchase.list.getName(),
+                    routerApi.equipmentPurchase.list.getUrl(),
+                    true),
+            ]),
+
+        //设备采购详情(不显示)
+        model(routerApi.equipmentPurchase.list.getName(),
+            routerApi.equipmentPurchase.list.getUrl(),
+            'el-icon-s-home',
+            false),
+
 
         //投诉建议申请单
         model(routerApi.complaintAndSuggestion.getComplaintAndSuggestionName(),
@@ -252,18 +347,19 @@ function getPropertyAdministrator(){
             true)
         ]),
 
+        //物业费缴纳与查询
         model(routerApi.feesManagement.getFeesManagementName(),
         "",
         "el-icon-wallet",
         true,
         true,
         [
-            subs(routerApi.feesManagement.payFees.getPayFeesName(),
-            routerApi.feesManagement.payFees.getPayFees(),
-            true),
-
             subs(routerApi.feesManagement.queryFees.getQueryFeesName(),
             routerApi.feesManagement.queryFees.getQueryFees(),
+            true),
+
+            subs(routerApi.feesManagement.feeCollection.getFeeCollectionName(),
+            routerApi.feesManagement.feeCollection.getFeeCollectionUrl(),
             true)
         ])
     ]

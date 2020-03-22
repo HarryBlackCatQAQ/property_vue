@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-09 23:46:37 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-10 17:06:30
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-19 16:47:44
  */
 
 import _this from '@/main'
@@ -70,6 +70,16 @@ var that = _this._this;
         })
 
         return res;
+    },
+    async selectUserByPhone(phone) {
+        let res;
+        await that.$get(api.roleManagement.selectUserByPhone.url, {
+                phone: phone
+            })
+            .then(response => {
+                res = response;
+            })
+        return res
     }
  }
 

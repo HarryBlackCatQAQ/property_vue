@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
- * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 13:11:11
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-21 16:52:48
  */
 
 var api = {
@@ -34,13 +34,25 @@ var api = {
         url: '/property',
         name: '楼盘管理',
         building: {
-          url: 'building',
-          name: '楼栋管理'
+            url: 'building',
+            name: '楼栋管理',
+            house: {
+                url: 'house',
+                name: '房屋管理',
+                detail: {
+                    url: 'detail',
+                    name: '房屋详情',
+                }
+            }
         },
         test: {
           url: 'test',
           name: '楼盘子页面'
         }
+    },
+    houseList: {
+        url: '/houseList',
+        name: '房屋列表'
     },
     logManagement:{
         url:"/logManagement",
@@ -76,12 +88,36 @@ var api = {
         queryFees:{
             url:"/feesManagement/queryFees",
             name:"费用查询"
+        },
+        feeCollection: {
+            url: "/feeManagement/feeCollection",
+            name: "费用收取"
         }
     },
     page403:{
         url:"/page403",
         name:"403页面"
-    }
+    },
+    userInformation: {
+        url: "/user/information",
+        name: "个人资料"
+    },
+    equipmentPurchase: {
+        url: "/equipmentPurchase",
+        name: "设备采购",
+        myApply: {
+            url: "/equipmentPurchase/myApply",
+            name: "我的申请"
+        },
+        list: {
+            url: "/equipmentPurchase/list",
+            name: "设备采购列表"
+        },
+        detail: {
+            url: "/equipmentPurchase/detail",
+            name: "申请详情"
+        }
+    },
 }
 
 export default {
@@ -148,6 +184,29 @@ export default {
         },
         getBuildingCompleteUrl() {
           return ''.concat(api.property.url,'/',api.property.building.url)
+        },
+        house: {
+          getHouseUrl() {
+            return api.property.building.house.url
+          },
+          getHouseName() {
+            return api.property.building.house.name
+          },
+          getHouseCompleteUrl() {
+            return ''.concat(api.property.url,'/',api.property.building.url,'/',api.property.building.house.url)
+          },
+          detail: {
+            getHouseDetailUrl() {
+              return api.property.building.house.detail.url
+            },
+            getHouseDetailName() {
+              return api.property.building.house.detail.name
+            },
+            getHouseDetailCompleteUrl() {
+              return ''.concat(api.property.url, '/', api.property.building.url, '/', api.property.building.house.url, '/',
+                  api.property.building.house.detail.url)
+            }
+          }
         }
       },
       test: {
@@ -157,10 +216,18 @@ export default {
         getTestName() {
           return api.property.test.name
         },
-        getTestCompleteUrl() {          
+        getTestCompleteUrl() {
           return ''.concat(api.property.url,'/',api.property.test.url)
         }
       }
+    },
+    houseList: {
+        getHouseListUrl() {
+            return api.houseList.url
+        },
+        getHouseListName() {
+            return api.houseList.name
+        }
     },
     logManagement:{
         getLogManagement(){
@@ -226,7 +293,55 @@ export default {
             getQueryFeesName(){
                 return api.feesManagement.queryFees.name;
             }
+        },
+        feeCollection: {
+            getFeeCollectionUrl() {
+                return api.feesManagement.feeCollection.url;
+            },
+            getFeeCollectionName() {
+                return api.feesManagement.feeCollection.name;
+            },
         }
+    },
+    userInformation: {
+        getUrl() {
+            return api.userInformation.url
+        },
+        getName() {
+            return api.userInformation.name
+        }
+    },
+    equipmentPurchase: {
+        getUrl() {
+            return api.equipmentPurchase.url
+        },
+        getName() {
+            return api.equipmentPurchase.name
+        },
+        myApply: {
+            getUrl() {
+                return api.equipmentPurchase.myApply.url
+            },
+            getName() {
+                return api.equipmentPurchase.myApply.name
+            }
+        },
+        list: {
+            getUrl() {
+                return api.equipmentPurchase.list.url
+            },
+            getName() {
+                return api.equipmentPurchase.list.name
+            }
+        },
+        detail: {
+            getUrl() {
+                return api.equipmentPurchase.detail.url
+            },
+            getName() {
+                return api.equipmentPurchase.detail.name
+            }
+        },
     },
     getPage403(){
         return api.page403.url;

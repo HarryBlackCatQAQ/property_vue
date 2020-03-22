@@ -1,8 +1,8 @@
 /*
  * @Author: Hovees
  * @Date: 2019-10-08 14:50:53
- * @Last Modified by: Hovees-hwx
- * @Last Modified time: 2019-10-16 10:19:42
+ * @Last Modified by: hovees
+ * @Last Modified time: 2020-03-14 19:27:59
  */
 
 const state = {
@@ -31,15 +31,19 @@ const mutations = {
   ['GET_PROPERTY'](state, payload) {
     if (payload.content) {
       state.properties = payload.content.map((propertyModule) => {
-        return Object.assign({}, propertyModule, {id: propertyModule.id})
+        return Object.assign({}, propertyModule, {
+          id: propertyModule.id
+        })
       })
     }
     state.rowCount = payload.totalElements
   },
   ['SET_PROPERTY_NAME'](state, payload) {
+    sessionStorage.setItem('propertyName', payload)
     state.propertyName = payload
   },
   ['SET_PROPERTY_ID'](state, payload) {
+    sessionStorage.setItem('propertyId', payload)
     state.propertyId = payload
   },
   ['SET_PAGE_NUM'](state, payload) {
@@ -67,9 +71,11 @@ const mutations = {
     state.recordProperty = payload
   },
   ['SET_CHANGE_SELECT_PROPERTIES'](state, payload) {
-    if (payload.content) {
-      state.changeSelect.properties = payload.content.map((propertyModule) => {
-        return Object.assign({}, propertyModule, {id: propertyModule.id})
+    if (payload) {
+      state.changeSelect.properties = payload.map((propertyModule) => {
+        return Object.assign({}, propertyModule, {
+          id: propertyModule.id
+        })
       })
     }
   }

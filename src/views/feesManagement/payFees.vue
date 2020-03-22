@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-25 13:01:15 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 19:01:06
+ * @Last Modified time: 2019-10-29 15:44:22
  */
 
 <template>
@@ -25,7 +25,7 @@
           >
             <el-table-column prop="paymentDate" label="缴纳日期" sortable></el-table-column>
 
-            <el-table-column prop="outTradeNo" label="详细信息"></el-table-column>
+            <el-table-column prop="paymentInfo" label="详细信息"></el-table-column>
 
             <el-table-column prop="paymentState" label="缴费状态">
               <template slot-scope="scope">
@@ -78,7 +78,7 @@
   </div>
 </template>
 
-<script scoped>
+<script>
 import modelLabel from "@/components/public/modelLabel";
 import payFeesService from "@/service/feesManagement/payFeesService";
 import alipayDialog from "@/components/feesManagement/alipayDialog";
@@ -110,17 +110,18 @@ export default {
      
      this.openBigLoading();
       let res = payFeesService.alipay(row.outTradeNo);
-
+    
       res.then(response => {
-        //   console.log(response);
-          if (response.flag) {
-            let imageUrl = util.base64ToImageUrl(response.data);
+          console.log(response);
+          document.write(response)
+          // if (response.flag) {
+          //   let imageUrl = util.base64ToImageUrl(response.data);
             
-            this.$store.commit("feesManagement/changeShowAliPayDialog");
-            this.$store.commit("feesManagement/setAliPayImageUrl", imageUrl);
-          } else {
-            this.errorMes();
-          }
+          //   this.$store.commit("feesManagement/changeShowAliPayDialog");
+          //   this.$store.commit("feesManagement/setAliPayImageUrl", imageUrl);
+          // } else {
+          //   this.errorMes();
+          // }
 
           this.closeBigLoading();
         })

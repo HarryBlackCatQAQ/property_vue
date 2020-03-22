@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:17 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-22 21:11:35
+ * @Last Modified time: 2020-03-19 15:38:25
  */
 
 import _this from '@/main'
@@ -14,7 +14,8 @@ var that = _this._this;
 export default {
     async login(username,password,rememberMe,validateCode){
         let res;
-
+        console.log(util.SHA1(password))
+        //fc1200c7a7aa52109d762a9f005b149abef01479
         await that.$post(api.login.url, {
             username: username,
             password: util.SHA1(password),

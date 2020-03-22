@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-25 18:05:28 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 18:29:26
+ * @Last Modified time: 2019-10-29 15:25:37
  */
 
 export default {
@@ -10,6 +10,8 @@ export default {
     state: {
         showAliPayDialog:false,
         aliPayImageUrl:"",
+        feesInfo:{},
+        showFessInfoDialog:false,
     },
     getters:{
         getShowAliPayDialog(state){
@@ -17,6 +19,12 @@ export default {
         },
         getAliPayImageUrl(state){
             return state.aliPayImageUrl;
+        },
+        getFessInfo(state){
+            return state.feesInfo;
+        },
+        getShowFessInfoDialog(state){
+            return state.showFessInfoDialog;
         }
     },
     mutations: {
@@ -25,6 +33,12 @@ export default {
         },
         setAliPayImageUrl(state,val){
             state.aliPayImageUrl = val;
+        },
+        setFessInfo(state,val){
+            state.feesInfo = val;
+        },
+        changeShowFessInfoDialog(state){
+            state.showFessInfoDialog = !state.showFessInfoDialog;
         }
     },
     actions: {

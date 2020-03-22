@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-25 17:58:42
+ * @Last Modified time: 2019-10-29 15:10:32
  */
 
 
@@ -67,7 +67,9 @@ export default {
     feesManagement:{
         url:{
             getOwnerUnPayFeesList:"/houseFeeRecord/getOwnerUnPayFeesList",
-            alipay:"/alipay/payPropertyManagementFee"
+            alipay:"/alipay/payPropertyManagementFee",
+            getAllPayFeesList:"/houseFeeRecord/getAllPayFeesList",
+            getPayFeesListByPayState:"/houseFeeRecord/getPayFeesListByPayState"
         }
     }
 

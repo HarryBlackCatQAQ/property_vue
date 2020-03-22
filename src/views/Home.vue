@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:48:10 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-20 03:50:37
+ * @Last Modified time: 2019-10-30 13:50:30
  */
 
 <template>
@@ -39,6 +39,7 @@ import asideMenu from "@/components/home/menu";
 import headNav from "@/components/home/head";
 import vTags from "@/components/home/tags";
 import util from "@/service/util";
+import messageAcceptService from "@/service/home/messageAcceptService";
 
 export default {
   name: "home",
@@ -52,6 +53,9 @@ export default {
       
     }
   },
+  methods:{
+
+  },
   mounted() {
     const that = this;
     window.onresize = () => {
@@ -59,6 +63,12 @@ export default {
         this.$store.commit("home/setScreenHeight");
       })();
     };
+  },
+  created() {
+    messageAcceptService.openSocket();
+  },
+  destroyed() {
+    messageAcceptService.closeSocket();
   }
 };
 </script>

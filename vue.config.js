@@ -10,7 +10,7 @@ module.exports = {
     ], // 是否为生产环境构建生成sourceMap?
   
     productionSourceMap: false, // 调整内部的webpack配置. // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    chainWebpack: () => {},
+    // chainWebpack: () => {},
     configureWebpack: () => {}, // CSS 相关选项
     css: {
       // 将组件内部的css提取到一个单独的css文件（只用在生产环境）
@@ -47,5 +47,42 @@ module.exports = {
   
     pluginOptions: {
       // ...
+    },
+
+    configureWebpack: {
+	    //关闭 webpack 的性能提示
+	    // performance: {
+		  //   hints:false
+	    // }
+ 
+	    //或者
+ 
+	    //警告 webpack 的性能提示
+	    performance: {
+	    	hints:'warning',
+	    	//入口起点的最大体积
+	    	maxEntrypointSize: 50000000,
+	    	//生成文件的最大体积
+	    	maxAssetSize: 30000000,
+	    	//只给出 js 文件的性能提示
+	    	assetFilter: function(assetFilename) {
+	    		return assetFilename.endsWith('.js');
+	    	}
+	    }
+    },
+
+    chainWebpack: config => {
+      // 移除 prefetch 插件
+      config.plugins.delete('prefetch')
+   
+      // 或者
+      // 修改它的选项：
+      // config.plugin('prefetch').tap(options => {
+      //   options[0].fileBlacklist = options[0].fileBlacklist || []
+      //   options[0].fileBlacklist.push(/myasyncRoute(.)+?\.js$/)
+      //   return options
+      // })
     }
+
+    
   }

@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-06-21 02:53:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-23 14:11:25
+ * @Last Modified time: 2020-03-19 15:44:44
  */
 import axios from 'axios';
 import routerApi from "@/service/api/routerApi";
@@ -11,6 +11,7 @@ import store from "@/store/store"
 
 // axios.defaults.timeout = 5000;
 axios.defaults.baseURL = 'http://127.0.0.1:8519'
+// axios.defaults.baseURL = 'http://ttz330.cn/PropertyManagementSystem'
 axios.defaults.withCredentials=true
 
 //http request 拦截器

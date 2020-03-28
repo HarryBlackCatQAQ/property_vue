@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-22 15:35:13
+ * @Last Modified time: 2020-03-28 16:22:37
  */
 
 
@@ -54,7 +54,10 @@ export default {
             create:'/api/ComplaintAndSuggestion/create',
             uploadImage:"/api/fileUpload/uploadComplaintAndSuggestionImage",
             queryOwner:"/api/ComplaintAndSuggestion/query",
-            delOWner:"/api/ComplaintAndSuggestion/del"
+            delOWner:"/api/ComplaintAndSuggestion/del",
+            querySheetByType:"/api/ComplaintAndSuggestion/queryByStateType",
+            updateComplaintAndSuggestionSheetTimeLine:"/api/ComplaintAndSuggestionTimeLine/update",
+            updateSheetById:"/api/ComplaintAndSuggestion/updateSheetById"
         }
     },
     building: {

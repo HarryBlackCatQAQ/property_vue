@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
- * @Last Modified by: hovees
- * @Last Modified time: 2020-03-21 16:52:48
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2020-03-28 12:22:32
  */
 
 var api = {
@@ -76,6 +76,10 @@ var api = {
         ownerSheet:{
             url:"/complaintAndSuggestion/ownerSheet",
             name:"我的申请"
+        },
+        auditSheet:{
+            url:"/complaintAndSuggestion/auditSheet",
+            name:"审核申请"
         }
     },
     feesManagement:{
@@ -269,7 +273,13 @@ export default {
         },
         getOwnerSheetName(){
             return api.complaintAndSuggestion.ownerSheet.name;
-        }
+        },
+        getAuditSheet(){
+            return api.complaintAndSuggestion.auditSheet.url;
+        },
+        getAuditSheetName(){
+            return api.complaintAndSuggestion.auditSheet.name;
+        },
     },
     feesManagement:{
         getFeesManagement(){

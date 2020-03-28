@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-22 15:41:37
+ * @Last Modified time: 2020-03-28 12:24:57
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -246,6 +246,10 @@ function getPropertyAdministrator(){
 
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
             routerApi.complaintAndSuggestion.getCreateSheet(),
+            true),
+
+            subs(routerApi.complaintAndSuggestion.getAuditSheetName(),
+            routerApi.complaintAndSuggestion.getAuditSheet(),
             true)
         ]),
 
@@ -323,6 +327,10 @@ function getPropertyAdministrator(){
             
             subs(routerApi.complaintAndSuggestion.getCreateSheetName(),
             routerApi.complaintAndSuggestion.getCreateSheet(),
+            true),
+
+            subs(routerApi.complaintAndSuggestion.getAuditSheetName(),
+            routerApi.complaintAndSuggestion.getAuditSheet(),
             true)
         ]),
 

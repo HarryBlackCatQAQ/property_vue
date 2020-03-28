@@ -1,20 +1,30 @@
 /*
  * @Author: Harry 
- * @Date: 2019-10-15 13:01:19 
+ * @Date: 2020-03-28 12:17:14 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 13:51:29
+ * @Last Modified time: 2020-03-28 16:01:09
  */
 
 <template>
-  <div class="ownerSheet">
+  <div class="auditSheet ownerSheet">
     <div>
       <modelLabel icon="el-icon-edit-outline" title="我的申请" />
     </div>
 
-    <div class="ownerSheet-table">
+    <div class="auditSheet-table">
       <div class="container">
+        <div class="handle-box" v-if="!this.isOwnerSheetDetails">
+            <el-select class="search-select" v-model="content_type" placeholder="请选择查询类型">
+                <el-option label="全部" value="all"></el-option>
+                <el-option label="待处理" value="待处理"></el-option>
+                <el-option label="正在处理" value="正在处理"></el-option>
+                <el-option label="已完成" value="已完成"></el-option>
+            </el-select>
+          </div>
+
+
         <!--列表-->
-        <div class="ownerSheet-judge" v-if="!this.isOwnerSheetDetails">
+        <div class="auditSheet-judge" v-if="!this.isOwnerSheetDetails">
           <el-table
             :data="tableData"
             highlight-current-row
@@ -96,7 +106,7 @@ import { mapState } from "vuex";
 import { error } from 'util';
 
 export default {
-  name: "ownerSheet",
+  name: "auiditSheet",
   components: {
     modelLabel,
     ownerSheetDetails
@@ -176,11 +186,11 @@ export default {
     selsChange(sels) {
       this.sels = sels;
     },
-    getList(pageNo, pageSize) {
+    getList(pageNo, pageSize,state) {
       this.setPrePage(pageNo,pageSize);
 
       this.listLoading = true;
-      let res = ownerSheetService.query(pageNo, pageSize);
+      let res = ownerSheetService.queryByStateType(pageNo, pageSize,state);
 
       res.then(response => {
         // console.log(response)
@@ -219,28 +229,58 @@ export default {
     }
   },
   created() {
-    this.getList(this.pageNo, this.pageSize);
+    this.getList(this.pageNo, this.pageSize,"all");
     this.$store.commit("complaintAndSuggestion/setIsOwnerSheetDetails",false);
+    // console.log(this.feedBackUpdate)
   },
   computed: mapState({
     isOwnerSheetDetails: state =>
-      state.complaintAndSuggestion.isOwnerSheetDetails
-  })
+      state.complaintAndSuggestion.isOwnerSheetDetails,
+    feedBackUpdate: state => 
+      state.complaintAndSuggestion.feedBackUpdate
+  }),
+  watch:{
+      content_type(val,oldval){
+        //   console.log(val);
+        //   console.log(oldval);
+          this.getList(this.pageNo, this.pageSize,val);
+      },
+      feedBackUpdate(val,oldval){
+          if(val == true){
+              this.getList(this.pageNo, this.pageSize,this.content_type);
+              this.$store.commit("complaintAndSuggestion/setFeedBackUpdate",false);
+          }
+      }
+
+  }
 };
 </script>
 
 
-<style>
-.ownerSheet{
+<style scoped>
+.auditSheet{
   height: 100%;
 }
 
-.ownerSheet-table{
+.auditSheet-table{
   height: 100%;
 }
 
-.ownerSheet-judge{
+.auditSheet-judge{
   height: 100%;
+}
+
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 300px;
+  display: inline-block;
 }
 
 </style>

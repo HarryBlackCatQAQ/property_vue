@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
- * @Date: 2019-10-15 13:24:40 
+ * @Date: 2020-03-28 14:32:46 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 13:36:33
+ * @Last Modified time: 2020-03-28 16:39:44
  */
 
 import _this from '@/main'
@@ -11,57 +11,35 @@ import api from '@/service/api/serviceApi'
 var that = _this._this;
 
  export default {
-    async query(pageNum,size){
+    async update(sheetId,message){
         let res;
-
-        let userId = that.$store.getters['user/getId'];
-        // console.log(userId);
-        // console.log(pageNum);
-        // console.log(size);
-
-        await that.$get(api.complaintAndSuggestion.url.queryOwner,{
-            userId:userId,
-            pageNum:pageNum,
-            size:size
+        
+        let nickName = that.$store.getters['user/getNickname'];
+        // console.log(nickName);
+        // console.log(sheetId);
+        // console.log(message);
+        // console.log(api.complaintAndSuggestion.url.updateComplaintAndSuggestionSheetTimeLine)
+        await that.$post(api.complaintAndSuggestion.url.updateComplaintAndSuggestionSheetTimeLine,{
+            sheetId:sheetId,
+            message:message,
+            processingUserNickName:nickName
         })
-        .then(response => {
-            // console.log(response)
-            res = changTime(response);
-
-        })
-
-        // console.log(res);
-
-        return res;
-    },
-    async del(data){
-        let res;
-
-        await that.$delBody(api.complaintAndSuggestion.url.delOWner,data)
         .then(response => {
             // console.log(response)
             res = response;
-
         })
 
         return res;
     },
-    async queryByStateType(pageNum,size,state){
+    async dealSheet(sheetId){
         let res;
-        
-        if(state === "全部"){
-            state = "all";
-        }
-
-        await that.$get(api.complaintAndSuggestion.url.querySheetByType,{
-            state:state,
-            pageNum:pageNum,
-            size:size
+        let nickName = that.$store.getters['user/getNickname'];
+        await that.$get(api.complaintAndSuggestion.url.updateSheetById,{
+            id:sheetId,
+            nickName:nickName
         })
-        .then(response => {
-            // console.log(response)
-            res = changTime(response);
-
+        .then(response =>{
+            res = response;
         })
 
         return res;

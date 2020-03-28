@@ -1,8 +1,8 @@
 /*
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
- * @Last Modified by: hovees
- * @Last Modified time: 2020-03-21 16:54:25
+ * @Last Modified by: Harry-mac
+ * @Last Modified time: 2020-03-28 12:23:04
  */
 
 
@@ -167,6 +167,12 @@ const router = new Router({
               name:routerApi.complaintAndSuggestion.getOwnerSheet(),
               meta: { title: routerApi.complaintAndSuggestion.getOwnerSheetName() },
               component: () => import("./views/complaintAndSuggestion/ownerSheet.vue")
+            },
+            {
+              path:routerApi.complaintAndSuggestion.getAuditSheet(),
+              name:routerApi.complaintAndSuggestion.getAuditSheet(),
+              meta: { title: routerApi.complaintAndSuggestion.getAuditSheetName() },
+              component: () => import("./views/complaintAndSuggestion/auditSheet.vue")
             }
           ]
         },

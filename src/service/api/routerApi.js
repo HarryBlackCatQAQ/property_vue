@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:12 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 12:22:32
+ * @Last Modified time: 2020-04-07 02:45:59
  */
 
 var api = {
@@ -64,6 +64,14 @@ var api = {
         logFileManagement:{
             url:"/logManagement/logFileManagement",
             name:"日志文件管理"
+        }
+    },
+    dbManagement:{
+        url:"/dbManagement",
+        name:"数据库备份管理",
+        dbFileManagement:{
+            url:"/dbManagement/dbFileManagement",
+            name:"数据库备份管理"
         }
     },
     complaintAndSuggestion:{
@@ -252,6 +260,22 @@ export default {
             },
             getLogFileManagementName(){
                 return api.logManagement.logFileManagement.name;
+            }
+        }
+    },
+    dbManagement:{
+        getDbManagement(){
+            return api.dbManagement.url;
+        },
+        getDbManagementName(){
+            return api.dbManagement.name;
+        },
+        dbFileManagement:{
+            getDbFileManagement(){
+                return api.dbManagement.dbFileManagement.url;
+            },
+            getDbFileManagementName(){
+                return api.dbManagement.dbFileManagement.name;
             }
         }
     },

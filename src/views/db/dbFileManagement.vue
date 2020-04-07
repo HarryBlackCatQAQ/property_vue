@@ -1,19 +1,22 @@
 /*
  * @Author: Harry 
- * @Date: 2019-10-18 00:26:35 
+ * @Date: 2020-04-07 03:05:20 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-04-07 02:45:02
+ * @Last Modified time: 2020-04-07 14:55:19
  */
 
-
 <template>
-  <div class="logFileManagement">
-    <!-- logFileManagement -->
+  <div class="dbFileManagement">
+    <!-- dbFileManagement -->
     <div class="log-icon">
-      <modelLabel icon="el-icon-s-order" title="日志文件管理" />
+      <modelLabel icon="el-icon-coin" title="数据库备份管理" />
       <div class="log-download">
-        <el-button type="primary" size="medium" @click="downLoadLogFile">
-          日志下载
+          <el-button type="primary" size="medium" @click="backUpDbFile">
+          备份
+          <i class="el-icon-coin el-icon--right"></i>
+        </el-button>
+        <el-button type="primary" size="medium" @click="downLoadDbFile">
+          数据库文件下载
           <i class="el-icon-download el-icon--right"></i>
         </el-button>
       </div>
@@ -64,23 +67,23 @@
       </el-row>
     </div>
 
-    <logFileDownLoadDialog />
+    <dbFileDownLoadDialog />
   </div>
 </template>
 
 <script>
 import modelLabel from "@/components/public/modelLabel";
-import logFileService from "@/service/logManagement/logFileService";
 import { mapState } from "vuex";
 import { Loading } from "element-ui";
 import util from "@/service/util";
-import logFileDownLoadDialog from "@/components/log/logFileDownLoadDialog";
+import dbFileService from "@/service/dbManagement/dbFileService";
+import dbFileDownLoadDialog from "@/components/db/dbFileDownLoadDialog";
 
 export default {
-  name: "logFileManagement",
+  name: "dbFileManagement",
   components: {
     modelLabel,
-    logFileDownLoadDialog
+    dbFileDownLoadDialog
   },
   data() {
     return {
@@ -91,15 +94,36 @@ export default {
     };
   },
   methods: {
-    getFileList(fileName) {
-      let res = logFileService.getLogFileListByFileName(fileName);
+      backUpDbFile(){
+        let res = dbFileService.backUpdbFile();
 
-      res.then(response => {
-        console.log(response);
-        this.fileList = response.data;
-        this.setFileName();
-        // this.setCheckboxShowList();
-      });
+        res.then(response =>{
+            if(response.flag){
+                this.fileLoading();
+                this.$message.success("备份成功!");
+            }
+            else{
+                this.$message.error("备份失败!请稍后再试!");
+            }
+        })
+      },
+      fileClick(idx, isDir) {
+      //   console.log(idx);
+      if (isDir === 1) {
+        this.preFileName = this.fileList[0].preLevelName;
+        this.fileLoading();
+        this.breadcrumbList.push(idx);
+      }
+      //   console.log(this.checkBoxShowList)
+    },
+      goBack() {
+      // console.log(this.preFileName)
+      this.fileLoading();
+      this.breadcrumbList.pop();
+    },
+    downLoadDbFile() {
+      this.$store.commit("dbManagement/setDownLoadFileList", this.fileList);
+      this.$store.commit("dbManagement/changeIsShowDogFileDownLoadDialog");
     },
     setFileName() {
       for (let i = 0; i < this.fileList.length; i++) {
@@ -113,48 +137,18 @@ export default {
         }
       }
     },
-    setCheckboxShowList() {
-      // console.log(this.checkBoxShowList)
-      this.$store.commit("logManagement/clearCheckBoxShowList");
-      for (let i = 0; i < this.fileList.length; i++) {
-        this.$store.commit("logManagement/setCheckBoxShowList", {
-          key: this.fileList[i].fileName,
-          val: false
-        });
-      }
-      // console.log(this.checkBoxShowList)
-    },
-    onMouseOver(idx) {
-      console.log(idx);
-      console.log(this.showList);
-      this.$store.commit("logManagement/setCheckBoxShowList", {
-        key: idx,
-        val: true
-      });
+    getFileList() {
+        // dbFileService.haha();
+      let res = dbFileService.getDbFileList();
 
-      this.showList[idx] = true;
-      this.$set(this.showList, idx, true);
-      console.log(this.showList);
-    },
-    onMouseOut(idx) {
-      //   console.log(idx)
-      this.$store.commit("logManagement/setCheckBoxShowList", {
-        key: idx,
-        val: false
+      res.then(response => {
+        console.log(response);
+        this.fileList = response.data;
+        this.setFileName();
+        // this.setCheckboxShowList();
       });
-      this.showList[idx] = false;
-      this.$set(this.showList, idx, false);
     },
-    fileClick(idx, isDir) {
-      //   console.log(idx);
-      if (isDir === 1) {
-        this.preFileName = this.fileList[0].preLevelName;
-        this.fileLoading(idx);
-        this.breadcrumbList.push(idx);
-      }
-      //   console.log(this.checkBoxShowList)
-    },
-    fileLoading(fileName) {
+    fileLoading() {
       let loadingInstance = Loading.service({
         lock: true,
         text: "拼命加载中....",
@@ -162,28 +156,15 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       util.sleep(500).then(() => {
-        this.getFileList(fileName);
+        this.getFileList();
         loadingInstance.close();
       });
-    },
-    goBack() {
-      // console.log(this.preFileName)
-      this.fileLoading(this.preFileName);
-      this.breadcrumbList.pop();
-    },
-    downLoadLogFile() {
-      this.$store.commit("logManagement/setDownLoadFileList", this.fileList);
-      this.$store.commit("logManagement/changeIsShowDogFileDownLoadDialog");
     }
   },
   created() {
     this.preFileName = "root";
-    this.getFileList("root");
-  },
-  computed: mapState({
-    checkBoxShowList: state => state.logManagement.checkBoxShowList,
-    name: state => state.logManagement.name
-  })
+    this.getFileList();
+  }
 };
 </script>
 
@@ -287,4 +268,5 @@ li {
   float: right;
   line-height: 0px;
 }
-</style>
+</style>>
+

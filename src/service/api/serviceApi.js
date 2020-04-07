@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:44 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 16:22:37
+ * @Last Modified time: 2020-04-07 14:53:44
  */
 
 
@@ -91,6 +91,13 @@ export default {
         url:{
             getLogFileList:"/admin/getLogFileListByFileName",
             downloadLog:"/admin/downLoadLogFile"
+        }
+    },
+    dbManagement:{
+        url:{
+            getDbFileList:"/admin/DataBaseBackup/getDbFileList",
+            downloadDbFile:"/admin/DataBaseBackup/downLoadDbFile",
+            backUpDbFile:"/admin/DataBaseBackup/save"
         }
     },
     feesManagement:{

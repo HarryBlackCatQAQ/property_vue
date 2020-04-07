@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-04 15:39:57 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 12:24:57
+ * @Last Modified time: 2020-04-07 02:49:44
  */
 
 import routerApi from '@/service/api/routerApi'
@@ -352,6 +352,18 @@ function getPropertyAdministrator(){
 
             subs(routerApi.logManagement.logFileManagement.getLogFileManagementName(),
             routerApi.logManagement.logFileManagement.getLogFileManagement(),
+            true)
+        ]),
+
+        //数据库备份管理
+        model(routerApi.dbManagement.getDbManagementName(),
+        "",
+        "el-icon-coin",
+        true,
+        true,
+        [
+            subs(routerApi.dbManagement.dbFileManagement.getDbFileManagementName(),
+            routerApi.dbManagement.dbFileManagement.getDbFileManagement(),
             true)
         ]),
 

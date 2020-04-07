@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-03-28 12:23:04
+ * @Last Modified time: 2020-04-07 02:42:44
  */
 
 
@@ -148,6 +148,19 @@ const router = new Router({
               name:routerApi.logManagement.logFileManagement.getLogFileManagement(),
               meta:{title:routerApi.logManagement.logFileManagement.getLogFileManagementName()},
               component: () => import("./views/log/logFileManagement.vue")
+            }
+          ]
+        },
+        {
+          path: routerApi.dbManagement.getDbManagement(),
+          meta: { title: routerApi.dbManagement.getDbManagementName() },
+          component: () => import("./views/db/dbManagementIndex.vue"),
+          children:[
+            {
+              path:routerApi.dbManagement.dbFileManagement.getDbFileManagement(),
+              name:routerApi.dbManagement.dbFileManagement.getDbFileManagement(),
+              meta:{title:routerApi.dbManagement.dbFileManagement.getDbFileManagementName()},
+              component: () => import("./views/db/dbFileManagement.vue")
             }
           ]
         },

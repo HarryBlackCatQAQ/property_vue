@@ -2,27 +2,27 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:38 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2020-04-07 02:42:44
+ * @Last Modified time: 2020-04-11 20:58:42
  */
 
 
-import Vue from 'vue'
-import Router from 'vue-router'
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
 import routerApi from '@/service/api/routerApi'
 import store from '@/store/store'
 import rolePermissions from "@/service/router/rolePermissions"
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
 /**
  * 解决跳转相同路由地址报错
  */
-const originalPush = Router.prototype.push;
-Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-};
+// const originalPush = Router.prototype.push;
+// Router.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// };
 
-const router = new Router({
+const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes: [

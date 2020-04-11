@@ -2,7 +2,7 @@
  * @Author: Harry 
  * @Date: 2019-10-01 02:52:25 
  * @Last Modified by: Harry-mac
- * @Last Modified time: 2019-10-11 14:17:47
+ * @Last Modified time: 2020-04-11 20:41:26
  */
 
 
@@ -12,11 +12,11 @@ import router from './router'
 import store from '@/store/store'
 
 import {post,fetch,patch,put,del,delBody} from '@/service/http'
-import ElementUI from 'element-ui';
+import ELEMENT from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false
-Vue.use(ElementUI);
+Vue.use(ELEMENT);
 
 //定义全局变量
 Vue.prototype.$post=post;
@@ -25,7 +25,7 @@ Vue.prototype.$patch=patch;
 Vue.prototype.$put=put;
 Vue.prototype.$del=del;
 Vue.prototype.$delBody=delBody;
-Vue.prototype.$ui = ElementUI;
+Vue.prototype.$ui = ELEMENT;
 
 var _this = new Vue({
   router,

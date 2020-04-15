@@ -102,8 +102,16 @@ export default {
 			this.$prompt('请输入邮箱', '提示', {
 				confirmButtonText: '确定',
 				cancelButtonText: '取消',
-				inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-				inputErrorMessage: '邮箱格式不正确',
+				inputValidator: (value) => {       // 点击按钮时，对文本框里面的值进行验证
+					if(!value) {
+						return '邮箱不能为空'
+					} else if (!value.match(/[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/)) {
+						return '邮箱格式不正确';
+					} else {
+						this.emailTest(value)
+						return true
+					}
+				},
 				showClose: (this.user.emailAddress === null || this.user.emailAddress.length === 0) ? false : true,
 				showCancelButton: (this.user.emailAddress === null || this.user.emailAddress.length === 0) ? false : true,
 				closeOnClickModal: (this.user.emailAddress === null || this.user.emailAddress.length === 0) ? false : true,
@@ -143,6 +151,11 @@ export default {
 					})
 				}
 			})
+		},
+		emailTest(email) {
+			console.log(email)
+			let res = userInformationService.emailTest(email)
+			console.log(res)
 		}
 	}
 }

@@ -141,7 +141,7 @@ export default {
 					setTimeout(() => {
 						this.$message({
 							type: 'success',
-							message: '发布成功'
+							message: '提交发布申请成功'
 						});
 						setTimeout(() => {
 							this.getList(1, 10)

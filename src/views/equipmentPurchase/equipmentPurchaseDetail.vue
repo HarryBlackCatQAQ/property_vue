@@ -98,6 +98,7 @@ export default {
 			this.$router.push(routerApi.equipmentPurchase.myApply.getUrl())
 		},
 		getRecord() {
+			this.options = []
 			equipmentPurchaseService.getById(this.record.id)
 			.then(response => {
 				this.record = response.data

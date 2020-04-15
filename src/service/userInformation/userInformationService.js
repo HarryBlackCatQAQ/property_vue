@@ -37,4 +37,13 @@ export default {
             })
         return res
     },
+    async emailTest(email) {
+        let res
+        let url = 'https://www.emailcamel.com/api/single/validate/?usr=hovees&pwd=123456&email=' + email
+        await that.$get(url, {})
+            .then(response => {
+               res = response
+            })
+        return res
+    }
 }

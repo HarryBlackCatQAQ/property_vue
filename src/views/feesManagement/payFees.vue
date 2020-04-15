@@ -74,15 +74,15 @@
                   <span class="btn-text">支付宝</span>
                 </el-button>
 
-                <el-button
-                  type="success"
-                  size="small"
-                  :disabled=scope.row.isPaid
-                  @click="handleWxPay(scope.$index, scope.row)"
-                  icon="iconfont icon-weixin"
-                >
-                  <span class="btn-text">微 信</span>
-                </el-button>
+<!--                <el-button-->
+<!--                  type="success"-->
+<!--                  size="small"-->
+<!--                  :disabled=scope.row.isPaid-->
+<!--                  @click="handleWxPay(scope.$index, scope.row)"-->
+<!--                  icon="iconfont icon-weixin"-->
+<!--                >-->
+<!--                  <span class="btn-text">微 信</span>-->
+<!--                </el-button>-->
               </template>
             </el-table-column>
           </el-table>
